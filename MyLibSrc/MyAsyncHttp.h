@@ -16,7 +16,7 @@
 
 #define MAX_BUF_SIZE (1000+1)
 #define MAX_READ_SIZE (1000)
-#define MAX_WAIT_TIME (5000)
+#define MAX_WAIT_TIME (20000)
 
 void __stdcall Callback(HINTERNET hInternet,
               DWORD dwContext,
@@ -675,7 +675,7 @@ private:
 	};
 
 public:
-	CMyAsyncHttp();
+	CMyAsyncHttp(char *userAgent="Async_Http");
 	virtual ~CMyAsyncHttp();
 
 	int			Get(char *uri,char *page);
@@ -692,7 +692,9 @@ public:
 
 	CMyString	GetDataCharset(){return m_Charset;};
 	 //获取当前此http请求的状态,可以根据状态判断当前http是否结束
-	HTTP_STATE	GetHttpState();           
+	HTTP_STATE	GetHttpState();          
+
+	void		SaveData(char*	filePath);
 
 	void		TerminateHttp();
 
@@ -712,6 +714,7 @@ public:
 	static int	HttpGetStatusCode(HINTERNET request,int &code);
 	static int	HttpQueryInfo(HINTERNET request,CMyString &info,int code);
 	static int	FromUnicodeToAssic(char *utf8,int utf8Len,char *assic,int assicLen);
+	static void	SetUserAgent(char *userAgent);
 	//设置异步处理线程
 	void		SetTargetThread(CMyTaskThread* thread);
 	void		SetTargetThreadPool(CMyThreadPool* threadPool);
@@ -762,6 +765,7 @@ private:
 	CMyString m_Password;	  //连接时候的用户密码
 	CMyString m_AcceptType;   //指定请求时候的接受数据类型，默认文本
 	CMyString m_Refer;        //从哪个uri位置引用到请求网址
+	CMyString m_UserAgent;
 
 	int				m_DataLen;
 	CMyTempFile		m_Data;       //保存数据的文件

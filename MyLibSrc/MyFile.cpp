@@ -91,7 +91,7 @@ int	CMyFile::Write(char *buf,int size)
 int	CMyFile::Seek(SEEK_MODE mode,int offset)
 {
 	if(!m_Inital||IsLocked())return -1;
-	return fseek(m_File,mode,offset);
+	return fseek(m_File,offset,mode);
 }
 
 int	CMyFile::Flush()
@@ -203,4 +203,38 @@ unsigned long CMyFile::GetFileSize()
 	if(!IsLocked())
 		CloseHandle(m_FileHandle);
 	return size;
+}
+
+void CMyFile::CreateDir(char *path)
+{
+	static int status=0;
+	if(CMyFile::IsFileExist(path))
+	{
+		status	=1;
+		return;
+	}
+
+	//如果到达盘符且盘符不存在则返回
+	if(((path[0]>='a'&&path[0]<='z')||
+		(path[0]>='A'&&path[0]<='Z'))&&
+		path[1]==':'&&path[2]==0)
+	{
+		status=2;
+		return ;
+	}
+
+	CMyString lPath=path;
+	int len=lPath.GetStrLen();
+	for(int i=len-1;i>=0;i--)
+	{
+		if(lPath[i]=='\\'&&i!=len-1)
+		{
+			lPath.SetAt(i,0);
+			break;
+		}
+	}
+	CreateDir(lPath.GetBuffer());
+	
+	if(status==1)
+		::CreateDirectory(path,NULL);
 }

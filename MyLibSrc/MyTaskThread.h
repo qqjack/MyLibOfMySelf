@@ -2,6 +2,7 @@
 #define __MY_TASK__
 
 #include "MyThread.h"
+#include "MyDebug.h"
 #include <queue>
 
 using namespace std;

@@ -1,7 +1,7 @@
 #ifndef __MY_HASH_MAP__
 #define __MY_HASH_MAP__
 
-#define BUKET_SIZE		(1024*4)
+#define BUKET_SIZE		(4117)
 
 template<class _T>
 unsigned DefaultGetHashCode(_T obj)

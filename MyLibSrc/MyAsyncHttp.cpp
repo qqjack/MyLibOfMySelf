@@ -20,8 +20,9 @@ void __stdcall Callback(HINTERNET hInternet,
 		,dwStatusInfoLen);
 }
 
-CMyAsyncHttp::CMyAsyncHttp()
+CMyAsyncHttp::CMyAsyncHttp(char *userAgent)
 {
+	m_UserAgent		=userAgent;
 	m_TaskThread	=NULL;
 	m_ThreadPool	=NULL;
 	m_TimeOut		=MAX_WAIT_TIME;
@@ -67,7 +68,7 @@ CMyAsyncHttp::CMyAsyncHttp()
 		m_Mutex				=CreateMutex(false,NULL);
 
 	m_HttpState	=HTTP_FINISH;
-	m_Session=::InternetOpen("Async_Http",PRE_CONFIG_INTERNET_ACCESS,
+	m_Session=::InternetOpen(m_UserAgent.GetBuffer(),PRE_CONFIG_INTERNET_ACCESS,
 		NULL,INTERNET_INVALID_PORT_NUMBER,INTERNET_FLAG_ASYNC);
 #ifdef _DEBUG
 	if(!m_Session)
@@ -88,8 +89,7 @@ CMyAsyncHttp::CMyAsyncHttp()
 
 CMyAsyncHttp::~CMyAsyncHttp()
 {
-	CMyDebug::Log(TAG,2,0,"~CMyAsyncHttp");
-	if(m_HttpState!=HTTP_STOP&&m_HttpState!=HTTP_FINISH)
+	if(!IsIdle())
 	{
 		//在析构前停止未完成的请求
 		TerminateHttp();
@@ -99,7 +99,6 @@ CMyAsyncHttp::~CMyAsyncHttp()
 		InternetSetStatusCallback(m_Session,(INTERNET_STATUS_CALLBACK)NULL);
 		::InternetCloseHandle(m_Session);
 	}
-
 	if(m_SelfThread.isRun())
 		m_SelfThread.ExitThreadDirect();
 }
@@ -138,7 +137,9 @@ int CMyAsyncHttp::request(bool get,char *uri,char *page,char *postData,int dataL
 	m_Encode	="";
 	
 	m_HttpState		=HTTP_START;
-
+	m_Data.ReleaseMapping();
+	m_Data.Seek(CMyFile::SEEK_START,0);
+	m_DataLen	=0;
 	if(!m_AssignTaskThread)
 	{
 		m_TaskThread	=&m_SelfThread;
@@ -337,6 +338,12 @@ bool CMyAsyncHttp::IsIdle()
 {
 	HTTP_STATE state	=GetHttpState();
 	return state!=HTTP_START;
+}
+
+void CMyAsyncHttp::SaveData(char*	filePath)
+{
+	if(IsIdle()&&m_DataLen)
+		m_Data.CopyToNormalFile(filePath);
 }
 
 int CMyAsyncHttp::FromUnicodeToAssic(char *utf8,int utf8Len,char *assic,int assicLen)

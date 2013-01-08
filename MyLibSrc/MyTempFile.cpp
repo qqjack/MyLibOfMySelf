@@ -17,3 +17,9 @@ void CMyTempFile::ReCreate()
 {
 	CMyFile::Open(CMyFile::GetUniqueFileName(),CMyFile::FILE_NEW_OR_CLEAR);
 }
+
+void CMyTempFile::CopyToNormalFile(char *filePath)
+{
+	this->Flush();
+	::CopyFile(m_FilePath.GetBuffer(),filePath,false);
+}

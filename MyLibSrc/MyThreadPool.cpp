@@ -45,12 +45,15 @@ void CMyThreadPool::Inital()
 CMyThreadPool::~CMyThreadPool()
 {
 	HANDLE	threadHandle[MAX_THREADS];
+
 	for(int i=0;i<m_ThreadCount;i++)
 	{
-		threadHandle[i]	=m_ThreadList[m_ThreadCount].GetThreadHandle();
-		m_ThreadList[m_ThreadCount].WillExitThread();
+		threadHandle[i]	=m_ThreadList[i].GetThreadHandle();
+		m_ThreadList[i].WillExitThread();
 	}
+
 	::WaitForMultipleObjects(m_ThreadCount,threadHandle,true,-1);
+
 	if(m_MoniterThread)
 	{
 		SetEvent(m_MoniterTask.m_ExitEvent);

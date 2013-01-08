@@ -41,6 +41,8 @@ public:
 	static int  GetUniqueFileName(char*	buf,int bufLen);
 	static CMyString	GetUniqueFileName();
 	static bool IsFileExist(char *filePath);
+	//递归的创建目录以及子目录
+	static void	CreateDir(char *path);
 private:
 	// 在调用GetMapping函数后调用，锁住文件，此时对文件的读写定位都无效
 	void		LockFile(){m_Locked=true;}        

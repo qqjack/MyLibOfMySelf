@@ -132,6 +132,16 @@ bool CMyString::operator ==(CMyString& str)
 	return *this==str.GetBuffer();
 }
 
+bool CMyString::operator !=(char* str)
+{
+	return !(*this==str);
+}
+
+bool CMyString::operator !=(CMyString& str)
+{
+	return !(*this==str);
+}
+
 char CMyString::operator [](int index)
 {
 	return m_Buffer[index];
@@ -406,4 +416,14 @@ int CMyString::EraseFromRight(int count)
 	if(count>strL)return -1;
 	m_Buffer[strL-count]=0;
 	return 1;
+}
+
+void CMyString::SetAt(int index,char c)
+{
+	m_Buffer[index]=c;
+}
+
+char CMyString::GetAt(int index)
+{
+	return m_Buffer[index];
 }

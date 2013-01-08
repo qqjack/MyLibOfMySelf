@@ -15,7 +15,8 @@ CMyThread::~CMyThread()
 
 	if(m_State==SUSPEND)
 		ResumeThread();
-	::TerminateThread(m_ThreadHandle,0);
+	if(m_State!=STOP)
+		::TerminateThread(m_ThreadHandle,0);
 }
 
 int CMyThread::ThreadProc(void *param)

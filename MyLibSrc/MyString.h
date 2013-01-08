@@ -36,6 +36,8 @@ public:
 	int			CompareI(CMyString &str);
 	int			Erase(int start,int count);
 	int 		EraseFromRight(int count);
+	void		SetAt(int index,char c);
+	char		GetAt(int index);
 	
 	unsigned	HashCode();
 
@@ -58,6 +60,8 @@ public:
 	CMyString&	operator +=(CMyString& str);
 	bool		operator ==(char* str);
 	bool		operator ==(CMyString& str);
+	bool		operator !=(CMyString& str);
+	bool		operator !=(char* str);
 	CMyString	operator +(CMyString& str);
 	CMyString	operator +(char* str);
 	char		operator [](int index);
