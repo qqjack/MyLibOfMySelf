@@ -1,5 +1,5 @@
-#include "../MyLib.h"
 
+#include "../MyLib.h"
 #define HTTP_COUNT	(5)
 #define HOST_COUNT  (3)
 
@@ -382,14 +382,22 @@ bool IsJPGUrl(CMyString &url)
 }
 #define _TST
 
+
+
 #ifdef _TST
+
 int main(int argc,char *argv[])
 {
 	CMyThreadPool	threadPool(true);
+	LOG("22","aGDADF");
 	HttpAccess  asyncHttp;
 	HttpAccess::InitalHttp();
 	asyncHttp.SetTargetThreadPool(&threadPool);
 	asyncHttp.Get("http://www.920mm.com/OnlyTease/201205/6750_19.html");
+
+	int index=0;
+	g_HashMap.AddItem(asyncHttp.GetCurrentUrl(),index);
+	g_HashMap.AddItem(CMyString("aidjga4twetfewga"),index);
 }
 
 #else
@@ -490,7 +498,6 @@ int main(int argc, char* argv[])
 				g_HashMap.AddItem(httpPath,index);
 				if(IsJPGUrl(httpPath))
 				{
-//					_asm int 3;
 					printf("------%s\n",httpPath.GetBuffer());
 				}
 				while(1)

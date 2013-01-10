@@ -8,7 +8,7 @@
 
 #pragma   comment   (lib,"ws2_32.lib")
 #define MAX_FILE_PATH (300)
-#define START_DEBUG
+
 //事件处理函数
 HANDLE CreateEvent(bool bManualReset,bool bInitialState,LPCTSTR pName);
 bool   DeleteEvent(HANDLE hEvent);

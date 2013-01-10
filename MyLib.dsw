@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "Demo"=".\Demo\Demo.dsp" - Package Owner=<4>
+Project: "Demo"=.\Demo\Demo.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "MyLib"=".\MyLib.dsp" - Package Owner=<4>
+Project: "MyLib"=.\MyLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -27,7 +27,19 @@ Package=<4>
 
 ###############################################################################
 
-Project: "SpiderTest"=".\SpiderTest\SpiderTest.dsp" - Package Owner=<4>
+Project: "Spider"=.\Spider\Spider.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "SpiderTest"=.\SpiderTest\SpiderTest.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
