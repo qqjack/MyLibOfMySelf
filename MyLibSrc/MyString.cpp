@@ -391,7 +391,7 @@ unsigned CMyString::HashCode()
 	unsigned r=0;
 	for(int i=0;i<len;i++)
 	{
-		r+=m_Buffer[i]*pow(10,i);
+		r+=m_Buffer[i]|i;
 	}
 	return r;
 }

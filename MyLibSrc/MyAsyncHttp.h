@@ -2,9 +2,6 @@
 #define __MY_ASYNC_HTTP__
 
 #include "MyTaskThread.h"
-#ifdef START_DEBUG
-#undef START_DEBUG
-#endif
 #include "MyDebug.h"
 #include "MyString.h"
 #include "MyTempFile.h"

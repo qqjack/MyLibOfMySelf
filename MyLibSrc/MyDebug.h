@@ -1,5 +1,5 @@
-#ifndef __MYDEBUG__
-#define __MYDEBUG__
+#ifndef __MY_DEBUG__
+#define __MY_DEBUG__
 #include "windows.h"
 #include <iostream>
 #include <fstream>

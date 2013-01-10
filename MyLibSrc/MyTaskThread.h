@@ -45,8 +45,7 @@ public:
 	
 	virtual int		Run(void *param);
 	virtual HANDLE	Start(void *param);
-	//在线程将要被强制终止前，正常结束线程
-	virtual	void	OnThreadBeforeTerminate(){ExitThreadDirect();}
+	
 	void			AssignTask(CMyTask& task,void* taskArg);
 	
 	//阻塞模式
@@ -59,6 +58,8 @@ public:
 	int				GetTaskCount();
 
 private:
+	//在线程将要被强制终止前，正常结束线程
+	virtual	void	OnThreadBeforeTerminate(){ExitThreadDirect();}
 	bool		IsSelfThread();
 
 private:

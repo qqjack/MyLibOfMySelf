@@ -1,7 +1,3 @@
-// Debug.cpp: implementation of the CDebug class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "MyDebug.h"
 #include <stdio.h> 
 

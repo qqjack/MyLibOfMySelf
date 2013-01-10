@@ -32,7 +32,7 @@ public:
 	}
 
 	virtual int			Run(void *param){return 1;}
-	virtual void		OnThreadBeforeTerminate(){}//在线程被强制终止前调用
+	
 
 	bool	isRun(){return m_State==RUNNING;}
 	bool	isSuspend(){return m_State==SUSPEND;}
@@ -49,6 +49,8 @@ public:
 	static int ThreadProc(void *param);
 private:
 	//此函数仅内部调用
+	virtual void		OnThreadBeforeTerminate(){}//在线程被强制终止前调用
+
 	void ExitThread();
 private:
 	//线程状态

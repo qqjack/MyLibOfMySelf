@@ -54,7 +54,7 @@ public:
 					tP=p;
 					p	=p->iNext;
 					delete tP;
-				}while(p->iNext);
+				}while(p);
 			}
 		}
 	}
