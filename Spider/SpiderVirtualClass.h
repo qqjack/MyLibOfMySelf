@@ -34,14 +34,6 @@ public:
 	virtual bool FilterCheck(const char *parentUrl,const char *url)=0;
 };
 
-class SpiderUrlListSort
-{
-public:
-	SpiderUrlListSort();
-	virtual ~SpiderUrlListSort();
-	virtual bool CompareUrl(const char *parentUrl,const char *url1,const char *url2);
-};
-
 class SpiderUrlModify  
 {
 public:

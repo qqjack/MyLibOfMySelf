@@ -2,6 +2,7 @@
 
 SpiderHttp::SpiderHttp():CMyAsyncHttp("Mozilla/5.0 (compatible; iaskspider/1.0; MSIE 6.0)")
 {
+	m_Mark	=false;
 }
 
 SpiderHttp::~SpiderHttp()

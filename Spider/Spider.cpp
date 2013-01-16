@@ -38,9 +38,9 @@ int	Spider::SetUrlModifyRule(SpiderUrlModify* urlModify)
 	return m_SpiderThread.SetUrlModifyRule(urlModify);
 }
 
-int	Spider::SetPageUrlSort(SpiderUrlListSort* urlListSort)
+int	Spider::SetPageUrlSortFunc(UrlCmpFunc urlSortFunc)
 {
-	return m_SpiderThread.SetPageUrlSort(urlListSort);
+	return m_SpiderThread.SetPageUrlSortFunc(urlSortFunc);
 }
 
 int	Spider::SetMaxThread(int count)

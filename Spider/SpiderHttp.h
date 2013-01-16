@@ -11,6 +11,10 @@ public:
 	void		Get(char *url);
 	void		SetParentUrl(CMyString &parentUrl){m_ParentUrl	=parentUrl;}
 	CMyFile*	GetFile(){return GetRecevieFile();}
+	void		SetMark(bool value){m_Mark=value;}
+	bool		GetMark(){return m_Mark;}
 	CMyString m_Url;
 	CMyString m_ParentUrl;
+private:
+	bool	  m_Mark;
 };

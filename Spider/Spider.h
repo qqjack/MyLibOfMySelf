@@ -14,7 +14,7 @@ public:
 	int		SetPageProcessMethod(SpiderPageProcess* processMethod);//设置数据处理类
 	int		SetFileProcessMethod(SpiderFileProcess* processMethod);//设置数据处理类
 	int		SetUrlModifyRule(SpiderUrlModify* urlModify);//设置url修改类
-	int		SetPageUrlSort(SpiderUrlListSort* urlListSort);//设置对页面url的排序规则类
+	int		SetPageUrlSortFunc(UrlCmpFunc urlSortFunc);//设置对页面url的排序规则类
 	int		SetMaxThread(int count);
 
 	void	StartSpider(char *url);

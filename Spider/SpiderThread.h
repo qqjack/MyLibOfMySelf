@@ -6,6 +6,13 @@
 #define MAX_SPIDER_THREAD (30)
 #define DEFAULT_SPIDER_THREAD (20)
 
+typedef bool (*UrlCmpFunc)(CMyString *str1,CMyString *str2);
+
+static bool DefaultUrlSortCmpFun(CMyString *str1,CMyString *str2)
+{
+	return strcmp(str1->GetBuffer(),str2->GetBuffer())>0;
+}
+
 class SpiderThread : public CMyThread  
 {
 public:
@@ -42,25 +49,24 @@ public:
 	int			SetPageProcessMethod(SpiderPageProcess* processMethod);//设置数据处理类
 	int			SetFileProcessMethod(SpiderFileProcess* processMethod);//设置数据处理类
 	int			SetUrlModifyRule(SpiderUrlModify* urlModify);//设置url修改类
-	int			SetPageUrlSort(SpiderUrlListSort* urlListSort);//设置对页面url的排序规则类
+	int			SetPageUrlSortFunc(UrlCmpFunc urlSortFunc);//设置对页面url的排序规则类
 	int			SetMaxThread(int count);
 	void		End();
 
 public:
-	void		GetNextUrl();
+	bool		GetNextUrl();
 	void		AnalysisData(SpiderHttp* spiderHttp);
 	bool		ErrorProcess(SpiderHttp* spiderHttp);
-	static void		AddHashMap(CMyString &host,CMyString &url);
+	void		AddHashMap(CMyString &host,CMyString &url);
 	//返回值表示buf中是否存在url
 	bool		InitalFetchEngine(char *buf,int bufLen);
-	static void		ReBuildUrlIfNeed(CMyString &parentUrl,CMyString &url,CMyString &host);
-	static bool		HaveAcess(CMyString &host,CMyString &url);
+	void		ReBuildUrlIfNeed(CMyString &parentUrl,CMyString &url,CMyString &host);
+	bool		HaveAcess(CMyString &host,CMyString &url);
 	void		AddTempUrlList(CMyString &url);
 	void		SortTempUrlList();
 	void		AddAllUrlToUrlList(CMyString &host);
 	bool		FetchUrl(CMyString &url);
-
-	static bool CompareUrl(const CMyString *url1,const CMyString *url2);
+	void		ClearUrlList();
 
 	typedef CMyHashMap<CMyString,void*,HashCode> FirstHashMap;
 	typedef FirstHashMap SecondHashMap;
@@ -71,12 +77,11 @@ private:
 	SpiderPageProcess*	m_PageProcess;
 	SpiderFileProcess*	m_FileProcess;
 	SpiderUrlModify*	m_UrlModify;
-	SpiderUrlListSort*	m_UrlListSort;
 	std::vector<SpiderUrlFilter*>	m_UrlFilterList;
 
 	SpiderHttp			m_Http[MAX_SPIDER_THREAD];
 	unsigned			m_HttpCount;
-	static FirstHashMap		m_MainHashMap;
+	FirstHashMap		m_MainHashMap;
 	CMyThreadPool		m_ThreadPool;
 
 	std::vector<UrlInfo*>	m_FailList;  //请求失败url信息表,用于进行再次尝试
@@ -88,4 +93,5 @@ private:
 	CMyRegex			m_Regex;
 	char*				m_CurrentP;
 	std::vector<CMyString*> m_TempList;
+	UrlCmpFunc			m_UrlCmp;
 };
