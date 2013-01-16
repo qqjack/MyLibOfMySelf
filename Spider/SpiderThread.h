@@ -1,5 +1,7 @@
 #include "../MyLib.h"
 #include "SpiderVirtualClass.h"
+#include "Url.h"
+#include "SpiderHttp.h"
 
 #define MAX_SPIDER_THREAD (30)
 #define DEFAULT_SPIDER_THREAD (20)
@@ -13,12 +15,21 @@ public:
 		SPIDER_BREAD
 	}SpiderMode;
 
+	class HashCode
+	{
+	public:
+		unsigned operator()(const CMyString &obj)
+		{
+			return ((CMyString&)obj).HashCode();
+		}
+	};
+
 private:
 	typedef struct
 	{
 		CMyString	iParentUrl;  //从哪个网页中提取的url
 		CMyString	iUrl;        
-	}FailUrlInfo;
+	}UrlInfo;
 
 public:
 	SpiderThread();
@@ -35,9 +46,24 @@ public:
 	int			SetMaxThread(int count);
 	void		End();
 
-private:
-	typedef CMyHashMap<CMyString,void*> FirstHashMap;
-	typedef CMyHashMap<CMyString,CMyString> SecondHashMap;
+public:
+	void		GetNextUrl();
+	void		AnalysisData(SpiderHttp* spiderHttp);
+	bool		ErrorProcess(SpiderHttp* spiderHttp);
+	static void		AddHashMap(CMyString &host,CMyString &url);
+	//返回值表示buf中是否存在url
+	bool		InitalFetchEngine(char *buf,int bufLen);
+	static void		ReBuildUrlIfNeed(CMyString &parentUrl,CMyString &url,CMyString &host);
+	static bool		HaveAcess(CMyString &host,CMyString &url);
+	void		AddTempUrlList(CMyString &url);
+	void		SortTempUrlList();
+	void		AddAllUrlToUrlList(CMyString &host);
+	bool		FetchUrl(CMyString &url);
+
+	static bool CompareUrl(const CMyString *url1,const CMyString *url2);
+
+	typedef CMyHashMap<CMyString,void*,HashCode> FirstHashMap;
+	typedef FirstHashMap SecondHashMap;
 private:
 
 	SpiderMode			m_SpiderMode;
@@ -48,9 +74,18 @@ private:
 	SpiderUrlListSort*	m_UrlListSort;
 	std::vector<SpiderUrlFilter*>	m_UrlFilterList;
 
-	CMyAsyncHttp		m_Http[MAX_SPIDER_THREAD];
-	FirstHashMap		m_MainHashMap;
+	SpiderHttp			m_Http[MAX_SPIDER_THREAD];
+	unsigned			m_HttpCount;
+	static FirstHashMap		m_MainHashMap;
 	CMyThreadPool		m_ThreadPool;
 
-	std::vector<FailUrlInfo>	m_FailList;  //请求失败url信息表,用于进行再次尝试
+	std::vector<UrlInfo*>	m_FailList;  //请求失败url信息表,用于进行再次尝试
+	std::vector<UrlInfo*>	m_UrlList;
+	UrlInfo*				m_CurrentUrl;
+
+	HANDLE				m_EndEvent;
+
+	CMyRegex			m_Regex;
+	char*				m_CurrentP;
+	std::vector<CMyString*> m_TempList;
 };

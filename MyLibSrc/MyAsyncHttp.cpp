@@ -343,7 +343,7 @@ bool CMyAsyncHttp::IsIdle()
 void CMyAsyncHttp::SaveData(char*	filePath)
 {
 	if(IsIdle()&&m_DataLen)
-		m_Data.CopyToNormalFile(filePath);
+		m_Data.CopyToFile(filePath);
 }
 
 int CMyAsyncHttp::FromUnicodeToAssic(char *utf8,int utf8Len,char *assic,int assicLen)

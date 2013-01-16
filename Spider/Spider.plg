@@ -6,31 +6,74 @@
 --------------------Configuration: Spider - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP11C.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP2B.tmp" with contents
 [
-/nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/Spider.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+/nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"Debug/" /Fp"Debug/Spider.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\OpenSource\MyLib\Spider\Spider.cpp"
 "F:\OpenSource\MyLib\Spider\SpiderThread.cpp"
+"F:\OpenSource\MyLib\Spider\Url.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP11C.tmp" 
-Creating command line "link.exe -lib /nologo /out:"Debug\Spider.lib"  .\Debug\Spider.obj .\Debug\SpiderThread.obj .\Debug\SpiderVirtualClass.obj "
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP2B.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Debug\Spider.lib"  .\Debug\Spider.obj .\Debug\SpiderHttp.obj .\Debug\SpiderThread.obj .\Debug\SpiderVirtualClass.obj .\Debug\Url.obj "
 <h3>Output Window</h3>
 Compiling...
 SpiderThread.cpp
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(15) : error C4716: 'SpiderThread::Run' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(19) : error C4716: 'SpiderThread::SetSpiderMode' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(23) : error C4716: 'SpiderThread::AddUrlFilter' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(27) : error C4716: 'SpiderThread::SetErrorNotify' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(31) : error C4716: 'SpiderThread::SetPageProcessMethod' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(35) : error C4716: 'SpiderThread::SetFileProcessMethod' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(39) : error C4716: 'SpiderThread::SetUrlModifyRule' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(43) : error C4716: 'SpiderThread::SetPageUrlSort' : must return a value
-F:\OpenSource\MyLib\Spider\SpiderThread.cpp(47) : error C4716: 'SpiderThread::SetMaxThread' : must return a value
-Ö´ÐÐ cl.exe Ê±³ö´í.
+d:\program files\microsoft visual studio\vc98\include\deque(231) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(233) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(235) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(236) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+f:\opensource\mylib\mylibsrc\myasynchttp.h(578) : warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(618) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(432) : warning C4101: 'rl' : unreferenced local variable
+Url.cpp
+d:\program files\microsoft visual studio\vc98\include\deque(231) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(233) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(235) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(236) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+f:\opensource\mylib\mylibsrc\myasynchttp.h(578) : warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(618) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(432) : warning C4101: 'rl' : unreferenced local variable
+Spider.cpp
+d:\program files\microsoft visual studio\vc98\include\deque(231) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(233) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(235) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(236) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylib\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+f:\opensource\mylib\mylibsrc\myasynchttp.h(578) : warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(618) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylib\mylibsrc\myasynchttp.h(432) : warning C4101: 'rl' : unreferenced local variable
+Creating library...
+Creating command line "bscmake.exe /nologo /o"Debug/Spider.bsc"  .\Debug\Spider.sbr .\Debug\SpiderHttp.sbr .\Debug\SpiderThread.sbr .\Debug\SpiderVirtualClass.sbr .\Debug\Url.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-Spider.lib - 1 error(s), 0 warning(s)
+Spider.lib - 0 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

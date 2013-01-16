@@ -387,11 +387,14 @@ CMyString operator +(char * str1,CMyString& str2)
 
 unsigned CMyString::HashCode()
 {
-	int len	=GetStrLen();
+	char *p=m_Buffer;
 	unsigned r=0;
-	for(int i=0;i<len;i++)
+	int i=0;
+	while(*p)
 	{
-		r+=m_Buffer[i]|i;
+		r+=*p|i;
+		p++;
+		i++;
 	}
 	return r;
 }

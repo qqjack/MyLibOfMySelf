@@ -35,7 +35,7 @@ public:
 	
 	char*		GetMapping();
 	void		ReleaseMapping();
-
+	void        CopyToFile(char *filePath);
 	unsigned long	GetFileSize();
 
 	static int  GetUniqueFileName(char*	buf,int bufLen);

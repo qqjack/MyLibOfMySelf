@@ -684,6 +684,7 @@ public:
 	void		SetRefer(char *refer);
 	//返回的缓冲不能进行修改，否则产生无法预期后果
 	char*		GetReceiveData(){return m_Data.GetMapping();}
+	CMyFile*	GetRecevieFile(){return &m_Data;}
 	int			GetReceiveDataLen(){return m_DataLen;}
 	int			GetStatusCode(){return m_StatusCode;}  
 

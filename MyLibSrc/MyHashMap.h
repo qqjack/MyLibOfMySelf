@@ -4,39 +4,42 @@
 #define BUKET_SIZE		(4117)
 
 template<class _T>
-unsigned DefaultGetHashCode(_T obj)
-{
-	int *hashCode	=(int*)(&obj);
-	return *hashCode;
-}
-
-template<class _T>
-int DefaultEqual(_T obj1,_T obj2)
-{
-	return !(obj1==obj2);
-}
-
-template<class _KEYT,class _VALUET>
-class CMyHashMap  
+class DefaultGetHashCode
 {
 public:
-	typedef unsigned (*GET_HASH_CODE)(_KEYT obj);
-	typedef int	(*EQUAL)(_KEYT obj1,_KEYT obj2);
+	unsigned operator()(const _T &obj)
+	{
+		unsigned *hashCode	=(unsigned*)(&obj);
+		return *hashCode;
+	}
+};
 
+template<class _T>
+class DefaultEqual
+{
+public:
+	bool operator()(const _T &obj1,const _T &obj2)
+	{
+		return !((_T&)obj1==(_T&)obj2);
+	}
+};
+
+template<class _KT,class _VT,class _HFT=DefaultGetHashCode<_KT>,class _EFT=DefaultEqual<_KT> >
+class CMyHashMap  
+{
 private:
 	typedef struct _HashItem
 	{
-		_KEYT			iKey;
-		_VALUET			iData;
+		_KT				iKey;
+		_VT				iData;
 		_HashItem*		iNext;
 	} HashItem;
 
 public:
-	CMyHashMap( GET_HASH_CODE hashCodeFun=DefaultGetHashCode,
-				EQUAL		  equalFun	 =DefaultEqual)
+	CMyHashMap(_HFT hashCodeF=_HFT(),_EFT equalF=_EFT())
 	{
-		m_HashFun	=hashCodeFun;
-		m_EqualFun	=equalFun;
+		m_HashFun	=hashCodeF;
+		m_EqualFun	=equalF;
 		for(int i=0;i<BUKET_SIZE;i++)
 			m_Buket[i]=NULL;
 	}
@@ -59,9 +62,9 @@ public:
 		}
 	}
 
-	int	GetItem(_KEYT key,_VALUET* value)
+	int	GetItem(_KT& key,_VT* value)
 	{
-		int index		=m_HashFun(key)%BUKET_SIZE;
+		int index		=m_HashFun((const _KT &)key)%BUKET_SIZE;
 		if(m_Buket[index])
 		{
 			HashItem*	p=m_Buket[index];
@@ -79,9 +82,9 @@ public:
 		return -1;
 	}
 
-	int SetItem(_KEYT key,_VALUET& value)
+	int SetItem(_KT& key,_VT& value)
 	{
-		int index		=m_HashFun(key)%BUKET_SIZE;
+		int index		=m_HashFun((const _KT &)key)%BUKET_SIZE;
 		if(m_Buket[index])
 		{
 			HashItem*	p=m_Buket[index];
@@ -98,9 +101,9 @@ public:
 		return -1;
 	}
 
-	int DeleteItem(_KEYT key)
+	int DeleteItem(_KT& key)
 	{
-		int index		=m_HashFun(key)%BUKET_SIZE;
+		int index		=m_HashFun((const _KT &)key)%BUKET_SIZE;
 		if(m_Buket[index])
 		{
 			HashItem*	pre;
@@ -128,11 +131,11 @@ public:
 		return -1;
 	}
 
-	int	AddItem(_KEYT key,_VALUET& value)
+	int	AddItem(_KT& key,_VT& value)
 	{
 		if(GetItem(key,NULL)==-1)
 		{
-			int index		=m_HashFun(key)%BUKET_SIZE;
+			int index		=m_HashFun((const _KT &)key)%BUKET_SIZE;
 			HashItem*	newItem=new HashItem;
 			newItem->iNext	=NULL;
 			newItem->iData	=value;
@@ -152,8 +155,8 @@ public:
 
 private:
 	HashItem*		m_Buket[BUKET_SIZE];
-	GET_HASH_CODE	m_HashFun;
-	EQUAL			m_EqualFun;
+	_HFT			m_HashFun;
+	_EFT			m_EqualFun;
 };
 
 #endif

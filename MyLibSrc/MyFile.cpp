@@ -205,9 +205,9 @@ unsigned long CMyFile::GetFileSize()
 	return size;
 }
 
-void CMyFile::CreateDir(char *path)
+
+void static CreateDirStatic(char *path,int &status)
 {
-	static int status=0;
 	if(CMyFile::IsFileExist(path))
 	{
 		status	=1;
@@ -233,8 +233,20 @@ void CMyFile::CreateDir(char *path)
 			break;
 		}
 	}
-	CreateDir(lPath.GetBuffer());
+	CreateDirStatic(lPath.GetBuffer(),status);
 	
 	if(status==1)
 		::CreateDirectory(path,NULL);
+}
+
+void CMyFile::CreateDir(char *path)
+{
+	int status =0;
+	CreateDirStatic(path,status);
+}
+
+void CMyFile::CopyToFile(char *filePath)
+{
+	this->Flush();
+	::CopyFile(m_FilePath.GetBuffer(),filePath,false);
 }
