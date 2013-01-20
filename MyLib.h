@@ -17,7 +17,8 @@
 #include "MyLibSrc/MyThread.h"
 #include "MyLibSrc/MyThreadPool.h"
 #include "MyLibSrc/MyTime.h"
-
+#include "MyLibSrc/MyBuffer.h"
+#include "MyLibSrc/MyIOStream.h"
 #endif
 
 

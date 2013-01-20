@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /W3 /Gm /GX /ZI /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ /c
+# ADD CPP /nologo /MD /W3 /Gm /GX /ZI /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX
 # ADD BASE RSC /l 0x804 /d "_DEBUG"
 # ADD RSC /l 0x804 /d "_DEBUG"
@@ -170,6 +170,10 @@ SOURCE=.\MyLibSrc\MyAsyncHttp.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyBuffer.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\MyDebug.h
 # End Source File
 # Begin Source File
@@ -182,7 +186,15 @@ SOURCE=.\MyLibSrc\MyHashMap.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyIOStream.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\MyJsonObj.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyMsg.h
 # End Source File
 # Begin Source File
 
