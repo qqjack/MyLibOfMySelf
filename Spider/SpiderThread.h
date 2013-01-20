@@ -67,6 +67,7 @@ public:
 	void		AddAllUrlToUrlList(CMyString &host);
 	bool		FetchUrl(CMyString &url);
 	void		ClearUrlList();
+	void		RelocateUrl(SpiderHttp* spiderHttp);
 
 	typedef CMyHashMap<CMyString,void*,HashCode> FirstHashMap;
 	typedef FirstHashMap SecondHashMap;
@@ -94,4 +95,6 @@ private:
 	char*				m_CurrentP;
 	std::vector<CMyString*> m_TempList;
 	UrlCmpFunc			m_UrlCmp;
+
+	static char*		TAG;
 };

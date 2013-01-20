@@ -138,7 +138,7 @@ int CMyAsyncHttp::request(bool get,char *uri,char *page,char *postData,int dataL
 	
 	m_HttpState		=HTTP_START;
 	m_Data.ReleaseMapping();
-	m_Data.Seek(CMyFile::SEEK_START,0);
+	m_Data.seek(CMyFile::SEEK_START,0);
 	m_DataLen	=0;
 	if(!m_AssignTaskThread)
 	{

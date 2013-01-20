@@ -1,5 +1,15 @@
 #include "SpiderHttp.h"
 
+CMyString SpiderHttp::s_TxtPageExt[]=
+{
+	CMyString("jsp"),
+	CMyString("html"),
+	CMyString("php"),
+	CMyString("asp"),
+	CMyString("mhtm"),
+	CMyString("htm")
+};
+
 SpiderHttp::SpiderHttp():CMyAsyncHttp("Mozilla/5.0 (compatible; iaskspider/1.0; MSIE 6.0)")
 {
 	m_Mark	=false;
@@ -20,13 +30,16 @@ bool SpiderHttp::IsTxtPage()
 		p--;
 		len++;
 	}
-	if(len)
+	if(len&&*p=='.')
 	{
 		CMyString ext=CMyString::StringFromMem(p+1,0,len);
-		if(ext.CompareI("jsp")||ext.CompareI("asp")||ext.CompareI("php")
-			||ext.CompareI("html"))
+		int size=sizeof(s_TxtPageExt)/sizeof(CMyString);
+		for(int i=0;i<size;i++)
 		{
-			return true;
+			if(ext.CompareI(s_TxtPageExt[i]))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

@@ -3,6 +3,16 @@
 
 #define  HTTP_REGEX "(href=|src=)\".*?[\",;]"
 
+#define LOG_SWITCH
+
+#ifdef LOG_SWITCH
+	#define Log LOG
+#else
+	#define Log LOGNULL
+#endif
+
+char *SpiderThread::TAG="SpiderThread";
+
 SpiderThread::SpiderThread()
 {
 	m_EndEvent	=CreateEvent(false,false,NULL);
@@ -60,10 +70,14 @@ int SpiderThread::Run(void *param)
 					if(state==CMyAsyncHttp::HTTP_FINISH&&m_Http[i].GetCurrentUrl()!="")
 					{
 						//http请求正确
-						if(m_Http[i].GetStatusCode()==0)
+						int state=m_Http[i].GetStatusCode();
+						if(state<400)
 						{
 							//服务器返回正常
-							AnalysisData(&m_Http[i]);
+							if(state<300)
+								AnalysisData(&m_Http[i]);
+							else
+								RelocateUrl(&m_Http[i]);
 						}
 						else
 						{
@@ -221,12 +235,24 @@ void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
 
 bool SpiderThread::ErrorProcess(SpiderHttp* spiderHttp)
 {
+	
+	int errorCode=0;
+	//错误的分类处理
+	errorCode	=spiderHttp->GetStatusCode();
+	if(errorCode<400)
+	{
+		if(spiderHttp->GetHttpState()==CMyAsyncHttp::HTTP_STOP)
+		{
+			errorCode	=-1;  //内部请求过程出错
+		}
+		else 
+		{
+			errorCode	=-2;  //内部请求超时出错
+		}
+	}
+	Log(TAG,"ErrorProcess:%s errorCode:%d",spiderHttp->m_Url.GetBuffer(),errorCode);
 	if(m_ErrorNotify!=NULL)
 	{
-		int errorCode=0;
-		//错误的分类处理
-
-
 		return m_ErrorNotify->ErrorProcess(spiderHttp->m_ParentUrl.GetBuffer(),
 				spiderHttp->m_Url.GetBuffer(),errorCode);
 	}
@@ -390,7 +416,11 @@ void SpiderThread::AddTempUrlList(CMyString &url)
 
 void SpiderThread::SortTempUrlList()
 {
+	for(int i=0;i<m_TempList.size();i++)
+		Log(TAG,"%s",m_TempList[i]->GetBuffer());
 	sort(m_TempList.begin(),m_TempList.end(),m_UrlCmp);
+	for(i=0;i<m_TempList.size();i++)
+		Log(TAG,"%s",m_TempList[i]->GetBuffer());
 }
 
 void SpiderThread::AddAllUrlToUrlList(CMyString &parent)
@@ -416,13 +446,25 @@ bool SpiderThread::FetchUrl(CMyString &url)
 	{
 		url	=CMyString::StringFromMem(m_CurrentP,0,m_Regex.GetMatchStrLen());
 		url.EraseFromRight(1);
+		if(url[0]=='h')
+			url.Erase(0,6);
+		else
+			url.Erase(0,5);
 		m_CurrentP=NULL;
+		if(url.FindString("http://")!=-1)
+			url.Erase(0,7);
 		return true;
 	}
 	char *p=m_Regex.MatchNext();
 	if(!p)return false;
 	url=CMyString::StringFromMem(p,0,m_Regex.GetMatchStrLen());
 	url.EraseFromRight(1);
+	if(url[0]=='h')
+			url.Erase(0,6);
+		else
+			url.Erase(0,5);
+	if(url.FindString("http://")!=-1)
+			url.Erase(0,7);
 	return true;
 }
 
@@ -435,4 +477,9 @@ bool SpiderThread::GetNextUrl()
 		return true;
 	}
 	return false;
+}
+
+void SpiderThread::RelocateUrl(SpiderHttp* spiderHttp)
+{
+	Log(TAG,2,0,"need relocate url!!");
 }

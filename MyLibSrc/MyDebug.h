@@ -28,6 +28,12 @@ public:
 	//fnum为文件号，文件号最大不能大于等于MAX_LOG_FILE
 	static void			Log(int mode,int fnum,const char *format,...);
 	static void			Log(const char *tag,int mode,int fnum,const char *format,...);
+
+	static void			LogNULL(const char *format,...){}
+	static void			LogNULL(const char *tag,const char *format,...){}
+	static void			LogNULL(int mode,int fnum,const char *format,...){}
+	static void			LogNULL(const char *tag,int mode,int fnum,const char *format,...){}
+
 	//在log写入文件模式时，可设置log文件名
 	static bool			SetFileLogName(int fnum,char *fileName);
 
@@ -52,6 +58,6 @@ private:
 	HANDLE			m_Mutex;
 };
 
-#define LOG CMyDebug::Log
-
+#define LOG		CMyDebug::Log
+#define LOGNULL CMyDebug::LogNULL
 #endif

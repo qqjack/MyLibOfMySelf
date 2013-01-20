@@ -188,7 +188,7 @@ int	CHttp::HttpReadData(HINTERNET request)
 
 	while(!m_Data.IsUsable())m_Data.ReCreate();
 	m_Data.ReleaseMapping();
-	m_Data.Seek(CMyFile::SEEK_START,0);
+	m_Data.seek(CMyFile::SEEK_START,0);
 
 	if(!m_Encode.GetStrLen())
 	{
@@ -198,7 +198,7 @@ int	CHttp::HttpReadData(HINTERNET request)
 			unsigned long l;
 			if(!rl)break;
 			m_DataLen+=rl;
-			m_Data.Write(tBuf,rl);
+			m_Data.write(tBuf,rl);
 		}
 		m_Data.Flush();
 	}
@@ -259,7 +259,7 @@ int	CHttp::HttpReadData(HINTERNET request)
 					break;
 
 				m_DataLen+=d_stream.total_out;
-				m_Data.Write(lBuf,d_stream.total_out);
+				m_Data.write(lBuf,d_stream.total_out);
 
 				//输入缓冲区满,则需提供新的输入
 				if(d_stream.total_out<MAX_READ_SIZE||err==Z_STREAM_END)

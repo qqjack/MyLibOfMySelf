@@ -74,13 +74,13 @@ int	CMyFile::Open(char *filePath,FILE_MODE mode)
 	return 1;
 }
 
-int	CMyFile::Read(char *buf,int size)
+int	CMyFile::read(char *buf,int size)
 {
 	if(!m_Inital||IsLocked())return -1;
 	return fread((void*)buf,1,size,m_File);
 }
 
-int	CMyFile::Write(char *buf,int size)
+int	CMyFile::write(char *buf,int size)
 {
 	if(!m_Inital||IsLocked())return -1;
 	int r= fwrite((const void*)buf,1,size,m_File);
@@ -88,7 +88,7 @@ int	CMyFile::Write(char *buf,int size)
 	return r;
 }
 
-int	CMyFile::Seek(SEEK_MODE mode,int offset)
+int	CMyFile::seek(CMyIOStream::SEEK_MODE mode,int offset)
 {
 	if(!m_Inital||IsLocked())return -1;
 	return fseek(m_File,offset,mode);

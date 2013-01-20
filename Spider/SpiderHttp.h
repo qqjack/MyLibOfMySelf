@@ -17,4 +17,6 @@ public:
 	CMyString m_ParentUrl;
 private:
 	bool	  m_Mark;
+
+	static CMyString	s_TxtPageExt[];
 };

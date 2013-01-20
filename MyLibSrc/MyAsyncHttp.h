@@ -454,7 +454,7 @@ private:
 			}
 			while(!m_TaskArg->iIOStream->IsUsable())m_TaskArg->iIOStream->ReCreate();
 			m_TaskArg->iIOStream->ReleaseMapping();
-			m_TaskArg->iIOStream->Seek(CMyFile::SEEK_START,0);
+			m_TaskArg->iIOStream->seek(CMyFile::SEEK_START,0);
 
 			if(!m_TaskArg->iEncode->GetStrLen())
 			{
@@ -489,7 +489,7 @@ private:
 						int writeLen;
 						writeLen=CMyAsyncHttp::FromUnicodeToAssic(&buf[6-less],internetBuf.dwBufferLength+less,assicBuf,sizeof(assicBuf));
 						assicBuf[writeLen]=0;
-						m_TaskArg->iIOStream->Write(assicBuf,writeLen);
+						m_TaskArg->iIOStream->write(assicBuf,writeLen);
 						*m_TaskArg->iStreamLen+=writeLen;
 						less=GetRestByte(&buf[6+internetBuf.dwBufferLength-1]);
 						if(less>0)
@@ -500,7 +500,7 @@ private:
 					else
 					{
 						*m_TaskArg->iStreamLen+=internetBuf.dwBufferLength;
-						m_TaskArg->iIOStream->Write(&buf[6],internetBuf.dwBufferLength);
+						m_TaskArg->iIOStream->write(&buf[6],internetBuf.dwBufferLength);
 					}
 				}
 				
@@ -623,7 +623,7 @@ private:
 							int writeLen;
 							writeLen=CMyAsyncHttp::FromUnicodeToAssic(&lBuf[6-less],d_stream.total_out+less,assicBuf,sizeof(assicBuf));
 							assicBuf[writeLen]=0;
-							m_TaskArg->iIOStream->Write(assicBuf,writeLen);
+							m_TaskArg->iIOStream->write(assicBuf,writeLen);
 							m_TaskArg->iIOStream->Flush();
 							*m_TaskArg->iStreamLen+=writeLen;
 							less=GetRestByte(&lBuf[6+d_stream.total_out-1]);
@@ -635,7 +635,7 @@ private:
 						else
 						{
 							*m_TaskArg->iStreamLen+=d_stream.total_out;
-							m_TaskArg->iIOStream->Write(&lBuf[6],d_stream.total_out);
+							m_TaskArg->iIOStream->write(&lBuf[6],d_stream.total_out);
 							m_TaskArg->iIOStream->Flush();
 						}
 

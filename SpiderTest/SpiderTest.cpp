@@ -1,5 +1,6 @@
 
 #include "../MyLib.h"
+#include "../Spider.h"
 #define HTTP_COUNT	(5)
 #define HOST_COUNT  (3)
 
@@ -11,11 +12,12 @@ unsigned GetHashCode(CMyString obj)
 class Rule;
 CMyString GetHost(CMyString &url);
 
-CMyHashMap<CMyString,int> g_HashMap(GetHashCode);
+CMyHashMap<CMyString,int> g_HashMap;
 std::vector<Rule*>		  g_RuleList;
 CMyString				  g_Host[HOST_COUNT];
 char*					  TAG="Spider";
 CMyString				  g_SlefPath;
+
 
 //用于根据偏移offset，计算相对url的父url路径
 class TrackUrl
@@ -203,7 +205,7 @@ public:
 
 	void WriteFile(CMyFile *file)
 	{
-		file->Write(GetReceiveData(),GetReceiveDataLen());
+		file->write(GetReceiveData(),GetReceiveDataLen());
 		file->Flush();
 	}
 
@@ -380,6 +382,7 @@ bool IsJPGUrl(CMyString &url)
 	}
 	return false;
 }
+
 #define _TST
 
 
@@ -388,16 +391,23 @@ bool IsJPGUrl(CMyString &url)
 
 int main(int argc,char *argv[])
 {
-	CMyThreadPool	threadPool(true);
-	LOG("22","aGDADF");
-	HttpAccess  asyncHttp;
-	HttpAccess::InitalHttp();
-	asyncHttp.SetTargetThreadPool(&threadPool);
-	asyncHttp.Get("http://www.920mm.com/OnlyTease/201205/6750_19.html");
+//	CMyThreadPool	threadPool(true);
+//	LOG("22","aGDADF");
+//	HttpAccess  asyncHttp;
+//	HttpAccess::InitalHttp();
+//	asyncHttp.SetTargetThreadPool(&threadPool);
+//	asyncHttp.Get("http://www.920mm.com/OnlyTease/201205/6750_19.html");
+//
+//	int index=0;
+//	g_HashMap.AddItem(asyncHttp.GetCurrentUrl(),index);
+//	g_HashMap.AddItem(CMyString("aidjga4twetfewga"),index);
 
-	int index=0;
-	g_HashMap.AddItem(asyncHttp.GetCurrentUrl(),index);
-	g_HashMap.AddItem(CMyString("aidjga4twetfewga"),index);
+	CMyString parent("http://www.920mm.com/OnlyTease/201205/6750_19.html");
+	Spider spider;
+	spider.StartSpider(parent.GetBuffer());
+	Sleep(3000);
+//	spider.EndSpider();
+	Sleep(3000000);
 }
 
 #else
@@ -540,7 +550,7 @@ int main(int argc, char* argv[])
 			}
 
 		lTempData1->ReleaseMapping();
-		lTempData1->Seek(CMyFile::SEEK_START,0);
+		lTempData1->seek(CMyFile::SEEK_START,0);
 		lTempData=lTempData1;
 		lTempData1	=lTempData2;
 		lTempData2	=lTempData;

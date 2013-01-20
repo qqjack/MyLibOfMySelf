@@ -2,10 +2,11 @@
 #define __MY_FILE__
 #include "MyString.h"
 #include "MyDebug.h"
+#include "MyIOStream.h"
 #include "windows.h"
 
 #define TEMP_BUFFER_SIZE (1000)
-class CMyFile  
+class CMyFile:public CMyIOStream
 {
 public:
 	enum FILE_MODE
@@ -16,20 +17,20 @@ public:
 		FILE_NEW_OR_CLEAR  //文件存在则清空，不存在则创建
 	};
 
-	enum SEEK_MODE
-	{
-		SEEK_START,
-		SEEK_CURRENT,
-		SEEK_ENDED
-	};
+//	enum SEEK_MODE
+//	{
+//		SEEK_START,
+//		SEEK_CURRENT,
+//		SEEK_ENDED
+//	};
 public:
 	CMyFile();
 	virtual ~CMyFile();
 
 	virtual int	Open(char *filePath,FILE_MODE mode);
-	int			Read(char *buf,int size);
-	int			Write(char *buf,int size);
-	int			Seek(SEEK_MODE mode,int offset);
+	virtual int	read(char *buf,int size);
+	virtual int	write(char *buf,int size);
+	virtual int	seek(CMyIOStream::SEEK_MODE mode,int offset);
 	int			Flush();
 	void		DeleteFile();
 	
