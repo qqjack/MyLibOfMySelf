@@ -89,6 +89,10 @@ SOURCE=.\Spider.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpiderFetchUrl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpiderHttp.cpp
 # End Source File
 # Begin Source File
@@ -110,6 +114,10 @@ SOURCE=.\Url.cpp
 # Begin Source File
 
 SOURCE=.\Spider.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpiderFetchUrl.h
 # End Source File
 # Begin Source File
 

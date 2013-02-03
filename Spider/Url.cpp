@@ -89,7 +89,7 @@ CMyString CUrl::GetFileName(CMyString &url)
 		while(*p!='/'&&p!=url.GetBuffer())p--;
 		if(*p=='/'&&*(p-1)!='/')
 		{
-			return url.GetSubStr(p-url.GetBuffer()+1);
+			return  url.GetSubStr(p-url.GetBuffer()+1);
 		}
 	}
 	return CMyString();

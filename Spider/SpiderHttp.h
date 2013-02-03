@@ -13,6 +13,8 @@ public:
 	CMyFile*	GetFile(){return GetRecevieFile();}
 	void		SetMark(bool value){m_Mark=value;}
 	bool		GetMark(){return m_Mark;}
+
+	static bool	IsTxtPage(CMyString& ext);
 	CMyString m_Url;
 	CMyString m_ParentUrl;
 private:

@@ -2,6 +2,7 @@
 #include "SpiderVirtualClass.h"
 #include "Url.h"
 #include "SpiderHttp.h"
+#include "SpiderFetchUrl.h"
 
 #define MAX_SPIDER_THREAD (30)
 #define DEFAULT_SPIDER_THREAD (20)
@@ -44,12 +45,13 @@ public:
 	virtual int Run(void *param);
 
 	int			SetSpiderMode(SpiderMode mode);          //设置爬取模式（深度或广度）
-	int			AddUrlFilter(SpiderUrlFilter *urlFilter);//添加url过滤规则
-	int			SetErrorNotify(SpiderErrorNotify* errorNotify); //设置错误提醒处理类
-	int			SetPageProcessMethod(SpiderPageProcess* processMethod);//设置数据处理类
-	int			SetFileProcessMethod(SpiderFileProcess* processMethod);//设置数据处理类
-	int			SetUrlModifyRule(SpiderUrlModify* urlModify);//设置url修改类
+	int			AddUrlFilter(ISpiderUrlFilter *urlFilter);//添加url过滤规则
+	int			SetErrorNotify(ISpiderErrorNotify* errorNotify); //设置错误提醒处理类
+	int			SetPageProcessMethod(ISpiderPageProcess* processMethod);//设置数据处理类
+	int			SetFileProcessMethod(ISpiderFileProcess* processMethod);//设置数据处理类
+	int			SetUrlModifyRule(ISpiderUrlModify* urlModify);//设置url修改类
 	int			SetPageUrlSortFunc(UrlCmpFunc urlSortFunc);//设置对页面url的排序规则类
+	int			SetFecthUrlRegex(char* regex);//设置提取url的正则表达式
 	int			SetMaxThread(int count);
 	void		End();
 
@@ -74,11 +76,14 @@ public:
 private:
 
 	SpiderMode			m_SpiderMode;
-	SpiderErrorNotify*	m_ErrorNotify;
-	SpiderPageProcess*	m_PageProcess;
-	SpiderFileProcess*	m_FileProcess;
-	SpiderUrlModify*	m_UrlModify;
-	std::vector<SpiderUrlFilter*>	m_UrlFilterList;
+	ISpiderErrorNotify*	m_ErrorNotify;
+	ISpiderPageProcess*	m_PageProcess;
+	ISpiderFileProcess*	m_FileProcess;
+	ISpiderUrlModify*	m_UrlModify;
+	ISpiderFetchUrl*	m_FetchUrl;
+	std::vector<ISpiderUrlFilter*>	m_UrlFilterList;
+	CMyString			m_UrlRegex;
+	ISpiderFetchUrl		m_InnerFetchUrl;
 
 	SpiderHttp			m_Http[MAX_SPIDER_THREAD];
 	unsigned			m_HttpCount;

@@ -183,6 +183,7 @@ void CMyString::UInital()
 void CMyString::append(char* str)
 {
 	int len=strlen(str);
+	m_StrLen=strlen(m_Buffer);
 	if(len+m_StrLen>=m_BufLen)
 	{
 		int size=len+m_StrLen-m_BufLen;
@@ -429,4 +430,28 @@ void CMyString::SetAt(int index,char c)
 char CMyString::GetAt(int index)
 {
 	return m_Buffer[index];
+}
+
+int CMyString::Trim()
+{
+	char *p=m_Buffer;
+	int count=0;
+	int len=GetStrLen();
+	while(*p&&(*p==' '||*p=='\n'||*p=='\t'||*p=='\r'))
+	{
+		count++;
+		p++;
+	}
+	if(count)
+	{
+		memmove(m_Buffer,m_Buffer+count,len-count);
+	}
+	if(*p)
+	{
+		len=len-count;
+		p=m_Buffer+len-1;
+		while(p!=m_Buffer&&(*p==' '||*p=='\n'||*p=='\t'||*p=='\r'))p--;
+		*(p+1)=0;
+	}
+	return 1;
 }

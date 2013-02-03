@@ -20,6 +20,19 @@ SpiderHttp::~SpiderHttp()
 
 }
 
+bool SpiderHttp::IsTxtPage(CMyString& ext)
+{
+	int size=sizeof(s_TxtPageExt)/sizeof(CMyString);
+	for(int i=0;i<size;i++)
+	{
+		if(ext.CompareI(s_TxtPageExt[i]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool SpiderHttp::IsTxtPage()
 {
 	char *p=m_Url.GetBuffer()+m_Url.GetStrLen()-1;
@@ -30,7 +43,9 @@ bool SpiderHttp::IsTxtPage()
 		p--;
 		len++;
 	}
-	if(len&&*p=='.')
+	char *pt=p;
+	while(len&&pt!=m_Url.GetBuffer()&&*pt!='/')pt--;
+	if(len&&*p=='.'&&*pt=='/')
 	{
 		CMyString ext=CMyString::StringFromMem(p+1,0,len);
 		int size=sizeof(s_TxtPageExt)/sizeof(CMyString);

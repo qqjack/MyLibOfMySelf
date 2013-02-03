@@ -38,7 +38,7 @@ public:
 	int 		EraseFromRight(int count);
 	void		SetAt(int index,char c);
 	char		GetAt(int index);
-	
+	int			Trim();
 	unsigned	HashCode();
 
 	//Ìæ»»Ê§°Ü·µ»Ø-1

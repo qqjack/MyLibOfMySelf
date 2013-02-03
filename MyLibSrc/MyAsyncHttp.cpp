@@ -374,7 +374,7 @@ void CMyAsyncHttp::HttpStatusCallback(	HINTERNET	session,
 				INTERNET_ASYNC_RESULT*		result=(INTERNET_ASYNC_RESULT*)statusInformation;
 				*(cxt->iConnect)=(HINTERNET)result->dwResult;
 //				LOG(TAG,"Connect handle created");
-				LOG(TAG,"Path:%s  Connect handle created",cxt->iPath->GetBuffer());
+//				LOG(TAG,"Path:%s  Connect handle created",cxt->iPath->GetBuffer());
 				SetEvent(*cxt->iNotifyEvent);
 			}
 			break;
@@ -389,20 +389,20 @@ void CMyAsyncHttp::HttpStatusCallback(	HINTERNET	session,
 					*cxt->iHttp=(HINTERNET)result->dwResult;
 					cxt->iAsyncResult	=((INTERNET_ASYNC_RESULT*)statusInformation)->dwError;
 //					LOG(TAG,"Request handle created");
-					LOG(TAG,"Path:%s  Request handle created",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  Request handle created",cxt->iPath->GetBuffer());
 					SetEvent(*cxt->iNotifyEvent);
 					break;
 				}
 			case INTERNET_STATUS_REQUEST_SENT:
 				{
 //					LOG(TAG,"INTERNET_STATUS_REQUEST_SENT");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_REQUEST_SENT",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_REQUEST_SENT",cxt->iPath->GetBuffer());
 					break;
 				}
 			case INTERNET_STATUS_REQUEST_COMPLETE:
 				{
 //					LOG(TAG,"INTERNET_STATUS_REQUEST_COMPLETE");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_REQUEST_COMPLETE",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_REQUEST_COMPLETE",cxt->iPath->GetBuffer());
 					cxt->iAsyncResult	=((INTERNET_ASYNC_RESULT*)statusInformation)->dwError;
 					SetEvent(*cxt->iNotifyEvent);
 					break;
@@ -410,31 +410,31 @@ void CMyAsyncHttp::HttpStatusCallback(	HINTERNET	session,
 			case INTERNET_STATUS_RECEIVING_RESPONSE:
 				{
 //					LOG(TAG,"INTERNET_STATUS_RECEIVING_RESPONSE");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_RECEIVING_RESPONSE",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_RECEIVING_RESPONSE",cxt->iPath->GetBuffer());
 					break;
 				}
 			case INTERNET_STATUS_RESPONSE_RECEIVED:
 				{
 //					LOG(TAG,"INTERNET_STATUS_RESPONSE_RECEIVED");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_RESPONSE_RECEIVED",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_RESPONSE_RECEIVED",cxt->iPath->GetBuffer());
 					break;
 				}
 			case INTERNET_STATUS_CONNECTING_TO_SERVER:
 				{
 //					LOG(TAG,"INTERNET_STATUS_CONNECTING_TO_SERVER");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_CONNECTING_TO_SERVER",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_CONNECTING_TO_SERVER",cxt->iPath->GetBuffer());
 					break;
 				}
 			case INTERNET_STATUS_CONNECTED_TO_SERVER:
 				{
 //					LOG(TAG,"INTERNET_STATUS_CONNECTED_TO_SERVER");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_CONNECTED_TO_SERVER",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_CONNECTED_TO_SERVER",cxt->iPath->GetBuffer());
 					break;
 				}
 			case INTERNET_STATUS_SENDING_REQUEST:
 				{
 //					LOG(TAG,"INTERNET_STATUS_SENDING_REQUEST");
-					LOG(TAG,"Path:%s  INTERNET_STATUS_SENDING_REQUEST",cxt->iPath->GetBuffer());
+//					LOG(TAG,"Path:%s  INTERNET_STATUS_SENDING_REQUEST",cxt->iPath->GetBuffer());
 					break;
 				}
 			default:
