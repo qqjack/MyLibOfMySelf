@@ -6,18 +6,18 @@
 --------------------Configuration: Spider - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPCF.tmp" with contents
 [
 /nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"Debug/" /Fp"Debug/Spider.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"F:\OpenSource\MyLib\Spider\SpiderFetchUrl.cpp"
+"F:\OpenSource\MyLib\Spider\Spider.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24.tmp" 
-Creating command line "link.exe -lib /nologo /out:"Debug\Spider.lib"  .\Debug\Spider.obj .\Debug\SpiderFetchUrl.obj .\Debug\SpiderHttp.obj .\Debug\SpiderThread.obj .\Debug\SpiderVirtualClass.obj .\Debug\Url.obj "
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPCF.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Debug\Spider.lib"  .\Debug\Spider.obj .\Debug\SpiderFetchUrl.obj .\Debug\SpiderHttp.obj .\Debug\SpiderThread.obj .\Debug\SpiderVirtualClass.obj .\Debug\Url.obj .\Debug\SpiderConfig.obj "
 <h3>Output Window</h3>
 Compiling...
-SpiderFetchUrl.cpp
+Spider.cpp
 Creating library...
-Creating command line "bscmake.exe /nologo /o"Debug/Spider.bsc"  .\Debug\Spider.sbr .\Debug\SpiderFetchUrl.sbr .\Debug\SpiderHttp.sbr .\Debug\SpiderThread.sbr .\Debug\SpiderVirtualClass.sbr .\Debug\Url.sbr"
+Creating command line "bscmake.exe /nologo /o"Debug/Spider.bsc"  .\Debug\Spider.sbr .\Debug\SpiderFetchUrl.sbr .\Debug\SpiderHttp.sbr .\Debug\SpiderThread.sbr .\Debug\SpiderVirtualClass.sbr .\Debug\Url.sbr .\Debug\SpiderConfig.sbr"
 Creating browse info file...
 <h3>Output Window</h3>
 

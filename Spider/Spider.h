@@ -6,15 +6,17 @@
 class Spider  
 {
 public:
+	typedef enum
+	{
+		SPIDER_DEPTH,
+		SPIDER_BREAD
+	}SpiderMode;
+
 	Spider();
 	virtual ~Spider();
 
-	int 	SetSpiderMode(SpiderThread::SpiderMode mode);          //设置爬取模式（深度或广度）
-	int		AddUrlFilter(ISpiderUrlFilter *urlFilter);//添加url过滤规则
-	int		SetErrorNotify(ISpiderErrorNotify* errorNotify); //设置错误提醒处理类
-	int		SetPageProcessMethod(ISpiderPageProcess* processMethod);//设置数据处理类
-	int		SetFileProcessMethod(ISpiderFileProcess* processMethod);//设置数据处理类
-	int		SetUrlModifyRule(ISpiderUrlModify* urlModify);//设置url修改类
+	SpiderInterfaceConfig*	GetSpiderInterfaceConfig();
+	int 	SetSpiderMode(SpiderMode mode);          //设置爬取模式（深度或广度）
 	int		SetPageUrlSortFunc(UrlCmpFunc urlSortFunc);//设置对页面url的排序规则类
 	int		SetMaxThread(int count);
 

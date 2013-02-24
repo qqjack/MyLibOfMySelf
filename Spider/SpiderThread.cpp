@@ -4,9 +4,9 @@
 #define LOG_SWITCH
 
 #ifdef LOG_SWITCH
-	#define Log LOG
+#define Log LOG
 #else
-	#define Log LOGNULL
+#define Log LOGNULL
 #endif
 
 char *SpiderThread::TAG="SpiderThread";
@@ -14,17 +14,11 @@ char *SpiderThread::TAG="SpiderThread";
 SpiderThread::SpiderThread()
 {
 	m_EndEvent	=CreateEvent(false,false,NULL);
-//	m_HttpCount	=DEFAULT_SPIDER_THREAD;
-	m_HttpCount	=6;
+	m_HttpCount	=DEFAULT_SPIDER_THREAD;
 	m_ThreadPool.SetThreadCount(DEFAULT_SPIDER_THREAD);
 	m_UrlCmp	=DefaultUrlSortCmpFun;
 	m_SpiderMode=SPIDER_DEPTH;
-
-	m_FetchUrl	=&m_InnerFetchUrl;
-	m_ErrorNotify	=NULL;
-	m_PageProcess	=NULL;
-	m_FileProcess	=NULL;
-	m_UrlModify		=NULL;
+	
 	for(int i=0;i<m_HttpCount;i++)
 	{
 		m_Http[i].SetTargetThreadPool(&m_ThreadPool);
@@ -38,6 +32,7 @@ SpiderThread::~SpiderThread()
 	DeleteEvent(m_EndEvent);
 }
 
+
 int SpiderThread::Run(void *param)
 {
 	HANDLE		httpNotifyEvent[MAX_SPIDER_THREAD+1];
@@ -45,20 +40,22 @@ int SpiderThread::Run(void *param)
 	CMyAsyncHttp::HTTP_STATE state;
 	int idleHttpCount=0;
 	bool	exit=false;
+
+	m_InterfaceConfig.Lock();
 	for(int i=0;i<m_HttpCount;i++)
 	{
 		httpNotifyEvent[i]=m_Http[i].m_FinishNotify;
 		m_Http[i].SetMark(false);
 	}
 	httpNotifyEvent[i]=m_EndEvent;
-
+	
 	UrlInfo*	url=new UrlInfo;
 	url->iUrl	=(char*)param;
-			
+	
 	m_UrlList.push_back(url);
-
+	
 	AddHashMap(CUrl::GetUrlHost(url->iUrl),url->iUrl);
-
+	
 	while(1)
 	{
 		idleHttpCount	=0;
@@ -73,72 +70,66 @@ int SpiderThread::Run(void *param)
 			//判断当前连接是否空闲
 			if(m_Http[i].IsIdle())
 			{
-				if(!m_Http[i].GetMark())
+				state	=m_Http[i].GetHttpState();
+				if(state==CMyAsyncHttp::HTTP_FINISH&&m_Http[i].GetCurrentUrl()!="")
 				{
-					state	=m_Http[i].GetHttpState();
-					if(state==CMyAsyncHttp::HTTP_FINISH&&m_Http[i].GetCurrentUrl()!="")
+					//http请求正确
+					int state=m_Http[i].GetStatusCode();
+					if(state<400)
 					{
-						//http请求正确
-						int state=m_Http[i].GetStatusCode();
-						if(state<400)
-						{
-							//服务器返回正常
-							if(state<300)
-								AnalysisData(&m_Http[i]);
-							else
-								RelocateUrl(&m_Http[i]);
-						}
+						//服务器返回正常
+						if(state<300)
+							AnalysisData(&m_Http[i]);
 						else
-						{
-							ErrorProcess(&m_Http[i]);
-						}
+							RelocateUrl(&m_Http[i]);
 					}
-					else if(state==CMyAsyncHttp::HTTP_TIMEOUT||state==CMyAsyncHttp::HTTP_STOP)
+					else
 					{
-						//http请求超时
 						ErrorProcess(&m_Http[i]);
 					}
+					m_Http[i].SetMark(true);
 				}
-				else
+				else if(state==CMyAsyncHttp::HTTP_TIMEOUT||state==CMyAsyncHttp::HTTP_STOP)
 				{
-					//如果http连接已经标记则递增计算器，
-					idleHttpCount++;
+					//http请求超时
+					ErrorProcess(&m_Http[i]);
+					m_Http[i].SetMark(true);
 				}
-
+				
 				if(GetNextUrl())
 				{
 					m_Http[i].SetParentUrl(m_CurrentUrl->iParentUrl);
 					m_Http[i].Get(m_CurrentUrl->iUrl.GetBuffer());
+					//printf("get url:%s\n",m_CurrentUrl->iUrl.GetBuffer());
 					//获取到url说明客运进行get操作，即可能获取更多的Url
 					//对计算器进行清零操作
-					idleHttpCount	=0;
 					delete m_CurrentUrl;
+					m_Http[i].SetMark(false);
 				}
 				else
 				{
-					//获取url失败表示Url已经提前完，此对此http连接进行标记
-					//此后不再有get操作
-					m_Http[i].SetMark(true);
+					idleHttpCount	=0;
+					for(int i=0;i<m_HttpCount;i++)
+					{
+						if(m_Http[i].GetMark())idleHttpCount++;
+					}
+					if(idleHttpCount==m_HttpCount)
+					{
+						exit	=true;
+						break;
+					}
 				}
 			}
-			
 		}
-		if(exit)
-			break;
 
-		//如果计数器到达最大数说明
-		//所以url已经处理完成可以退出
-		if(idleHttpCount==m_HttpCount)
-			break;
-
-		Log("tst","wait!!!");
+		if(exit)break;
+		
 		waitR=::WaitForMultipleObjects(m_HttpCount+1,httpNotifyEvent,false,-1);
-		Log("tst","contiue!!");
-
+		
 		if(waitR==m_HttpCount)
 			break;
 	}
-
+	
 	ClearUrlList();
 	return 1;
 }
@@ -157,48 +148,6 @@ int SpiderThread::SetSpiderMode(SpiderMode mode)
 	return 1;
 }
 
-int SpiderThread::AddUrlFilter(ISpiderUrlFilter *urlFilter)
-{
-	if(isRun())return -1;
-	m_UrlFilterList.push_back(urlFilter);
-	return 1;
-}
-
-int SpiderThread::SetErrorNotify(ISpiderErrorNotify* errorNotify)
-{
-	if(isRun())return -1;
-	m_ErrorNotify	=errorNotify;
-	return 1;
-}
-
-int SpiderThread::SetPageProcessMethod(ISpiderPageProcess* processMethod)
-{
-	if(isRun())return -1;
-	m_PageProcess	=processMethod;
-	return 1;
-}
-
-int SpiderThread::SetFileProcessMethod(ISpiderFileProcess* processMethod)
-{
-	if(isRun())return -1;
-	m_FileProcess	=processMethod;
-	return 1;
-}
-
-int SpiderThread::SetUrlModifyRule(ISpiderUrlModify* urlModify)
-{
-	if(isRun())return -1;
-	m_UrlModify		=urlModify;
-	return 1;
-}
-
-int SpiderThread::SetPageUrlSortFunc(UrlCmpFunc urlSortFunc)
-{
-	if(isRun())return -1;
-	m_UrlCmp	=urlSortFunc;
-	return 1;
-}
-
 int SpiderThread::SetMaxThread(int count)
 {
 	if(isRun())return -1;
@@ -211,6 +160,7 @@ void SpiderThread::End()
 	SetEvent(m_EndEvent);
 	if(::GetCurrentThreadId()!=this->GetThreadID())
 		WaitEvent(this->GetThreadHandle(),-1);
+	m_InterfaceConfig.UnLock();
 }
 
 void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
@@ -225,21 +175,21 @@ void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
 			haveUrl=false;
 		while(haveUrl)
 		{
-			int urlCount=m_FetchUrl->FetchUrl(m_CurrentP,m_Regex.GetMatchStrLen());
+			int urlCount=m_InterfaceConfig.m_FetchUrl->FetchUrl(m_CurrentP,m_Regex.GetMatchStrLen());
 			for(int i=0;i<urlCount;i++)
 			{
-				url	=*(m_FetchUrl->GetUrl(i));
+				url	=*(m_InterfaceConfig.m_FetchUrl->GetUrl(i));
 				if(url=="./")continue;
 				ReBuildUrlIfNeed(spiderHttp->m_Url,url,host);
 				if(HaveAcess(host,url))continue;
-				for(int i=0;i<m_UrlFilterList.size();i++)
+				for(int i=0;i<m_InterfaceConfig.m_UrlFilterList.size();i++)
 				{
-					if(!m_UrlFilterList[i]->FilterCheck(spiderHttp->m_Url.GetBuffer(),url.GetBuffer()))break;
+					if(!m_InterfaceConfig.m_UrlFilterList[i]->FilterCheck(spiderHttp->m_Url.GetBuffer(),url.GetBuffer()))break;
 				}
-				if(i<m_UrlFilterList.size())continue;
-				if(m_UrlModify)
+				if(i<m_InterfaceConfig.m_UrlFilterList.size())continue;
+				if(m_InterfaceConfig.m_UrlModify)
 				{
-					m_UrlModify->ModifyUrl(spiderHttp->m_Url.GetBuffer(),url);
+					m_InterfaceConfig.m_UrlModify->ModifyUrl(spiderHttp->m_Url.GetBuffer(),url);
 				}
 				AddHashMap(host,url);
 				AddTempUrlList(url);
@@ -247,9 +197,9 @@ void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
 			if(!FetchUrl(url))break;
 		}
 		
-		if(m_PageProcess)
+		if(m_InterfaceConfig.m_PageProcess)
 		{
-			m_PageProcess->PageProcess(spiderHttp->m_ParentUrl.GetBuffer(),spiderHttp->m_Url.GetBuffer(),spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
+			m_InterfaceConfig.m_PageProcess->PageProcess(spiderHttp->m_ParentUrl.GetBuffer(),spiderHttp->m_Url.GetBuffer(),spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
 		}
 		if(m_UrlCmp)
 		{
@@ -259,9 +209,9 @@ void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
 		//根据深度优先还是广度优先进行抓取
 		AddAllUrlToUrlList(spiderHttp->m_Url);
 	}
-	else if(m_FileProcess)
+	else if(m_InterfaceConfig.m_FileProcess)
 	{
-		m_FileProcess->FileProcess(spiderHttp->m_ParentUrl.GetBuffer(),spiderHttp->m_Url.GetBuffer(),spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
+		m_InterfaceConfig.m_FileProcess->FileProcess(spiderHttp->m_ParentUrl.GetBuffer(),spiderHttp->m_Url.GetBuffer(),spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
 	}	
 }
 
@@ -284,17 +234,17 @@ bool SpiderThread::ErrorProcess(SpiderHttp* spiderHttp)
 		}
 	}
 	Log(TAG,"ErrorProcess:%s errorCode:%d",spiderHttp->m_Url.GetBuffer(),errorCode);
-	if(m_ErrorNotify!=NULL)
+	if(m_InterfaceConfig.m_ErrorNotify!=NULL)
 	{
 		if(errorCode>=0)
-			processed= m_ErrorNotify->ErrorProcess(spiderHttp->m_ParentUrl.GetBuffer(),
-					spiderHttp->m_Url.GetBuffer(),errorCode,
-					spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
+			processed= m_InterfaceConfig.m_ErrorNotify->ErrorProcess(spiderHttp->m_ParentUrl.GetBuffer(),
+			spiderHttp->m_Url.GetBuffer(),errorCode,
+			spiderHttp->GetReceiveData(),spiderHttp->GetReceiveDataLen());
 		else 
-			processed= m_ErrorNotify->ErrorProcess(spiderHttp->m_ParentUrl.GetBuffer(),
-					spiderHttp->m_Url.GetBuffer(),errorCode,
-					NULL,0);
-
+			processed= m_InterfaceConfig.m_ErrorNotify->ErrorProcess(spiderHttp->m_ParentUrl.GetBuffer(),
+			spiderHttp->m_Url.GetBuffer(),errorCode,
+			NULL,0);
+		
 		if(processed)
 		{
 			UrlInfo *url	=new UrlInfo;
@@ -389,7 +339,7 @@ void SpiderThread::ReBuildUrlIfNeed(CMyString &parentUrl,CMyString &url,CMyStrin
 	{
 		needRebuild=true;
 	}
-
+	
 	if(needRebuild)
 	{
 		CUrl lUrl(parentUrl);
@@ -479,18 +429,17 @@ void SpiderThread::AddAllUrlToUrlList(CMyString &parent)
 		else
 			m_UrlList.insert(0,url);
 		delete m_TempList[i];
-
-		Log(TAG,"the url:%s",url->iUrl.GetBuffer());
+		
+		//		printf("the url:%s\n",url->iUrl.GetBuffer());
 	}
 	m_TempList.clear();
 	if(m_UrlList.size()==0)
 		_asm int 3;
-	Log(TAG,"the url num:%d",m_UrlList.size());
 }
 
 bool SpiderThread::FetchUrl(CMyString &url)
 {
-
+	
 	m_CurrentP=m_Regex.MatchNext();
 	if(m_CurrentP)return true;
 	return false;

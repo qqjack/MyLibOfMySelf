@@ -8,34 +8,14 @@ Spider::~Spider()
 {
 }
 
-int Spider::SetSpiderMode(SpiderThread::SpiderMode mode)
+SpiderInterfaceConfig*	Spider::GetSpiderInterfaceConfig()
 {
-	return m_SpiderThread.SetSpiderMode(mode);
+	return m_SpiderThread.GetSpiderInterfaceConfig();
 }
 
-int	Spider::AddUrlFilter(ISpiderUrlFilter *urlFilter)
+int Spider::SetSpiderMode(SpiderMode mode)
 {
-	return m_SpiderThread.AddUrlFilter(urlFilter);
-}
-
-int	Spider::SetErrorNotify(ISpiderErrorNotify* errorNotify)
-{
-	return m_SpiderThread.SetErrorNotify(errorNotify);
-}
-
-int	Spider::SetPageProcessMethod(ISpiderPageProcess* processMethod)
-{
-	return m_SpiderThread.SetPageProcessMethod(processMethod);
-}
-
-int	Spider::SetFileProcessMethod(ISpiderFileProcess* processMethod)
-{
-	return m_SpiderThread.SetFileProcessMethod(processMethod);
-}
-
-int	Spider::SetUrlModifyRule(ISpiderUrlModify* urlModify)
-{
-	return m_SpiderThread.SetUrlModifyRule(urlModify);
+	return m_SpiderThread.SetSpiderMode((SpiderThread::SpiderMode)mode);
 }
 
 int	Spider::SetPageUrlSortFunc(UrlCmpFunc urlSortFunc)

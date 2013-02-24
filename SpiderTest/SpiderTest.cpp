@@ -34,6 +34,7 @@ bool MainUrlRule::FilterCheck(const char *parentUrl,const char *url)
 			return true;
 		}
 	}
+//	printf("skip url:%s\n",url);
 	return false;
 }
 
@@ -53,14 +54,50 @@ public:
 			if(i!=0)
 			{
 				ext=ext.GetSubStr(i+1);
-				printf("url:%s,ext:%s\n",url,ext.GetBuffer());
 				if(ext=="jpg")
+				{
+//printf("give up link:%s\n",url);
 					return false;
-				else
-					printf("---------------ext:%s\n",ext.GetBuffer());
+				}
 			}
 		}
 		return true;
+	}
+};
+
+class OnlyPageRule:public ISpiderUrlFilter
+{
+public:
+	virtual bool FilterCheck(const char *parentUrl,const char *url)
+	{
+		CMyString urlS=(char*)url;
+		CMyString ext=CUrl::GetFileName(urlS);
+		if(ext!="")
+		{
+			for(int i=ext.GetStrLen();i>=0;i--)
+			{
+				if(ext[i]=='.')break;
+			}
+			if(i!=0)
+			{
+				ext=ext.GetSubStr(i+1);
+				bool r= SpiderHttp::IsTxtPage(ext);
+//				if(!r)
+//					printf("skip url:%s\n",url);
+				return r;
+			}
+		}
+		return true;
+	}
+};
+
+class ErrorNotify:public ISpiderErrorNotify
+{
+public:
+	virtual	bool ErrorProcess(const char *parentUrl,const char* url,int error,char *data,int dataLen)
+	{
+		printf("---------error:%s\n",url);
+		return false;
 	}
 };
 
@@ -151,18 +188,24 @@ int main(int argc,char *argv[])
 int main(int argc, char* argv[])
 {
 	Spider			spider;
+	SpiderInterfaceConfig*	interfaceConfig;
+
+	interfaceConfig	=spider.GetSpiderInterfaceConfig();
 
 	MainUrlRule		mainRule;
 	ImageUrlRule	imageRule;
+	OnlyPageRule	onlyPageRule;
 	ImageSave		imageSave;
 	DoPageProcess	pageProcess;
+	ErrorNotify		errorNotify;
 
-	spider.AddUrlFilter(&mainRule);
-	spider.AddUrlFilter(&imageRule);
-//	spider.SetFileProcessMethod(&imageSave);
-//	spider.SetPageProcessMethod(&pageProcess);
+	interfaceConfig->AddUrlFilter(&mainRule);
+	interfaceConfig->AddUrlFilter(&onlyPageRule);
+	interfaceConfig->SetErrorNotify(&errorNotify);
+//	interfaceConfig.SetFileProcessMethod(&imageSave);
+//	interfaceConfig.SetPageProcessMethod(&pageProcess);
 
-	spider.StartSpider("www.920mm.com");
+	spider.StartSpider("www.920mm.com/DGC");
 
 	printf("输入任意字符退出爬虫。。。\n");
 	getchar();

@@ -20,5 +20,6 @@ public:
 private:
 	bool	  m_Mark;
 
+public:
 	static CMyString	s_TxtPageExt[];
 };
