@@ -7,7 +7,7 @@ class ISpiderFetchUrl
 public:
 	ISpiderFetchUrl();
 	virtual ~ISpiderFetchUrl();
-	int			 FetchUrl(char* context,int contextLen);
+	int			 FetchUrl(char* context,int contextLen,bool regexSame=false);
 	int			 GetUrlCount();
 	CMyString*	 GetUrl(int index);
 

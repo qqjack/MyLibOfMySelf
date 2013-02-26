@@ -3,9 +3,19 @@
 
 #include "SpiderVirtualClass.h"
 #include "SpiderFetchUrl.h"
+#include "../MyLib.h"
 
 class SpiderInterfaceConfig  
 {
+	class DefaultSpiderFinish:public ISpiderFinish
+	{
+	public:
+		virtual void OnFinish()
+		{
+			CMyDebug::Log("Notify",2,0,"Spider have finish!!");
+		}
+	};
+
 public:
 	SpiderInterfaceConfig();
 	virtual ~SpiderInterfaceConfig();
@@ -16,6 +26,7 @@ public:
 	int		SetFileProcessMethod(ISpiderFileProcess* processMethod);//设置数据处理类
 	int		SetUrlModifyRule(ISpiderUrlModify* urlModify);//设置url修改类
 
+	int		SetSpiderFinishNotify(ISpiderFinish* finishNotify);
 	friend class SpiderThread;
 
 private:
@@ -29,8 +40,10 @@ private:
 	ISpiderUrlModify*	m_UrlModify;
 	ISpiderFetchUrl*	m_FetchUrl;
 	std::vector<ISpiderUrlFilter*>	m_UrlFilterList;
+	ISpiderFinish*		m_SpiderFinish;
 
 	ISpiderFetchUrl		m_InnerFetchUrl;
+	DefaultSpiderFinish	m_InnerSpiderFinish;
 	bool				m_IsLock;
 };
 

@@ -5,6 +5,7 @@ SpiderInterfaceConfig::SpiderInterfaceConfig()
 {
 	m_IsLock	=false;
 	m_FetchUrl	=&m_InnerFetchUrl;
+	m_SpiderFinish		=&m_InnerSpiderFinish;
 	m_ErrorNotify		=NULL;
 	m_PageProcess		=NULL;
 	m_FileProcess		=NULL;
@@ -48,5 +49,12 @@ int SpiderInterfaceConfig::SetUrlModifyRule(ISpiderUrlModify* urlModify)
 {
 	if(m_IsLock)return -1;
 	m_UrlModify		=urlModify;
+	return 1;
+}
+
+int	SpiderInterfaceConfig::SetSpiderFinishNotify(ISpiderFinish* finishNotify)
+{
+	if(m_IsLock)return -1;
+	m_SpiderFinish		=finishNotify;
 	return 1;
 }

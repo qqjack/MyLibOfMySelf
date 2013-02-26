@@ -77,21 +77,17 @@ public:
 private:
 
 	SpiderMode			m_SpiderMode;
-
 	CMyString			m_UrlRegex;
-	
 	CMyThreadPool		m_ThreadPool;
 	SpiderHttp			m_Http[MAX_SPIDER_THREAD];
 	unsigned			m_HttpCount;
 	FirstHashMap		m_MainHashMap;
-	
 
 	std::vector<UrlInfo*>	m_FailList;  //请求失败url信息表,用于进行再次尝试
 	std::vector<UrlInfo*>	m_UrlList;
 	UrlInfo*				m_CurrentUrl;
 
 	HANDLE				m_EndEvent;
-
 	CMyRegex			m_Regex;
 	char*				m_CurrentP;
 	std::vector<CMyString*> m_TempList;
@@ -100,5 +96,6 @@ private:
 	static char*		TAG;
 
 	SpiderInterfaceConfig	m_InterfaceConfig;
+	bool				m_SameRegex;
 };
 #endif

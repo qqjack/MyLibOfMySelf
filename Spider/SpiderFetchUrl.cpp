@@ -25,22 +25,41 @@ void ISpiderFetchUrl::InitalRegex(char* data,int dataLen)
 }
 
 //返回值提取到的有效url个数
-int	ISpiderFetchUrl::FetchUrl(char* context,int contextLen)
+int	ISpiderFetchUrl::FetchUrl(char* context,int contextLen,bool regexSame)
 {
 	//提取context中的有效url
 	m_Context	=context;
 	m_ContextLen=contextLen;
 	m_CurrentP	=m_Context;
 	m_UrlCount	=0;
-
-	InitalRegex(context,contextLen);
-
-	while(GetUrl())
+	if(!regexSame)
 	{
-		if(this->onFetchUrl(m_TempUrl.GetBuffer(),context,contextLen))
+		InitalRegex(context,contextLen);
+		while(GetUrl())
 		{
-			AddUrl();
+			if(this->onFetchUrl(m_TempUrl.GetBuffer(),context,contextLen))
+			{
+				AddUrl();
+			}
 		}
+	}
+	else
+	{
+		m_TempUrl	=CMyString::StringFromMem(m_CurrentP,0,contextLen);
+		//去除结尾"
+		m_TempUrl.EraseFromRight(1);
+		//去除href="和src="
+		if(m_TempUrl[0]=='h')
+			m_TempUrl.Erase(0,6);
+		else
+			m_TempUrl.Erase(0,5);
+		//去除http://
+		if(m_TempUrl.FindString("http://")!=-1)
+			m_TempUrl.Erase(0,7);
+		int len=m_TempUrl.GetStrLen();
+		
+		m_TempUrl.Trim();
+		AddUrl();
 	}
 	return GetUrlCount();
 }

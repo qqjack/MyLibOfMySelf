@@ -9,6 +9,8 @@
 #define Log LOGNULL
 #endif
 
+#define  HTTP_REGEX "(href=|src=)\".*?[\",;]"
+
 char *SpiderThread::TAG="SpiderThread";
 
 SpiderThread::SpiderThread()
@@ -54,6 +56,8 @@ int SpiderThread::Run(void *param)
 	
 	m_UrlList.push_back(url);
 	
+	m_SameRegex=(m_UrlRegex==HTTP_REGEX);
+
 	AddHashMap(CUrl::GetUrlHost(url->iUrl),url->iUrl);
 	
 	while(1)
@@ -100,9 +104,6 @@ int SpiderThread::Run(void *param)
 				{
 					m_Http[i].SetParentUrl(m_CurrentUrl->iParentUrl);
 					m_Http[i].Get(m_CurrentUrl->iUrl.GetBuffer());
-					//printf("get url:%s\n",m_CurrentUrl->iUrl.GetBuffer());
-					//获取到url说明客运进行get操作，即可能获取更多的Url
-					//对计算器进行清零操作
 					delete m_CurrentUrl;
 					m_Http[i].SetMark(false);
 				}
@@ -130,6 +131,7 @@ int SpiderThread::Run(void *param)
 			break;
 	}
 	
+	m_InterfaceConfig.m_SpiderFinish->OnFinish();
 	ClearUrlList();
 	return 1;
 }
@@ -175,7 +177,7 @@ void SpiderThread::AnalysisData(SpiderHttp* spiderHttp)
 			haveUrl=false;
 		while(haveUrl)
 		{
-			int urlCount=m_InterfaceConfig.m_FetchUrl->FetchUrl(m_CurrentP,m_Regex.GetMatchStrLen());
+			int urlCount=m_InterfaceConfig.m_FetchUrl->FetchUrl(m_CurrentP,m_Regex.GetMatchStrLen(),m_SameRegex);
 			for(int i=0;i<urlCount;i++)
 			{
 				url	=*(m_InterfaceConfig.m_FetchUrl->GetUrl(i));
@@ -429,17 +431,12 @@ void SpiderThread::AddAllUrlToUrlList(CMyString &parent)
 		else
 			m_UrlList.insert(0,url);
 		delete m_TempList[i];
-		
-		//		printf("the url:%s\n",url->iUrl.GetBuffer());
 	}
 	m_TempList.clear();
-	if(m_UrlList.size()==0)
-		_asm int 3;
 }
 
 bool SpiderThread::FetchUrl(CMyString &url)
 {
-	
 	m_CurrentP=m_Regex.MatchNext();
 	if(m_CurrentP)return true;
 	return false;

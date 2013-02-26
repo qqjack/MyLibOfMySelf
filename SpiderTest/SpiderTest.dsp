@@ -166,6 +166,10 @@ SOURCE=..\Spider\Spider.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Spider\SpiderConfig.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Spider\SpiderFetchUrl.cpp
 # End Source File
 # Begin Source File
