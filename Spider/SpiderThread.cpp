@@ -463,3 +463,9 @@ int SpiderThread::SetFecthUrlRegex(char* regex)
 	if(isRun())return -1;
 	m_UrlRegex	=regex;
 }
+
+int	SpiderThread::SetPageUrlSortFunc(UrlCmpFunc urlSortFunc)
+{
+	if(isRun())return -1;
+	m_UrlCmp	=urlSortFunc;
+}

@@ -36,7 +36,7 @@ public:
 		}
 	};
 
-private:
+public:
 	typedef struct
 	{
 		CMyString	iParentUrl;  //从哪个网页中提取的url
