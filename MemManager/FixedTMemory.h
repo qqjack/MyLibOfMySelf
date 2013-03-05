@@ -52,6 +52,10 @@ public:
 		m_Mem.ClearLockMark();
 	}
 
+	void* GetBaseAddr()
+	{
+		return (void*)m_Array;
+	}
 private:
 	_Alloc			m_Mem;
 

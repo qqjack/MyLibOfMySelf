@@ -20,9 +20,6 @@ public:
 	
 	virtual void	InitalMemory(void* mem,unsigned long memLen,unsigned long itemLen)=0;
 
-	virtual void*	Alloc()=0;
-	virtual void	Free(void* memItem)=0;
-
 	void*	AllocMem()
 	{
 		void *p=0;
@@ -44,7 +41,12 @@ public:
 		m_LockMark	=0x00000000;
 	}
 
+	virtual bool	IsFull()=0;
 private:
+	virtual void*	Alloc()=0;
+	virtual void	Free(void* memItem)=0;
+	virtual bool	IsEmpty()=0;
+	
 
 	virtual	void	Lock()
 	{
@@ -53,10 +55,6 @@ private:
 	virtual void	UnLock()
 	{
 	}
-
-private:
-	virtual bool	IsEmpty()=0;
-	virtual bool	IsFull()=0;	
 
 protected:
 	int				m_LockMark;
@@ -78,11 +76,13 @@ public:
 	CLinKMemory();
 	virtual ~CLinKMemory();
 	virtual void	InitalMemory(void* mem,unsigned long memLen,unsigned long itemLen);
-	virtual void*	Alloc();
 	virtual void	Free(void *memItem);
+	virtual bool	IsFull(){return (m_MaxItem==m_ItemCount);}
+
 private:
 	virtual bool	IsEmpty(){return (m_ItemCount==0);}
-	virtual bool	IsFull(){return (m_MaxItem==m_ItemCount);}	
+	
+	virtual void*	Alloc();
 
 	virtual	void	Lock();
 	virtual void	UnLock();

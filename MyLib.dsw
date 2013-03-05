@@ -15,6 +15,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "MemManager"=.\MemManager\MemManager.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "MyLib"=.\MyLib.dsp - Package Owner=<4>
 
 Package=<5>
@@ -23,6 +35,9 @@ Package=<5>
 
 Package=<4>
 {{{
+    Begin Project Dependency
+    Project_Dep_Name MemManager
+    End Project Dependency
 }}}
 
 ###############################################################################

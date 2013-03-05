@@ -1,8 +1,8 @@
 #ifndef __MY_STRING__
 #define __MY_STRING__
 
-#define MAX_SIZE (500)
-#define ADD_STEP (200)
+#define MAX_SIZE (50)
+#define ADD_STEP (50)
 #define MAX_FORMATE_LEN (1000)
 #include "MyRegex.h"
 #include "common.h"
@@ -68,6 +68,7 @@ public:
 
 				operator char*();
 
+				bool		IsValid(){return m_Buffer==NULL;}
 	friend CMyString operator +(char * str1,CMyString& str2);
 	
 	

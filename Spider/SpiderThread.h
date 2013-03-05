@@ -7,6 +7,7 @@
 #include "SpiderHttp.h"
 #include "SpiderFetchUrl.h"
 #include "SpiderConfig.h"
+#include "../MemMg.h"
 
 #define MAX_SPIDER_THREAD (30)
 #define DEFAULT_SPIDER_THREAD (20)
@@ -97,5 +98,8 @@ private:
 
 	SpiderInterfaceConfig	m_InterfaceConfig;
 	bool				m_SameRegex;
+
+	CMassFixedMem<CMyString>	m_MassMem_Str;
+	CMassFixedMem<UrlInfo>		m_MassMem_UrlInfo;
 };
 #endif

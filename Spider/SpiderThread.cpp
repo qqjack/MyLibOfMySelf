@@ -51,7 +51,7 @@ int SpiderThread::Run(void *param)
 	}
 	httpNotifyEvent[i]=m_EndEvent;
 	
-	UrlInfo*	url=new UrlInfo;
+	UrlInfo*	url=m_MassMem_UrlInfo.AllocMem();
 	url->iUrl	=(char*)param;
 	
 	m_UrlList.push_back(url);
@@ -104,8 +104,11 @@ int SpiderThread::Run(void *param)
 				{
 					m_Http[i].SetParentUrl(m_CurrentUrl->iParentUrl);
 					m_Http[i].Get(m_CurrentUrl->iUrl.GetBuffer());
-					delete m_CurrentUrl;
+
+					m_MassMem_UrlInfo.FreeMem(m_CurrentUrl);
 					m_Http[i].SetMark(false);
+
+printf("url count:%d\n",m_MassMem_UrlInfo.GetAllocCount());
 				}
 				else
 				{
@@ -139,7 +142,7 @@ int SpiderThread::Run(void *param)
 void SpiderThread::ClearUrlList()
 {
 	for(int i=0;i<m_UrlList.size();i++)
-		delete m_UrlList[i];
+		m_MassMem_UrlInfo.FreeMem(m_UrlList[i]);
 	m_UrlList.clear();
 }
 
@@ -410,7 +413,9 @@ bool SpiderThread::HaveAcess(CMyString &host,CMyString &url)
 
 void SpiderThread::AddTempUrlList(CMyString &url)
 {
-	m_TempList.push_back(new CMyString(url));
+	CMyString *str=m_MassMem_Str.AllocMem();
+	*str	=url;
+	m_TempList.push_back(str);
 }
 
 void SpiderThread::SortTempUrlList()
@@ -423,14 +428,14 @@ void SpiderThread::AddAllUrlToUrlList(CMyString &parent)
 	int size=m_TempList.size();
 	for(int i=0;i<size;i++)
 	{
-		UrlInfo *url	=new UrlInfo;
+		UrlInfo *url	=m_MassMem_UrlInfo.AllocMem();
 		url->iUrl		=*m_TempList[i];
 		url->iParentUrl	=parent;
 		if(m_SpiderMode==SPIDER_DEPTH)	
 			m_UrlList.push_back(url);
 		else
 			m_UrlList.insert(0,url);
-		delete m_TempList[i];
+		m_MassMem_Str.FreeMem(m_TempList[i]);
 	}
 	m_TempList.clear();
 }

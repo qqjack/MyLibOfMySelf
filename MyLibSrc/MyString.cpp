@@ -3,7 +3,7 @@
 #include "windows.h"
 #include <math.h>
 
-#define EXTRA_SIZE  (100)
+#define EXTRA_SIZE  (50)
 
 CMyString::CMyString()
 {
