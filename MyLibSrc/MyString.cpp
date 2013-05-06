@@ -116,6 +116,15 @@ CMyString& CMyString::operator +=(char* str)
 	return *this;
 }
 
+CMyString& CMyString::operator +=(char c)
+{
+	char str[2];
+	str[0]=c;
+	str[1]=0;
+	append(str);
+	return *this;
+}
+
 CMyString& CMyString::operator +=(CMyString& str)
 {
 	*this+=str.GetBuffer();
@@ -245,7 +254,12 @@ int	CMyString::CompareI(CMyString &str)
 
 int CMyString::GetStrLen()
 {
-	return 	m_StrLen=strlen(m_Buffer);
+	if(mNeedUpdateLen)
+	{
+		m_StrLen=strlen(m_Buffer);
+		mNeedUpdateLen	=false;
+	}
+	return m_StrLen;
 }
 
 int CMyString::Replace(char *str,char *newStr, int startOffset)
@@ -273,6 +287,9 @@ int CMyString::Replace(char *str,char *newStr, int startOffset)
 		memmove(&p[strLen1-offset],&p[strLen1],moveSize+1);
 	}
 	memcpy(p,newStr,strLen2);
+
+	m_StrLen+=strLen2-strLen1;
+
 	return p-m_Buffer;
 }
 
@@ -323,7 +340,7 @@ CMyString CMyString::StringFromMem(char *str,int start,int len)
 	CMyString lStr;
 	if(lStr.GetBufferSize()<len+1)
 		lStr.Resize(len+1);
-	memcpy(lStr.GetBuffer(),str,len);
+	memcpy(lStr.GetBuffer(),&str[start],len);
 	lStr.GetBuffer()[len]=0;
 	return lStr;
 }
@@ -407,10 +424,12 @@ int	CMyString::Erase(int start,int count)
 	if(start+count==strL)
 	{
 		m_Buffer[start]=0;
+		m_StrLen	-=count;
 		return 1;
 	}
 	memmove( m_Buffer+start, m_Buffer+start+count,strL-start-count);
 	m_Buffer[strL-count]=0;
+	m_StrLen	-=count;
 	return 1;
 }
 
@@ -418,6 +437,7 @@ int CMyString::EraseFromRight(int count)
 {
 	int strL=GetStrLen();
 	if(count>strL)return -1;
+	m_StrLen	-=count;
 	m_Buffer[strL-count]=0;
 	return 1;
 }
@@ -425,11 +445,52 @@ int CMyString::EraseFromRight(int count)
 void CMyString::SetAt(int index,char c)
 {
 	m_Buffer[index]=c;
+	setStringLenInvalid();
 }
 
 char CMyString::GetAt(int index)
 {
 	return m_Buffer[index];
+}
+
+int	CMyString::Split(char* splitTxt)
+{
+	char *pStart=m_Buffer;
+	int stringLen=GetStrLen();
+	int splitTxtLen	=strlen(splitTxt);
+	SplitInfo splitInfo;
+
+	splitInfo.iIndex=0;
+	m_SplitIndex.clear();
+	while(pStart<m_Buffer+stringLen)
+	{
+		char *p=strstr(pStart,splitTxt);
+		if(p==NULL||(p>=m_Buffer+stringLen))break;
+		int index=p-m_Buffer;
+
+		splitInfo.iLen	=index-splitInfo.iIndex;
+		if(splitInfo.iLen!=0)
+			m_SplitIndex.push_back(splitInfo);
+
+
+		splitInfo.iIndex=index+splitTxtLen;
+		pStart=p+splitTxtLen;
+	}
+	if(splitInfo.iIndex<stringLen)
+	{
+		splitInfo.iLen	=stringLen-splitInfo.iIndex;
+		m_SplitIndex.push_back(splitInfo);
+	}
+	return m_SplitIndex.size();
+}
+
+int	CMyString::GetSplitString(int index,CMyString& subString)
+{
+	int size	=m_SplitIndex.size();
+	if(index>=size)return -1;
+	SplitInfo splitInfo=m_SplitIndex[index];
+	subString=CMyString::StringFromMem(m_Buffer,splitInfo.iIndex,splitInfo.iLen);
+	return 1;
 }
 
 int CMyString::Trim()
@@ -444,6 +505,7 @@ int CMyString::Trim()
 	}
 	if(count)
 	{
+		m_StrLen-=count;
 		memmove(m_Buffer,m_Buffer+count,len-count);
 	}
 	if(*p)
@@ -452,6 +514,7 @@ int CMyString::Trim()
 		p=m_Buffer+len-1;
 		while(p!=m_Buffer&&(*p==' '||*p=='\n'||*p=='\t'||*p=='\r'))p--;
 		*(p+1)=0;
+		m_StrLen-=m_Buffer+len-1-p;
 	}
 	return 1;
 }

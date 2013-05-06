@@ -18,8 +18,9 @@ int CMyBuffer::read(char* buf,int len)
 	int less=m_BufLen-m_Cursor;
 	if(m_Buf&&m_BufLen&&less>0)
 	{
-		int len=(less>len?len:less);
-		memcpy(buf,m_Buf,len);
+		len=(less>len?len:less);
+		memcpy(buf,&m_Buf[m_Cursor],len);
+		m_Cursor+=len;
 		return len;
 	}
 	return -1;
@@ -30,8 +31,9 @@ int CMyBuffer::write(char* buf,int len)
 	int less=m_BufLen-m_Cursor;
 	if(m_Buf&&m_BufLen&&less>0)
 	{
-		int len=(less>len?len:less);
-		memcpy(m_Buf,buf,len);
+		len=(less>len?len:less);
+		memcpy(&m_Buf[m_Cursor],buf,len);
+		m_Cursor+=len;
 		return len;
 	}
 	return -1;
@@ -56,14 +58,17 @@ int CMyBuffer::seek(SEEK_MODE seekType,int offset)
 		return -1;
 	}
 	if(tempCursor<0)return -1;
-	if(tempCursor>=m_BufLen&&m_Mode==BUFFER_ALLOC)
+	if(tempCursor>=m_BufLen)
 	{
-		m_Buf	=(char*)realloc(m_Buf,tempCursor+1);
-		m_BufLen=tempCursor+1;
-	}
-	else 
-	{
-		return -1;
+		if(m_Mode==BUFFER_ALLOC)
+		{
+			m_Buf	=(char*)realloc(m_Buf,tempCursor+1);
+			m_BufLen=tempCursor+1;
+		}
+		else
+		{
+			tempCursor=m_BufLen-1;
+		}
 	}
 	m_Cursor	=tempCursor;
 	return 1;
@@ -71,15 +76,25 @@ int CMyBuffer::seek(SEEK_MODE seekType,int offset)
 
 int	CMyBuffer::Alloc(int len)
 {
+	if(len==m_BufLen)return 1;
 	Free();
 	m_Buf	=(char*)malloc(len);
 	if(m_Buf)
 	{
+		memset(m_Buf,0,len);
 		m_Mode	=BUFFER_ALLOC;
 		m_BufLen=len;
 		return 1;
 	}
 	return -1;
+}
+
+int	CMyBuffer::Realloc(int len)
+{
+	m_Buf	=(char*)realloc(m_Buf,len);
+	m_BufLen	=len;
+	if(m_Buf==NULL)return -1;
+	return 1;
 }
 
 void CMyBuffer::Free()
@@ -111,4 +126,9 @@ int	CMyBuffer::Dettach(char* buf)
 		return 1;
 	}
 	return -1;
+}
+
+char CMyBuffer::operator [](int index)
+{
+	return m_Buf[index];
 }

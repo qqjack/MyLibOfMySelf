@@ -48,8 +48,8 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 
 !ELSEIF  "$(CFG)" == "Demo - Win32 Debug"
 
@@ -64,8 +64,8 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /GZ  /c
-# ADD CPP /nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
 # SUBTRACT CPP /YX /Yc /Yu
 # ADD BASE RSC /l 0x804 /d "_DEBUG"
 # ADD RSC /l 0x804 /d "_DEBUG"
@@ -73,8 +73,8 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /force /pdbtype:sept
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /force /pdbtype:sept
 
 !ENDIF 
 
@@ -85,6 +85,10 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=..\MyLibSrc\Base64.cpp
+# End Source File
 # Begin Source File
 
 SOURCE=..\MyLibSrc\common.cpp
@@ -99,11 +103,19 @@ SOURCE=..\MyLibSrc\Http.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\MyLibSrc\MailInfo.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\MyLibSrc\MyArrayList.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\MyLibSrc\MyAsyncHttp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MyBuffer.cpp
 # End Source File
 # Begin Source File
 
@@ -119,7 +131,19 @@ SOURCE=..\MyLibSrc\MyHashMap.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\MyLibSrc\MyIOStream.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\MyLibSrc\MyJsonObj.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MyPOP3.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MyPOP3.h
 # End Source File
 # Begin Source File
 
@@ -128,6 +152,14 @@ SOURCE=..\MyLibSrc\MyRegex.cpp
 # Begin Source File
 
 SOURCE=..\MyLibSrc\MyRWLock.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MySMTP.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MySMTP.h
 # End Source File
 # Begin Source File
 
@@ -162,6 +194,10 @@ SOURCE=.\StdAfx.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\MyLibSrc\MyIOStream.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\StdAfx.h

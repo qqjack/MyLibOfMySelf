@@ -22,12 +22,15 @@ public:
 	virtual int seek(SEEK_MODE seekType,int offset);
 
 	int			Alloc(int len);
+	int			Realloc(int len);
 	void		Free();
 	int			Attach(char* buf,int len);
 	int			Dettach(char* buf);
 
 	char*		GetBuffer(){return m_Buf;}
 	int 		GetBufferLen(){return m_BufLen;}
+
+	char		operator [](int index);
 private:
 
 	BUFFER_MODE		m_Mode;

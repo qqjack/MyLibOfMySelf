@@ -6,12 +6,23 @@
 #define MAX_FORMATE_LEN (1000)
 #include "MyRegex.h"
 #include "common.h"
+#include <vector>
+
+using namespace std;
+
 class CMyString;
 
 CMyString operator +(char * str1,CMyString& str2);
 
 class CMyString  
 {
+private:
+	typedef struct
+	{
+		int iIndex;
+		int iLen;
+	}SplitInfo;
+
 public:
 	CMyString();
 	CMyString(char *str);
@@ -20,8 +31,9 @@ public:
 	CMyString(const CMyString& str);
 	virtual ~CMyString();
 
-
+	//获取缓存后不可直接修改字符串长的，否则会导致未知后果
 	char*		GetBuffer(){return m_Buffer;}
+
 	int			GetBufferSize(){return m_BufLen;}
 	int			GetStrLen();
 	void		ToLowerCase();
@@ -57,6 +69,7 @@ public:
 	CMyString&	operator =(double	number);
 	CMyString&	operator =(CMyString& str);
 	CMyString&	operator +=(char* str);
+	CMyString&	operator +=(char c);
 	CMyString&	operator +=(CMyString& str);
 	bool		operator ==(char* str);
 	bool		operator ==(CMyString& str);
@@ -65,6 +78,10 @@ public:
 	CMyString	operator +(CMyString& str);
 	CMyString	operator +(char* str);
 	char		operator [](int index);
+	
+	//先调用split函数统计分割的段数，splitTxt分割符，可以是一个字符，或者字符串
+	int			Split(char* splitTxt);
+	int			GetSplitString(int index,CMyString& subString);
 
 				operator char*();
 
@@ -83,10 +100,16 @@ private:
 	void UInital();
 	void append(char* str);
 	void copy(char *str);
+
+	void setStringLenInvalid(){mNeedUpdateLen=true;}
 private:
 	char *m_Buffer;
 	int	  m_StrLen;
 	int	  m_BufLen;
+	
+	bool  mNeedUpdateLen;
+
+	std::vector<SplitInfo>	m_SplitIndex;
 
 	CMyRegex   m_Regex;
 };

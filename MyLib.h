@@ -19,6 +19,10 @@
 #include "MyLibSrc/MyTime.h"
 #include "MyLibSrc/MyBuffer.h"
 #include "MyLibSrc/MyIOStream.h"
+#include "MyLibSrc/MySMTP.h"
+#include "MyLibSrc/MyPOP3.h"
+#include "MyLibSrc/MailInfo.h"
+#include "MyLibSrc/Encrypt.h"
 #endif
 
 
