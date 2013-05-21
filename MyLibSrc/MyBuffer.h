@@ -31,6 +31,9 @@ public:
 	int 		GetBufferLen(){return m_BufLen;}
 
 	char		operator [](int index);
+
+	void		SetAt(int index,char value);
+	char		GetAt(int index);
 private:
 
 	BUFFER_MODE		m_Mode;

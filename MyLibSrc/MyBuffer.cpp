@@ -132,3 +132,13 @@ char CMyBuffer::operator [](int index)
 {
 	return m_Buf[index];
 }
+
+void CMyBuffer::SetAt(int index,char value)
+{
+	m_Buf[index]=value;
+}
+
+char CMyBuffer::GetAt(int index)
+{
+	return m_Buf[index];
+}
