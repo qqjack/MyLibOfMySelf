@@ -27,16 +27,16 @@ public:
 		void *p=param;
 		while(1)
 		{
-			if(MessageBox(NULL,"Ñ¡ÔñÈ·¶¨£¬¶ÁÈ¡×ÊÔ´£¬È¡ÏûÐ´Èë×ÊÔ´","tst",1)==IDOK)
+			if(MessageBox(NULL,"Ñ¡ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ô´ï¿½ï¿½È¡ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ô´","tst",1)==IDOK)
 			{
 				lock.WaitRead();
-				MessageBox(NULL,"ÕýÔÚ¶ÁÈ¡×ÊÔ´","tst",0);
+				MessageBox(NULL,"ï¿½ï¿½ï¿½Ú¶ï¿½È¡ï¿½ï¿½Ô´","tst",0);
 				lock.Done();
 			}
 			else
 			{
 				lock.WaitWrite();
-				MessageBox(NULL,"ÕýÔÚÐ´Èë×ÊÔ´","tst",0);
+				MessageBox(NULL,"ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ô´","tst",0);
 				lock.Done();
 			}
 		}
@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
 /**/
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
-	pop3.SetLoginInfo("415472580","zj8847523");
+	pop3.SetLoginInfo("","");
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
 	pop3.List();
@@ -193,7 +193,7 @@ int main(int argc, char* argv[])
 
 	LOG("tst",(char*)obj.ToString());
 
-	char* pa="[{\"UserID\":{}, \"Name\":{\"FirstName\":\"Truly\",\"LastName\":\"Zhu\"}, \"Email\":\"zhuleipro¡òhotmail.com\"},{\"UserID\":12, \"Name\":{\"FirstName\":\"Jeffrey\",\"LastName\":\"Richter\"}, \"Email\":\"xxx¡òxxx.com\"},{\"UserID\":13, \"Name\":{\"FirstName\":\"Scott\",\"LastName\":\"Gu\"}, \"Email\":\"xxx2¡òxxx2.com\"}]";
+	char* pa="[{\"UserID\":{}, \"Name\":{\"FirstName\":\"Truly\",\"LastName\":\"Zhu\"}, \"Email\":\"zhuleiproï¿½ï¿½hotmail.com\"},{\"UserID\":12, \"Name\":{\"FirstName\":\"Jeffrey\",\"LastName\":\"Richter\"}, \"Email\":\"xxxï¿½ï¿½xxx.com\"},{\"UserID\":13, \"Name\":{\"FirstName\":\"Scott\",\"LastName\":\"Gu\"}, \"Email\":\"xxx2ï¿½ï¿½xxx2.com\"}]";
 	pa=objArray.SetJsonArrayStr(pa,strlen(pa));
 	LOG("tst",(char*)objArray.ToString());
 
