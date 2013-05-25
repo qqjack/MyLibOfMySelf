@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 	CMySMTP smtp;
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
-	pop3.SetLoginInfo("415472580","zj8847523");
+	pop3.SetLoginInfo("","");
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
 	pop3.List();
