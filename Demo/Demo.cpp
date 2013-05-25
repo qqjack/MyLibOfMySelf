@@ -76,6 +76,8 @@ public:
 };
 
 int task::count=0;
+#define DATE_REGEX "(Mon|Tues|Wed|Thur|Fri|Sat|Sun) *, +([1-9]|[1-3][0-9]) +(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +[0-9]{4} +[0-2][0-9]:[0-5][0-9]:[0-5][0-9]( +(\\+|-)[0-9]{4})?"
+
 int main(int argc, char* argv[])
 {
 
@@ -83,10 +85,19 @@ int main(int argc, char* argv[])
 	DWORD d=::GetCurrentProcessId();
 	CHttp::InitalHttp();
 	
+	CMyString str1="wed,    3   may 2009 07:57:02     +0800";
+	CMyString str2;
+	str1.Match(DATE_REGEX,&str2,true);
+
+
+	str1="00004";
+	int r=str1.ToInt();
+
+/*
 	CMyTime time;
 	CMyTimeInterval interval;
 	interval.SetSeconds(1);
-	interval.SetMilliseconds(0);
+	interval.SetMilliseconds(0); 
 	for(int a=0;a<183;a++)
 	{
 		time+=interval;
@@ -124,15 +135,20 @@ int main(int argc, char* argv[])
 
 	printf("\n%d 天,%d 小时,%d 分钟 ,%d 秒钟 ,%d 毫秒\n",diff.GetDays()
 			,diff.GetHours(),diff.GetMinutes(),diff.GetSeconds(),diff.GetMilliseconds());
-	CMySMTP smtp;
+
+
+*/
+	
+/**/
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
 	pop3.SetLoginInfo("415472580","zj8847523");
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
 	pop3.List();
-	pop3.Retr(12,mailInfo);
+	pop3.Retr(1,mailInfo);
 
+/*
 	CMyString str="aaa\r\ndddddddddd\r\nadsfadsf\r\nfffff\r\n\r\nbbbb";
 
 	int num=str.Split("\r\n");
@@ -142,35 +158,39 @@ int main(int argc, char* argv[])
 		str.GetSplitString(i,d);
 		printf("%s\n",d.GetBuffer());
 	}
-	smtp.SetLoginInfo("","");
+*/
+
+/*
+
+	CMySMTP smtp;
+	smtp.SetLoginInfo("415472580","zj8847523");
 	smtp.SetSMTPServer("smtp.qq.com");
-//	smtp.Login();
+	smtp.Login();
 
 	smtp.SetMailFrom("415472580@qq.com");
 	smtp.SetMailTo("415472580@qq.com");
 	
-//	smtp.SetMailData("just test!!!",strlen("just test!!!"));
-//	smtp.SetMailTitle("cmd");
-//	for(int i=0;i<101;i++)
-//		smtp.Mail();
+	smtp.SetMailData("just test!!!",strlen("just test!!!"));
+	smtp.SetMailTitle("cmd");
+	smtp.Mail();
+	smtp.Quit();
+*/
 
-//	smtp.Quit();
-//	smtp.Mail();
+/*
 	CHttp http;
-	
-	http.SetAcceptType("*/*");
 	http.AddHttpHeader("Accept-Charset: utf-8\r\n");
 	http.AddHttpHeader("Accept-Encoding: gzip, deflate\r\n");
 
 	http.Get("bbs.pediy.com","");
+*/
 
-
+/*
 	CMyJsonObj obj;
 	CMyJsonArray objArray;
 
 	char *p="{\"is\":[{\"UserID\":11, \"Name\":{\"FirstName\":\"Truly\",\"LastName\":\"Zhu\"}, \"Email\":\"zhuleipro◎hotmail.com\"},{\"UserID\":12, \"Name\":{\"FirstName\":\"Jeffrey\",\"LastName\":\"Richter\"}, \"Email\":\"xxx◎xxx.com\"},{\"UserID\":13, \"Name\":{\"FirstName\":\"Scott\",\"LastName\":\"Gu\"}, \"Email\":\"xxx2◎xxx2.com\"}]}";
-
 	char *pp=obj.SetJsonStr(p,strlen(p));
+
 	LOG("tst",(char*)obj.ToString());
 
 	char* pa="[{\"UserID\":{}, \"Name\":{\"FirstName\":\"Truly\",\"LastName\":\"Zhu\"}, \"Email\":\"zhuleipro◎hotmail.com\"},{\"UserID\":12, \"Name\":{\"FirstName\":\"Jeffrey\",\"LastName\":\"Richter\"}, \"Email\":\"xxx◎xxx.com\"},{\"UserID\":13, \"Name\":{\"FirstName\":\"Scott\",\"LastName\":\"Gu\"}, \"Email\":\"xxx2◎xxx2.com\"}]";
@@ -202,10 +222,10 @@ int main(int argc, char* argv[])
 	LOG("tst",(char*)obj.ToString());
 	obj.DeleteKeyValue("tst");
 	LOG("tst",(char*)obj.ToString());
+*/
 
+/*
 	CMyTaskThread taskThread;
-
-
 
 	task t1,t2,t3;
 
@@ -217,6 +237,9 @@ int main(int argc, char* argv[])
 	taskThread.ExitThreadDirect();
 
 	CMyThreadPool threadPool(true);
+*/
+
 	getchar();
+
 	return 0;
 }

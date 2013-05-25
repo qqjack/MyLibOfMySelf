@@ -182,107 +182,95 @@ SOURCE=.\MyLibSrc\MyTime.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\MyLibSrc\common.h
+SOURCE=.\MyLibHeader\common.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\Encrypt.h
+SOURCE=.\MyLibHeader\Encrypt.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\Http.h
+SOURCE=.\MyLibHeader\Http.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MailInfo.h
+SOURCE=.\MyLibHeader\MailInfo.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyArrayList.h
+SOURCE=.\MyLibHeader\MyArrayList.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyAsyncHttp.h
+SOURCE=.\MyLibHeader\MyAsyncHttp.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyBuffer.h
+SOURCE=.\MyLibHeader\MyBuffer.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyBuffer.h
+SOURCE=.\MyLibHeader\MyDebug.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyDebug.h
+SOURCE=.\MyLibHeader\MyFile.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyFile.h
+SOURCE=.\MyLibHeader\MyHashMap.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyHashMap.h
+SOURCE=.\MyLibHeader\MyIOStream.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyIOStream.h
+SOURCE=.\MyLibHeader\MyJsonObj.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyJsonObj.h
+SOURCE=.\MyLibHeader\MyMsg.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyMsg.h
+SOURCE=.\MyLibHeader\MyPOP3.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyMsg.h
+SOURCE=.\MyLibHeader\MyRegex.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyPOP3.h
+SOURCE=.\MyLibHeader\MyRWLock.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyRegex.h
+SOURCE=.\MyLibHeader\MySMTP.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyRWLock.h
+SOURCE=.\MyLibHeader\MyString.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MySMTP.h
+SOURCE=.\MyLibHeader\MyTaskThread.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MySocket.h
+SOURCE=.\MyLibHeader\MyTempFile.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyString.h
+SOURCE=.\MyLibHeader\MyThread.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyTaskThread.h
+SOURCE=.\MyLibHeader\MyThreadPool.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyLibSrc\MyTempFile.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MyLibSrc\MyThread.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MyLibSrc\MyThreadPool.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MyLibSrc\MyTime.h
+SOURCE=.\MyLibHeader\MyTime.h
 # End Source File
 # End Group
 # End Target
