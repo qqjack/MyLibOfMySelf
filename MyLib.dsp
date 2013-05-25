@@ -90,7 +90,15 @@ SOURCE=.\MyLibSrc\common.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyLibSrc\Encrypt.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\Http.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MailInfo.cpp
 # End Source File
 # Begin Source File
 
@@ -99,6 +107,10 @@ SOURCE=.\MyLibSrc\MyArrayList.cpp
 # Begin Source File
 
 SOURCE=.\MyLibSrc\MyAsyncHttp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MyBuffer.cpp
 # End Source File
 # Begin Source File
 
@@ -118,11 +130,27 @@ SOURCE=.\MyLibSrc\MyJsonObj.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyLibSrc\MyMsg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MyPOP3.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\MyRegex.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\MyLibSrc\MyRWLock.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MySMTP.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MySocket.cpp
 # End Source File
 # Begin Source File
 
@@ -158,7 +186,15 @@ SOURCE=.\MyLibSrc\common.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyLibSrc\Encrypt.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\Http.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MailInfo.h
 # End Source File
 # Begin Source File
 
@@ -171,6 +207,10 @@ SOURCE=.\MyLibSrc\MyAsyncHttp.h
 # Begin Source File
 
 SOURCE=.\MyBuffer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MyBuffer.h
 # End Source File
 # Begin Source File
 
@@ -194,7 +234,15 @@ SOURCE=.\MyLibSrc\MyJsonObj.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyLibSrc\MyMsg.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyMsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MyPOP3.h
 # End Source File
 # Begin Source File
 
@@ -203,6 +251,14 @@ SOURCE=.\MyLibSrc\MyRegex.h
 # Begin Source File
 
 SOURCE=.\MyLibSrc\MyRWLock.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibSrc\MySMTP.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MySocket.h
 # End Source File
 # Begin Source File
 

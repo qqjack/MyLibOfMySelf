@@ -10,7 +10,7 @@ using namespace std;
 #define MAX_LOG_LEN   (1000)		  //最长log
 #define MAX_TAG_LEN   (100)         //最长标记
 #define DEFAULT_TAG   "DEBUG"
-
+#define START_DEBUG
 class CMyDebug  
 {
 public:

@@ -94,11 +94,6 @@ public:
 	bool			operator!=(CMyCalendar& time);
 
 	friend class CMyTime;
-private:
-	
-	int			InitalTime(SYSTEMTIME time);
-private:
-	SYSTEMTIME	m_Time;
 
 	static char*	sWeekEn[];
 	static char*	sWeekCn[];
@@ -106,6 +101,12 @@ private:
 	static char  	sMonthDays[13];
 	static char*	sMonth[];
 	static char*	sMonthS[];
+private:
+	
+	int			InitalTime(SYSTEMTIME time);
+	
+private:
+	SYSTEMTIME	m_Time;	
 };
 
 class CMyTime  

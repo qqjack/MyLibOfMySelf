@@ -2,6 +2,10 @@
 #define __MAIL_INFO__
 #include "MyString.h"
 #include "MyHashMap.h"
+#include "MyTime.h"
+#include <vector>
+
+using namespace std;
 
 //content type text,sub type
 #define MAIN_TEXT	(0)
@@ -11,7 +15,7 @@
 //content type mulipart,sub type
 #define MAIN_MULTIPART	(1)
 #define SUB_MIXED	(0)
-#define SUB_ALTERNATIVE  (1)
+#define SUB_ALTERNATIVE  1
 #define SUB_PARALLEL     (2)
 #define SUB_DIGEST		 (3)
 
@@ -55,7 +59,11 @@ public:
 	bool		ParseMailBody(CMyString& data);
 	bool		ParseMailHeader(CMyString& data);
 	bool		IsMailHeaderParsed(){return m_HeaderParsed;}
-	bool		ResetData(){m_HeaderParsed=false;}
+	bool		ResetParse(){m_HeaderParsed=false;}
+	
+	CMyString	GetTextMailContent();
+	CMyString	GetHtmlMailContent();
+	CMyTime		GetMailTime(){return m_Time;}
 
 private:
 	void		GetContentType(CMyString& mainType,CMyString& subType,CMyString& value);
@@ -63,16 +71,24 @@ private:
 	void		GetTransferEncode(CMyString& encode);
 	void		NotifyUnsupport(CMyString content);
 	
-	bool		ParseTextMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseImageMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseVideoMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseAudioMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseApplicationMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseMessageMailBody(CMyString& data,int subtype,int encodeType);
-	bool		ParseMulipartMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseTextMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseImageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseVideoMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseAudioMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseApplicationMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseMessageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseMulipartMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+
+	void		GetSubject(CMyString& subject,CMyString& vaule);
+	void		ParseValue(CMyString& value);
+	bool		ParseDate(CMyString& value);
 private:
 	
 	CMyHashMap<CMyString,CMyString>	m_KeyMap;
+	std::vector<CMyString>			m_Received;
+
+	CMyTime		m_Time;
+
 	bool		m_HeaderParsed;
 
 	CMyString	m_ExternData;
@@ -85,11 +101,8 @@ private:
 	static char* sVideoSubType[];
 	static char* sMessageSubType[];
 	static char* sApplicationSubType[];
-
 	static char* sTransferEncode[];
-
 	static ContentType sContentMap[];
-	
 	static char* TAG;
 };
 #endif

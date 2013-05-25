@@ -3,7 +3,7 @@
 #define MAX_BUF_SIZE (1000+1)
 #define MAX_READ_SIZE (1000)
 
-#pragma   comment(lib, "../MyLibUsedLib/zlib")
+#pragma   comment(lib, "zlib.lib")
 #pragma   comment(lib,"Wininet.lib") 
 
 char*  CHttp::TAG="CHttp";

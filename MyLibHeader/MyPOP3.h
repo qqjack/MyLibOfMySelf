@@ -13,22 +13,6 @@ using namespace std;
 
 class CMyPOP3  
 {
-private:
-	typedef enum
-	{
-		STATUS_AUTH,
-		STATUS_PROCESS
-	}POP3_STATUS;
-
-public:
-	typedef struct
-	{
-		CMyString	m_MailTitle;
-		CMyString	m_MailFrom;
-		CMyString	m_MailTime;
-		CMyString	m_MailRecTime;
-	} MailInfo;
-
 public:
 	CMyPOP3();
 	virtual ~CMyPOP3();
@@ -36,13 +20,10 @@ public:
 	void	SetLoginInfo(char* user,char* password);
 	void	SetPOP3Server(char* url);
 	void	SetPOP3Port(int port);
-	bool	startRecMail();
+
 	int		getMailCount();
-	char*	getMailTitle(int index);
-	char*	getMailContent(int index);
-	char*	getMailFrom(int index);
-	char*	getMailTime(int index);
-	char*	getMailRecTime(int index);
+	int		getMailSize(int index);
+	int		getMailTotalSize(){return m_MailTotalSize;}
 
 	char*	getErrorMessage(){return m_Buffer;}
 	bool	Login();
@@ -80,8 +61,6 @@ private:
 	std::vector<int>	m_MailSizeList;
 	unsigned long		m_MailTotalSize;
 	unsigned long		m_MailCount;
-
-	POP3_STATUS	m_Status;
 };
 
 #endif

@@ -136,7 +136,6 @@ bool CMySMTP::RcptTo()
 bool CMySMTP::Data()
 {
 	CMyString cmd ="data\r\n";
-	m_Data	="";
 	do
 	{
 		if(!ExcuteCmd(cmd))break;
@@ -145,10 +144,12 @@ bool CMySMTP::Data()
 		m_Data=cmd+m_Data;
 		m_Data+="\r\n.\r\n";
 		if(send(m_Socket,m_Data,m_Data.GetStrLen(),0)==-1)break;
+		m_Data="";
 		if(RecvData()==-1)break;
 		if(!CheckRecvState())break;
 		return true;
 	}while(0);
+	m_Data="";
 	return false;
 }
 

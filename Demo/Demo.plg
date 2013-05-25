@@ -6,11 +6,120 @@
 --------------------Configuration: Demo - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP57.tmp" with contents
+[
+/nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\OpenSource\MyLibOfMySelf\Demo\Demo.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP57.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP58.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/Demo.pdb" /debug /machine:I386 /force /out:"Debug/Demo.exe" /pdbtype:sept 
+.\Debug\Demo.obj
+.\Debug\StdAfx.obj
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP58.tmp"
+<h3>Output Window</h3>
+Compiling...
+Demo.cpp
+d:\program files\microsoft visual studio\vc98\include\deque(231) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylibofmyself\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(233) : warning C4786: '?rbegin@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylibofmyself\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(235) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QAE?AV?$reverse_iterator@Viterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@AAU45@PAU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylibofmyself\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+d:\program files\microsoft visual studio\vc98\include\deque(236) : warning C4786: '?rend@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@QBE?AV?$reverse_iterator@Vconst_iterator@?$deque@U_TASK_INFO@CMyTaskThread@@V?$allocator@U_TASK_INFO@CMyTaskThread@@@std@@@std@@U_TASK_INFO@CMyTaskThread@@ABU45@PBU45@H@2@XZ' : identifier was truncated to '255' characters in the browser information
+        d:\program files\microsoft visual studio\vc98\include\queue(22) : see reference to class template instantiation 'std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> >' being compiled
+        f:\opensource\mylibofmyself\mylibsrc\mytaskthread.h(66) : see reference to class template instantiation 'std::queue<struct CMyTaskThread::_TASK_INFO,class std::deque<struct CMyTaskThread::_TASK_INFO,class std::allocator<struct CMyTaskThread::_TASK_INFO> > >' being compiled
+f:\opensource\mylibofmyself\mylibsrc\myasynchttp.h(578) : warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylibofmyself\mylibsrc\myasynchttp.h(618) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
+f:\opensource\mylibofmyself\mylibsrc\myasynchttp.h(432) : warning C4101: 'rl' : unreferenced local variable
+f:\opensource\mylibofmyself\demo\demo.cpp(199) : warning C4305: 'argument' : truncation from 'const double' to 'bool'
+Linking...
+LINK : warning LNK4075: ignoring /INCREMENTAL due to /FORCE specification
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyRWLock::CMyRWLock(void)" (??0CMyRWLock@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyRWLock::~CMyRWLock(void)" (??1CMyRWLock@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyString::~CMyString(void)" (??1CMyString@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: unsigned int __thiscall CMyString::HashCode(void)" (?HashCode@CMyString@@QAEIXZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyTime::~CMyTime(void)" (??1CMyTime@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMySMTP::~CMySMTP(void)" (??1CMySMTP@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMailInfo::~CMailInfo(void)" (??1CMailInfo@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyPOP3::~CMyPOP3(void)" (??1CMyPOP3@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CHttp::~CHttp(void)" (??1CHttp@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyJsonObj::~CMyJsonObj(void)" (??1CMyJsonObj@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyJsonArray::~CMyJsonArray(void)" (??1CMyJsonArray@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyTaskThread::~CMyTaskThread(void)" (??1CMyTaskThread@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: virtual __thiscall CMyThreadPool::~CMyThreadPool(void)" (??1CMyThreadPool@@UAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyThreadPool::CMyThreadPool(bool)" (??0CMyThreadPool@@QAE@_N@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyTaskThread::ExitThreadDirect(void)" (?ExitThreadDirect@CMyTaskThread@@QAEXXZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyTaskThread::AssignTask(class CMyTask &,void *)" (?AssignTask@CMyTaskThread@@QAEXAAVCMyTask@@PAX@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyTaskThread::CMyTaskThread(void)" (??0CMyTaskThread@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonObj::PutBoolKeyValue(char *,bool)" (?PutBoolKeyValue@CMyJsonObj@@QAEHPAD_N@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonObj::DeleteKeyValue(char *)" (?DeleteKeyValue@CMyJsonObj@@QAEHPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonObj::PutJsonArrayKeyValue(char *,class CMyJsonArray *)" (?PutJsonArrayKeyValue@CMyJsonObj@@QAEHPADPAVCMyJsonArray@@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonArray::AddJsonObjItem(class CMyJsonObj *)" (?AddJsonObjItem@CMyJsonArray@@QAEHPAVCMyJsonObj@@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonArray::AddJsonArrayItem(class CMyJsonArray *)" (?AddJsonArrayItem@CMyJsonArray@@QAEHPAV1@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonArray::AddStringItem(char *)" (?AddStringItem@CMyJsonArray@@QAEHPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonArray::DeleteItem(int)" (?DeleteItem@CMyJsonArray@@QAEHH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyJsonObj::PutNumberKeyValue(char *,double)" (?PutNumberKeyValue@CMyJsonObj@@QAEHPADN@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyJsonObj * __thiscall CMyJsonArray::GetJsonObj(int)" (?GetJsonObj@CMyJsonArray@@QAEPAVCMyJsonObj@@H@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyJsonArray::ToString(void)" (?ToString@CMyJsonArray@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: char * __thiscall CMyJsonArray::SetJsonArrayStr(char *,int)" (?SetJsonArrayStr@CMyJsonArray@@QAEPADPADH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: static void __cdecl CMyDebug::Log(char const *,char const *,...)" (?Log@CMyDebug@@SAXPBD0ZZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyString::operator char *(void)" (??BCMyString@@QAEPADXZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyJsonObj::ToString(void)" (?ToString@CMyJsonObj@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: char * __thiscall CMyJsonObj::SetJsonStr(char *,int)" (?SetJsonStr@CMyJsonObj@@QAEPADPADH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyJsonArray::CMyJsonArray(void)" (??0CMyJsonArray@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyJsonObj::CMyJsonObj(void)" (??0CMyJsonObj@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CHttp::Get(char *,char *)" (?Get@CHttp@@QAEHPAD0@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CHttp::AddHttpHeader(char *)" (?AddHttpHeader@CHttp@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CHttp::SetAcceptType(char *)" (?SetAcceptType@CHttp@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CHttp::CHttp(void)" (??0CHttp@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMySMTP::SetMailTo(char *)" (?SetMailTo@CMySMTP@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMySMTP::SetMailFrom(char *)" (?SetMailFrom@CMySMTP@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMySMTP::SetSMTPServer(char *)" (?SetSMTPServer@CMySMTP@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMySMTP::SetLoginInfo(char *,char *)" (?SetLoginInfo@CMySMTP@@QAEXPAD0@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyString::GetSplitString(int,class CMyString &)" (?GetSplitString@CMyString@@QAEHHAAV1@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyString::CMyString(void)" (??0CMyString@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: int __thiscall CMyString::Split(char *)" (?Split@CMyString@@QAEHPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyString::CMyString(char *)" (??0CMyString@@QAE@PAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: bool __thiscall CMyPOP3::Retr(int,class CMailInfo &)" (?Retr@CMyPOP3@@QAE_NHAAVCMailInfo@@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: bool __thiscall CMyPOP3::List(void)" (?List@CMyPOP3@@QAE_NXZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: bool __thiscall CMyPOP3::Login(void)" (?Login@CMyPOP3@@QAE_NXZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyPOP3::SetPOP3Server(char *)" (?SetPOP3Server@CMyPOP3@@QAEXPAD@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyPOP3::SetLoginInfo(char *,char *)" (?SetLoginInfo@CMyPOP3@@QAEXPAD0@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyPOP3::CMyPOP3(void)" (??0CMyPOP3@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMailInfo::CMailInfo(void)" (??0CMailInfo@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMySMTP::CMySMTP(void)" (??0CMySMTP@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyTimeInterval __thiscall CMyTime::operator-(class CMyTime)" (??GCMyTime@@QAE?AVCMyTimeInterval@@V0@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyTimeInterval __thiscall CMyCalendar::operator-(class CMyCalendar)" (??GCMyCalendar@@QAE?AVCMyTimeInterval@@V0@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyCalendar::GetDateInEnSimple(void)" (?GetDateInEnSimple@CMyCalendar@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyCalendar::GetDateInEN(void)" (?GetDateInEN@CMyCalendar@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyCalendar::GetDateInCN(void)" (?GetDateInCN@CMyCalendar@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyCalendar & __thiscall CMyCalendar::operator-=(class CMyTimeInterval &)" (??ZCMyCalendar@@QAEAAV0@AAVCMyTimeInterval@@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyTimeInterval::SetDays(int)" (?SetDays@CMyTimeInterval@@QAEXH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyCalendar::CMyCalendar(int,int,int)" (??0CMyCalendar@@QAE@HHH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyTime::CMyTime(int,int,int,int,int,int,int)" (??0CMyTime@@QAE@HHHHHHH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyTime::ToStringEn(void)" (?ToStringEn@CMyTime@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyString __thiscall CMyTime::ToStringCn(void)" (?ToStringCn@CMyTime@@QAE?AVCMyString@@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: class CMyTime & __thiscall CMyTime::operator+=(class CMyTimeInterval &)" (??YCMyTime@@QAEAAV0@AAVCMyTimeInterval@@@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyTimeInterval::SetMilliseconds(int)" (?SetMilliseconds@CMyTimeInterval@@QAEXH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: void __thiscall CMyTimeInterval::SetSeconds(int)" (?SetSeconds@CMyTimeInterval@@QAEXH@Z)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyTimeInterval::CMyTimeInterval(void)" (??0CMyTimeInterval@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: __thiscall CMyTime::CMyTime(void)" (??0CMyTime@@QAE@XZ)
+Demo.obj : error LNK2001: unresolved external symbol "public: static void __cdecl CHttp::InitalHttp(void)" (?InitalHttp@CHttp@@SAXXZ)
+Debug/Demo.exe : warning LNK4088: image being generated due to /FORCE option; image may not run
+Creating command line "bscmake.exe /nologo /o"Debug/Demo.bsc"  .\Debug\StdAfx.sbr .\Debug\Demo.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-Demo.exe - 0 error(s), 0 warning(s)
+Demo.exe - 71 error(s), 10 warning(s)
 </pre>
 </body>
 </html>

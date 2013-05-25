@@ -4,6 +4,8 @@ static char END_MARK[]={'\r','\n','.','\r','\n'};
 #define ENDMARKLEN	(5)
 #define IsEnd(_X) (memcmp((void*)_X,END_MARK,ENDMARKLEN)==0)
 
+#define SUPPROT_MAX_MAIL_SIZE  (4*1024*1024)
+
 CMyPOP3::CMyPOP3()
 {
 	m_ServerPort	=DEFAULT_POP3_PORT;
@@ -163,6 +165,7 @@ bool CMyPOP3::RecvCmdResult(CMyString& data)
 	int recvLen=0;
 	int bufLen=BUFFER_LEN;
 	char *cmpBuf=NULL;
+	int sumLen=0;
 	data="";
 	do
 	{
@@ -170,7 +173,8 @@ bool CMyPOP3::RecvCmdResult(CMyString& data)
 
 		m_Buffer[recvLen]=0;
 		data+=m_Buffer;
-
+		
+		sumLen+=recvLen;
 		if(recvLen<0)break;
 		if(recvLen>5)
 		{
@@ -183,6 +187,11 @@ bool CMyPOP3::RecvCmdResult(CMyString& data)
 		if(IsEnd(cmpBuf))
 		{
 			return true;
+		}
+		if(sumLen>SUPPROT_MAX_MAIL_SIZE)
+		{
+			sprintf(m_Buffer,"recive data is large than 4M,exit!");
+			break;
 		}
 	}while(1);
 	return false;
@@ -247,4 +256,15 @@ bool CMyPOP3::FetchMailData()
 {
 	sprintf(&m_Buffer[4],"%d %d",m_MailCount,m_MailTotalSize);
 	return true;
+}
+
+int	CMyPOP3::getMailCount()
+{
+	return m_MailCount;
+}
+
+int	CMyPOP3::getMailSize(int index)
+{
+	if(index>=m_MailSizeList.size())return -1;
+	return m_MailSizeList[index];
 }

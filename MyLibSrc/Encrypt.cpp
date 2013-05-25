@@ -25,18 +25,14 @@ int CEncrypt::EncodeBase64(const unsigned char* Data,int DataByte,CMyBuffer& out
         Tmp[1] = *Data++;
         Tmp[2] = *Data++;
         Tmp[3] = *Data++;
-		outBuffer.write((char*)&EncodeTable[Tmp[1] >> 2],1);
-		encodeLen++;
-        outBuffer.write((char*)&EncodeTable[((Tmp[1] << 4) | (Tmp[2] >> 4)) & 0x3F],1);
-		encodeLen++;
-        outBuffer.write((char*)&EncodeTable[((Tmp[2] << 2) | (Tmp[3] >> 6)) & 0x3F],1);
-		encodeLen++;
-        outBuffer.write((char*)&EncodeTable[Tmp[3] & 0x3F],1);
-		encodeLen++;
+		outBuffer.SetAt(encodeLen++,EncodeTable[Tmp[1] >> 2]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[((Tmp[1] << 4) | (Tmp[2] >> 4)) & 0x3F]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[((Tmp[2] << 2) | (Tmp[3] >> 6)) & 0x3F]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[Tmp[3] & 0x3F]);
         if(LineLength+=4,LineLength==76)
 		{
-			outBuffer.write("\r\n",2);
-			encodeLen+=2;
+			outBuffer.SetAt(encodeLen++,'\r');
+			outBuffer.SetAt(encodeLen++,'\n');
 			LineLength=0;
 		}
     }
@@ -45,25 +41,24 @@ int CEncrypt::EncodeBase64(const unsigned char* Data,int DataByte,CMyBuffer& out
     if(Mod==1)
     {
         Tmp[1] = *Data++;
-        outBuffer.write((char*)&EncodeTable[(Tmp[1] & 0xFC) >> 2],1);
-        outBuffer.write((char*)&EncodeTable[((Tmp[1] & 0x03) << 4)],1);
-        outBuffer.write("==",2);
-		encodeLen+=4;
+        outBuffer.SetAt(encodeLen++,EncodeTable[(Tmp[1] & 0xFC) >> 2]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[((Tmp[1] & 0x03) << 4)]);
+		outBuffer.SetAt(encodeLen++,'=');
+		outBuffer.SetAt(encodeLen++,'=');
     }
     else if(Mod==2)
     {
         Tmp[1] = *Data++;
         Tmp[2] = *Data++;
-        outBuffer.write((char*)&EncodeTable[(Tmp[1] & 0xFC) >> 2],1);
-        outBuffer.write((char*)&EncodeTable[((Tmp[1] & 0x03) << 4) | ((Tmp[2] & 0xF0) >> 4)],1);
-        outBuffer.write((char*)&EncodeTable[((Tmp[2] & 0x0F) << 2)],1);
-		outBuffer.write("=",1);
-        encodeLen+=4;
+        outBuffer.SetAt(encodeLen++,EncodeTable[(Tmp[1] & 0xFC) >> 2]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[((Tmp[1] & 0x03) << 4) | ((Tmp[2] & 0xF0) >> 4)]);
+        outBuffer.SetAt(encodeLen++,EncodeTable[((Tmp[2] & 0x0F) << 2)]);
+		outBuffer.SetAt(encodeLen++,'=');
     }
     return encodeLen; 
 }
 
-int CEncrypt::DecodeBase64(const char* Data,int DataByte,CMyBuffer& outBuffer)
+int CEncrypt::DecodeBase64(const unsigned char* Data,int DataByte,CMyBuffer& outBuffer)
 {
 	//返回值
 	int decodeLen=0;
@@ -93,21 +88,15 @@ int CEncrypt::DecodeBase64(const char* Data,int DataByte,CMyBuffer& outBuffer)
         {
             nValue = DecodeTable[*Data++] << 18;
             nValue += DecodeTable[*Data++] << 12;
-			c=(nValue & 0x00FF0000) >> 16;
-            outBuffer.write(&c,1);
-			decodeLen++;
+            outBuffer.SetAt(decodeLen++,(nValue & 0x00FF0000) >> 16);
             if (*Data != '=')
             {
-                nValue += DecodeTable[*Data++] << 6;
-                c=(nValue & 0x0000FF00) >> 8;
-				outBuffer.write(&c,1);
-				decodeLen++;
+                nValue += DecodeTable[*Data++] << 6;   
+				outBuffer.SetAt(decodeLen++,(nValue & 0x0000FF00) >> 8);
                 if (*Data != '=')
                 {
                     nValue += DecodeTable[*Data++];
-                    c=nValue & 0x000000FF;
-					outBuffer.write(&c,1);
-					decodeLen++;
+					outBuffer.SetAt(decodeLen++,nValue & 0x000000FF);
                 }
             }
             i += 4;
@@ -119,4 +108,78 @@ int CEncrypt::DecodeBase64(const char* Data,int DataByte,CMyBuffer& outBuffer)
         }
      }
     return decodeLen;
+}
+
+
+int CEncrypt::EncodeQuotedPrintable(const unsigned char* data,int dataLen,CMyBuffer& outBuffer)
+{
+#define PART1(_X) ((((_X)&0x0f)>=10)?(((_X)&0x0f)-10+'A'):(((_X)&0x0f)+'0'))
+#define PART2(_X) (((((_X)>>4)&0x0f)>=10)?((10-((_X)>>4)&0x0f)+'A'):((((_X)>>4)&0x0f)+'0'))
+#define IS_3_BYTE(_X) (!((_X)>=33&&(_X)<=126))
+
+	int encodeLen=0;
+	for(int i=0;i<dataLen;i++)
+	{
+		if(IS_3_BYTE(data[i])||(data[i]=='='))
+		{
+			outBuffer.SetAt(encodeLen++,'=');
+			outBuffer.SetAt(encodeLen++,PART2(data[i]));
+			outBuffer.SetAt(encodeLen++,PART1(data[i]));
+		}
+		else
+		{
+			outBuffer.SetAt(encodeLen++,data[i]);
+		}
+	}
+	return encodeLen;
+}
+
+int CEncrypt::DecodeQuotedPrintable(const unsigned char* data,int dataLen,CMyBuffer& outBuffer)
+{
+#define X_TO_PART(_X) (((_X)>'9')?(10+(_X)-'A'):((_X)-'0'))
+	int decodeLen=0;
+	int count=0;
+	bool flag=false;
+	int value=0;
+	bool is3Byte=false;
+
+	while(count<dataLen)
+	{
+		if(data[count]=='=')
+		{
+			if(count+1<dataLen&&(data[count+1]>=33&&data[count+1]<=126))
+			{
+				//跳过软换行符
+				count++;
+				continue;
+			}
+
+			count++;
+			is3Byte=true;
+			flag=false;
+			continue;
+		}
+		if(is3Byte)
+		{
+			if(!flag)
+			{
+				value=X_TO_PART(data[count])<<4;
+				flag=!flag;
+			}
+			else
+			{
+				value|=X_TO_PART(data[count]);
+				outBuffer.SetAt(decodeLen++,value);
+				value=0;
+				is3Byte=false;
+			}
+		}
+		else
+		{
+			outBuffer.SetAt(decodeLen++,data[count]);
+		}
+		count++;
+		
+	}
+	return decodeLen;
 }

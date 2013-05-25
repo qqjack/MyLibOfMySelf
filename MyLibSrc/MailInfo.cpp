@@ -1,16 +1,22 @@
 #include "MailInfo.h"
 #include "MyDebug.h"
+#include "Encrypt.h"
+#include "MyBuffer.h"
+
 
 #define  SWITCH
 
 #ifndef SWITCH
-	#define Log	CMyDebug::LogNULL
+	#define LogS	LOGNULL
 #else
-	#define Log CMyDebug::Log
+	#define LogS LOG
 #endif
 
 #define CONTENT_TYPE_COUNT (7)
 #define CONTENT_ENCODE_TYPE_COUNT (7)
+
+#define DATE_REGEX "(Mon|Tues|Wed|Thur|Fri|Sat|Sun) *, +([1-9]|[1-3][0-9]) +(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +[0-9]{4} +[0-2][0-9]:[0-5][0-9]:[0-5][0-9]( +(\\+|-)[0-9]{4})?"
+
 
 char* CMailInfo::sContentType[]=
 {
@@ -87,6 +93,9 @@ char* CMailInfo::sTransferEncode[]=
 	"binary",
 	"x-token"
 };
+
+#define BASE64 (3)
+#define QP	   (4)
 
 CMailInfo::CMailInfo()
 {
@@ -171,25 +180,31 @@ bool CMailInfo::ParseMailBody(CMyString& data)
 		switch(index1)
 		{
 		case MAIN_TEXT:
-			return ParseTextMailBody(data,index2,index3);
+			return ParseTextMailBody(data,index2,index3,charset);
 		case MAIN_MULTIPART:
-			return ParseMulipartMailBody(data,index2,index3);
+			return ParseMulipartMailBody(data,index2,index3,charset);
 		case MAIN_IMAGE:
-			return ParseImageMailBody(data,index2,index3);
+			return ParseImageMailBody(data,index2,index3,charset);
 		case MAIN_VIDEO:
-			return ParseVideoMailBody(data,index2,index3);
+			return ParseVideoMailBody(data,index2,index3,charset);
 		case MAIN_AUDIO:
-			return ParseAudioMailBody(data,index2,index3);
+			return ParseAudioMailBody(data,index2,index3,charset);
 		case MAIN_APPLICATION:
-			return ParseApplicationMailBody(data,index2,index3);
+			return ParseApplicationMailBody(data,index2,index3,charset);
 		case MAIN_MESSAGE:
-			return ParseMessageMailBody(data,index2,index3);
+			return ParseMessageMailBody(data,index2,index3,charset);
 		default:
 			CMyDebug::Log(TAG,2,0,"main type:%s  sub type:%s  exception!!!,unkonw type",mainType.GetBuffer(),subType.GetBuffer());
 			break;
 		}
 	}
 	return false;
+}
+
+void CMailInfo::GetSubject(CMyString& subject,CMyString& vaule)
+{
+	
+	vaule=subject;
 }
 
 bool CMailInfo::ParseMailHeader(CMyString& data)
@@ -212,6 +227,7 @@ bool CMailInfo::ParseMailHeader(CMyString& data)
 	CMyString key;
 	CMyString value;
 	CMyString temp;
+	bool	  haveDateFeild=false;
 
 	for(int i=0;i<count;i++)
 	{
@@ -231,27 +247,36 @@ bool CMailInfo::ParseMailHeader(CMyString& data)
 
 		key	=temp;
 		value	=line.GetSubStr(key.GetStrLen()+1,line.GetStrLen());
-		if(key=="Subject")
-		{
-			if(value.Match("=\?.+\?.+\?=",NULL)!=-1)
-			{
-				int num=value.Split("?");
-				if(num!=-1)
-				{
-					CMyString encode;
-					CMyString charset;
-					CMyString content;
-					value.GetSplitString(1,charset);
-					value.GetSplitString(2,encode);
-					value.GetSplitString(3,content);
-				}
-			}
-		}
+		ParseValue(value);
+
 		value.Trim();
-		m_KeyMap.AddItem(key,value);
+
+		if(key.CompareI("received"))
+		{
+			m_Received.push_back(value);
+		}
+		else
+		{
+			m_KeyMap.AddItem(key,value);
+		}
+
+		if(key.CompareI("Date"))
+		{
+			if(!ParseDate(value))
+			{
+				CMyDebug::Log(TAG,2,0,"the date formal is not right,date:%s",value.GetBuffer());
+			}
+			haveDateFeild=true;
+		}
 
 		printf("%s:%s\n",key.GetBuffer(),value.GetBuffer());
 	}
+	
+	if(!haveDateFeild)
+	{
+		//没有时间域，到其他字段中提取
+	}
+
 	m_HeaderParsed	=true;
 
 	if(m_KeyMap.GetItem(CMyString("Content-Type"),&value)==-1)
@@ -259,6 +284,131 @@ bool CMailInfo::ParseMailHeader(CMyString& data)
 		m_KeyMap.AddItem(CMyString("Content-Type"),CMyString("text/plain; charset = us-ascii"));
 	}
 	return true;
+}
+
+bool CMailInfo::ParseDate(CMyString& value)
+{
+	CMyString date;
+	CMyString splitTxt;
+	CMyString temp;
+	CMyTimeInterval interval;
+
+	int year=0,month=0,day=0,hour=0,minute=0,second=0;
+
+	if(value.Match(DATE_REGEX,&date,true)!=-1)
+	{
+		int count=date.Split(" ");
+		date.GetSplitString(1,splitTxt);
+		day=splitTxt.ToInt();
+
+		date.GetSplitString(2,splitTxt);
+		for(int i=1;i<=12;i++)
+		{
+			if(splitTxt.CompareI(CMyCalendar::sMonth[i]))
+			{
+				month=i;
+			}
+		}
+		
+		date.GetSplitString(3,splitTxt);
+		year=splitTxt.ToInt();
+		
+		date.GetSplitString(4,splitTxt);
+		splitTxt.Split(":");
+		splitTxt.GetSplitString(0,temp);
+		hour=temp.ToInt();
+		splitTxt.GetSplitString(1,temp);
+		minute=temp.ToInt();
+		splitTxt.GetSplitString(2,temp);
+		second=temp.ToInt();
+
+		m_Time=CMyTime(year,month,day,hour,minute,second);
+
+		if(count==6)
+		{
+			date.GetSplitString(5,splitTxt);
+			char tempBuf[3];
+			tempBuf[2]=0;
+
+			tempBuf[0]=splitTxt[1];
+			tempBuf[1]=splitTxt[2];
+	
+			hour=atol(tempBuf);
+
+			tempBuf[0]=splitTxt[3];
+			tempBuf[1]=splitTxt[4];
+			
+			minute=atol(tempBuf);
+
+			int totalSecond2=(hour*3600+minute*60)*(splitTxt[0]=='+'?1:-1);
+			int totalSecond1=8*3600;
+
+			int diff =totalSecond1-totalSecond2;
+
+			if(diff<0)
+			{
+				interval.SetSingal(false);
+			}
+			else
+			{
+				diff=-diff;
+			}
+
+			interval.SetDays(diff/(3600*24));
+			diff%=3600*24;
+			interval.SetHours(diff/3600);
+			diff%=60;
+			interval.SetMinutes(diff/60);
+			m_Time+=interval;
+		}
+		return true;
+	}
+	return false;
+}
+
+void CMailInfo::ParseValue(CMyString& value)
+{
+	CMyString subStr;
+	CMyString encode;
+	CMyString charset;
+	CMyString content;
+
+	CMyBuffer buffer;
+
+	int r=value.Match("=\?.+\?.+\?=",&subStr);
+	if(r==-1)return;
+	do
+	{
+		int num=subStr.Split("?");
+		if(num!=-1)
+		{
+			subStr.GetSplitString(1,charset);
+			subStr.GetSplitString(2,encode);
+			subStr.GetSplitString(3,content);
+
+			buffer.Alloc(content.GetStrLen()*3);
+			int decodeLen=0;
+			if(encode[0]=='B')
+			{
+				decodeLen=CEncrypt::DecodeBase64((const unsigned char *)content.GetBuffer(),content.GetStrLen(),buffer);
+				content=CMyString::StringFromMem(content.GetBuffer(),0,decodeLen);
+			}
+			else if(encode[0]=='Q')
+			{
+				decodeLen=CEncrypt::DecodeQuotedPrintable((const unsigned char *)content.GetBuffer(),content.GetStrLen(),buffer);
+				content=CMyString::StringFromMem(content.GetBuffer(),0,decodeLen);
+			}
+			if(encode[0]=='Q'||encode[0]=='B')
+			{
+				if(charset.CompareI("utf-8"))
+				{
+
+				}
+
+				return;
+			}
+		}
+	}while(value.MatchNext(&subStr)!=-1);
 }
 
 void CMailInfo::GetContentType(CMyString& mainType,CMyString& subType,CMyString& value)
@@ -302,7 +452,7 @@ void CMailInfo::GetCharset(CMyString& charset,CMyString& value)
 	}while(0);
 }
 
-bool CMailInfo::ParseTextMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseTextMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	switch(subtype)
 	{
@@ -311,47 +461,65 @@ bool CMailInfo::ParseTextMailBody(CMyString& data,int subtype,int encodeType)
 	case SUB_HTML:
 		break;
 	}
-	return false;
+	if(encodeType==BASE64||encodeType==QP)
+	{
+		CMyBuffer buffer;
+		int len=0;
+		if(encodeType==BASE64)
+		{
+			buffer.Alloc(data.GetStrLen()*2);
+			len=CEncrypt::DecodeBase64((const unsigned char *)data.GetBuffer(),data.GetStrLen(),buffer);
+		}
+		else
+		{
+			buffer.Alloc(data.GetStrLen()*3);
+			len=CEncrypt::DecodeQuotedPrintable((const unsigned char *)data.GetBuffer(),data.GetStrLen(),buffer);
+		}
+		data=CMyString::StringFromMem(buffer.GetBuffer(),0,len);
+	}
+	return true;
 }
 
-bool CMailInfo::ParseImageMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseImageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	CMyDebug::Log(TAG,2,0,"main type: image subtype: %s  unsupport! you can fix it",sImageSubType[subtype]);
 	return false;
 }
 
-bool CMailInfo::ParseVideoMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseVideoMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	CMyDebug::Log(TAG,2,0,"main type: video subtype: %s  unsupport! you can fix it",sVideoSubType[subtype]);
 	return false;
 }
 
-bool CMailInfo::ParseAudioMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseAudioMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	CMyDebug::Log(TAG,2,0,"main type: audio subtype: %s  unsupport! you can fix it",sAudioSubType[subtype]);
 	return false;
 }
 
-bool CMailInfo::ParseApplicationMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseApplicationMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	CMyDebug::Log(TAG,2,0,"main type: application subtype: %s  unsupport! you can fix it",sApplicationSubType[subtype]);
 	return false;
 }
 
-bool CMailInfo::ParseMessageMailBody(CMyString& data,int subtype,int encodeType)
+bool CMailInfo::ParseMessageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	CMyDebug::Log(TAG,2,0,"main type: message subtype: %s  unsupport! you can fix it",sMessageSubType[subtype]);
 	return false;
 }
 
-bool CMailInfo::ParseMulipartMailBody(CMyString& data,int subtype,int encodeType)
+void sa()
+{
+	CMyDebug::Log("asdga",2,0,"main type: multipart subtype  unsupport! you can fix it");
+}
+
+bool CMailInfo::ParseMulipartMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset)
 {
 	switch(subtype)
 	{
 	case SUB_ALTERNATIVE:
-		{
-			break;
-		}
 	case SUB_MIXED:
 	case SUB_PARALLEL:
 	case SUB_DIGEST:
@@ -360,6 +528,8 @@ bool CMailInfo::ParseMulipartMailBody(CMyString& data,int subtype,int encodeType
 	}
 	return false;
 }
+
+
 
 void CMailInfo::GetTransferEncode(CMyString& encode)
 {

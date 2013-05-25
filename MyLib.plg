@@ -6,49 +6,6 @@
 --------------------Configuration: MyLib - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPDD.tmp" with contents
-[
-/nologo /MD /W3 /Gm /GX /ZI /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\Program Files\Microsoft Visual Studio\MyProjects\MyLib\MyLibSrc\Http.cpp"
-"D:\Program Files\Microsoft Visual Studio\MyProjects\MyLib\MyLibSrc\MyAsyncHttp.cpp"
-"D:\Program Files\Microsoft Visual Studio\MyProjects\MyLib\MyLibSrc\MyRegex.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPDD.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPDE.tmp" with contents
-[
-/nologo /out:"Debug\MyLib.lib" 
-".\Debug\common.obj"
-".\Debug\Http.obj"
-".\Debug\MyArrayList.obj"
-".\Debug\MyAsyncHttp.obj"
-".\Debug\MyDebug.obj"
-".\Debug\MyFile.obj"
-".\Debug\MyHashMap.obj"
-".\Debug\MyJsonObj.obj"
-".\Debug\MyRegex.obj"
-".\Debug\MyRWLock.obj"
-".\Debug\MyString.obj"
-".\Debug\MyTaskThread.obj"
-".\Debug\MyTempFile.obj"
-".\Debug\MyThread.obj"
-".\Debug\MyThreadPool.obj"
-".\Debug\MyTime.obj"
-]
-Creating command line "link.exe -lib @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPDE.tmp"
-<h3>Output Window</h3>
-Compiling...
-Http.cpp
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\http.cpp(134) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\http.cpp(172) : warning C4101: 'index' : unreferenced local variable
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\http.cpp(258) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\http.cpp(198) : warning C4101: 'l' : unreferenced local variable
-MyAsyncHttp.cpp
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\myasynchttp.h(581) : warning C4554: '<<' : check operator precedence for possible error; use parentheses to clarify precedence
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\myasynchttp.h(621) : warning C4554: '&' : check operator precedence for possible error; use parentheses to clarify precedence
-d:\program files\microsoft visual studio\myprojects\mylib\mylibsrc\myasynchttp.h(435) : warning C4101: 'rl' : unreferenced local variable
-MyRegex.cpp
-Generating Code...
-Creating library...
 
 
 

@@ -3,7 +3,7 @@
 
 char* CMyRegex::TAG="CMyRegex";
 
-#pragma   comment(lib, "../MyLibUsedLib/pcre")
+#pragma   comment(lib, "pcre.lib")
 
 CMyRegex::CMyRegex()
 {

@@ -82,7 +82,48 @@ int main(int argc, char* argv[])
 	int ts='\r';
 	DWORD d=::GetCurrentProcessId();
 	CHttp::InitalHttp();
+	
+	CMyTime time;
+	CMyTimeInterval interval;
+	interval.SetSeconds(1);
+	interval.SetMilliseconds(0);
+	for(int a=0;a<183;a++)
+	{
+		time+=interval;
+		printf("%s\n",time.ToStringCn().GetBuffer());
+		printf("%s\n",time.ToStringEn().GetBuffer());
+	}
 
+	CMyTime time2(2012,1,1,23,59,59,999);
+	CMyTimeInterval interval2;
+	interval2.SetMilliseconds(500);
+	time2+=interval2;
+
+	printf("%s\n",time2.ToStringCn().GetBuffer());
+	CMyCalendar calendar(2063,3,16);
+	
+	interval.SetDays(600);
+	interval.SetSingal(false);
+	for(int j=0;j<30;j++)
+	{
+		calendar-=interval;
+		printf("%s\n",calendar.GetDateInCN().GetBuffer());
+		printf("%s\n",calendar.GetDateInEN().GetBuffer());
+		printf("%s\n",calendar.GetDateInEnSimple().GetBuffer());
+	}
+
+	CMyCalendar calendar2(2063,3,5);
+	interval=calendar-calendar2;
+	printf("%d 天",interval.GetDays());
+
+
+	CMyTime timeFirst(2012,1,3,20,34,40);
+	CMyTime timeSecond(2012,1,3,20,34,48);
+
+	CMyTimeInterval diff =timeFirst-timeSecond;
+
+	printf("\n%d 天,%d 小时,%d 分钟 ,%d 秒钟 ,%d 毫秒\n",diff.GetDays()
+			,diff.GetHours(),diff.GetMinutes(),diff.GetSeconds(),diff.GetMilliseconds());
 	CMySMTP smtp;
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
@@ -90,9 +131,10 @@ int main(int argc, char* argv[])
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
 	pop3.List();
-	pop3.Retr(2,mailInfo);
+	pop3.Retr(12,mailInfo);
 
 	CMyString str="aaa\r\ndddddddddd\r\nadsfadsf\r\nfffff\r\n\r\nbbbb";
+
 	int num=str.Split("\r\n");
 	for(int i=0;i<num;i++)
 	{
@@ -100,12 +142,12 @@ int main(int argc, char* argv[])
 		str.GetSplitString(i,d);
 		printf("%s\n",d.GetBuffer());
 	}
-//	smtp.SetLoginInfo("415472580","zj8847523");
-//	smtp.SetSMTPServer("smtp.qq.com");
+	smtp.SetLoginInfo("","");
+	smtp.SetSMTPServer("smtp.qq.com");
 //	smtp.Login();
 
-//	smtp.SetMailFrom("415472580@qq.com");
-//	smtp.SetMailTo("415472580@qq.com");
+	smtp.SetMailFrom("415472580@qq.com");
+	smtp.SetMailTo("415472580@qq.com");
 	
 //	smtp.SetMailData("just test!!!",strlen("just test!!!"));
 //	smtp.SetMailTitle("cmd");

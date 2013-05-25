@@ -67,7 +67,7 @@ public:
 	CMyString&	operator =(char* str);
 	CMyString&	operator =(int	number);
 	CMyString&	operator =(double	number);
-	CMyString&	operator =(CMyString& str);
+//	CMyString&	operator =(const CMyString& str);
 	CMyString&	operator +=(char* str);
 	CMyString&	operator +=(char c);
 	CMyString&	operator +=(CMyString& str);
