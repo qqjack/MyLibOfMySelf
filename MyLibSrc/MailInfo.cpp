@@ -237,7 +237,9 @@ bool CMailInfo::ParseMailHeader(CMyString& data)
 		if(temp[0]==' '||temp[0]=='\t')
 		{
 			if(i==0)return false;
-			value+="\r\n"+line;
+			ParseValue(line);
+			line.Trim();
+			value+=line;
 			m_KeyMap.SetItem(key,value);
 			printf("---fixed\n%s:%s\n",key.GetBuffer(),value.GetBuffer());
 			continue;
@@ -307,6 +309,7 @@ bool CMailInfo::ParseDate(CMyString& value)
 			if(splitTxt.CompareI(CMyCalendar::sMonth[i]))
 			{
 				month=i;
+				break;
 			}
 		}
 		
@@ -372,10 +375,12 @@ void CMailInfo::ParseValue(CMyString& value)
 	CMyString encode;
 	CMyString charset;
 	CMyString content;
+	CMyString decodeContent;
+	CMyString bak=value;
 
 	CMyBuffer buffer;
 
-	int r=value.Match("=\?.+\?.+\?=",&subStr);
+	int r=value.Match("=\\\?.+\\\?.+\\\?=",&subStr);
 	if(r==-1)return;
 	do
 	{
@@ -391,20 +396,26 @@ void CMailInfo::ParseValue(CMyString& value)
 			if(encode[0]=='B')
 			{
 				decodeLen=CEncrypt::DecodeBase64((const unsigned char *)content.GetBuffer(),content.GetStrLen(),buffer);
-				content=CMyString::StringFromMem(content.GetBuffer(),0,decodeLen);
+				decodeContent=CMyString::StringFromMem(buffer.GetBuffer(),0,decodeLen);
 			}
 			else if(encode[0]=='Q')
 			{
 				decodeLen=CEncrypt::DecodeQuotedPrintable((const unsigned char *)content.GetBuffer(),content.GetStrLen(),buffer);
-				content=CMyString::StringFromMem(content.GetBuffer(),0,decodeLen);
+				decodeContent=CMyString::StringFromMem(buffer.GetBuffer(),0,decodeLen);
 			}
 			if(encode[0]=='Q'||encode[0]=='B')
 			{
 				if(charset.CompareI("utf-8"))
 				{
-
+					
+				}
+				else
+				{
 				}
 
+				bak.Replace(subStr.GetBuffer(),decodeContent.GetBuffer(),0);
+
+				value=bak;
 				return;
 			}
 		}

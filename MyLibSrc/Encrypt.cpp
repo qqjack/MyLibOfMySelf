@@ -115,7 +115,7 @@ int CEncrypt::EncodeQuotedPrintable(const unsigned char* data,int dataLen,CMyBuf
 {
 #define PART1(_X) ((((_X)&0x0f)>=10)?(((_X)&0x0f)-10+'A'):(((_X)&0x0f)+'0'))
 #define PART2(_X) (((((_X)>>4)&0x0f)>=10)?((10-((_X)>>4)&0x0f)+'A'):((((_X)>>4)&0x0f)+'0'))
-#define IS_3_BYTE(_X) (!((_X)>=33&&(_X)<=126))
+#define IS_3_BYTE(_X) (!((_X)<33||(_X)>126))
 
 	int encodeLen=0;
 	for(int i=0;i<dataLen;i++)
@@ -147,10 +147,16 @@ int CEncrypt::DecodeQuotedPrintable(const unsigned char* data,int dataLen,CMyBuf
 	{
 		if(data[count]=='=')
 		{
-			if(count+1<dataLen&&(data[count+1]>=33&&data[count+1]<=126))
+			if(count+2<dataLen&&(data[count+1]=='\r'&&data[count+2]=='\r'))
 			{
 				//Ìø¹ýÈí»»ÐÐ·û
-				count++;
+				count+=3;
+				continue;
+			}
+			else if(count+1<dataLen&&data[count+1]=='=')
+			{
+				outBuffer.SetAt(decodeLen++,'=');
+				count+=2;
 				continue;
 			}
 

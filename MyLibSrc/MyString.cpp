@@ -81,12 +81,12 @@ CMyString& CMyString::operator =(char* str)
 	copy(str);
 	return *this;
 }
-/*
+
 CMyString& CMyString::operator =(const CMyString& str)
 {
-	copy(str.GetBuffer());
+	copy(((CMyString&)str).GetBuffer());
 	return *this;
-}*/
+}
 
 CMyString& CMyString::operator =(int number)
 {
