@@ -163,7 +163,7 @@ int main(int argc, char* argv[])
 /*
 
 	CMySMTP smtp;
-	smtp.SetLoginInfo("415472580","zj8847523");
+	smtp.SetLoginInfo("","");
 	smtp.SetSMTPServer("smtp.qq.com");
 	smtp.Login();
 
