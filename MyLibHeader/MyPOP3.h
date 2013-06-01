@@ -21,9 +21,9 @@ public:
 	void	SetPOP3Server(char* url);
 	void	SetPOP3Port(int port);
 
-	int		getMailCount();
-	int		getMailSize(int index);
-	int		getMailTotalSize(){return m_MailTotalSize;}
+	int		GetMailCount();
+	int		GetMailSize(int index);
+	int		GetMailTotalSize(){return m_MailTotalSize;}
 
 	char*	getErrorMessage(){return m_Buffer;}
 	bool	Login();

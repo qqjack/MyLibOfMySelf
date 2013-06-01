@@ -64,6 +64,7 @@ public:
 	CMyString	GetTextMailContent();
 	CMyString	GetHtmlMailContent();
 	CMyTime		GetMailTime(){return m_Time;}
+	CMyString	GetMailSubject();
 
 private:
 	void		GetContentType(CMyString& mainType,CMyString& subType,CMyString& value);
@@ -71,15 +72,14 @@ private:
 	void		GetTransferEncode(CMyString& encode);
 	void		NotifyUnsupport(CMyString content);
 	
-	bool		ParseTextMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseImageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseVideoMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseAudioMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseApplicationMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseMessageMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
-	bool		ParseMulipartMailBody(CMyString& data,int subtype,int encodeType,CMyString& charset);
+	bool		ParseTextMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseImageMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseVideoMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseAudioMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseApplicationMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseMessageMailBody(CMyString& data,int subtype,int encodeType);
+	bool		ParseMulipartMailBody(CMyString& data,int subtype,int encodeType);
 
-	void		GetSubject(CMyString& subject,CMyString& vaule);
 	void		ParseValue(CMyString& value);
 	bool		ParseDate(CMyString& value);
 private:
@@ -87,11 +87,18 @@ private:
 	CMyHashMap<CMyString,CMyString>	m_KeyMap;
 	std::vector<CMyString>			m_Received;
 
+	std::vector<CMailInfo*>			m_SubMails;
 	CMyTime		m_Time;
 
 	bool		m_HeaderParsed;
 
 	CMyString	m_ExternData;
+
+	CMyString	m_Boundary;
+	CMyString   m_Charset;
+
+	CMyString	m_Text;
+	CMyString   m_Html;
 
 	static char* sContentType[];
 	static char* sTextSubType[];

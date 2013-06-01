@@ -244,6 +244,7 @@ bool CMyPOP3::FetchRetrResult(CMyString& data,CMailInfo &mail)
 	int len=data.GetStrLen();
 	if(len<=5)return false;
 	data.Erase(0,5);
+	data.EraseFromRight(5);
 	if(mail.IsMailHeaderParsed())
 	{
 		data.Erase(0,data.FindString("\r\n\r\n")+4);
@@ -254,16 +255,16 @@ bool CMyPOP3::FetchRetrResult(CMyString& data,CMailInfo &mail)
 
 bool CMyPOP3::FetchMailData()
 {
-	sprintf(&m_Buffer[4],"%d %d",m_MailCount,m_MailTotalSize);
+	sscanf(&m_Buffer[4],"%d %d",&m_MailCount,&m_MailTotalSize);
 	return true;
 }
 
-int	CMyPOP3::getMailCount()
+int	CMyPOP3::GetMailCount()
 {
 	return m_MailCount;
 }
 
-int	CMyPOP3::getMailSize(int index)
+int	CMyPOP3::GetMailSize(int index)
 {
 	if(index>=m_MailSizeList.size())return -1;
 	return m_MailSizeList[index];

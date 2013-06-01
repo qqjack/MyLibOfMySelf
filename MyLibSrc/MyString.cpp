@@ -286,7 +286,8 @@ int CMyString::Replace(char *str,char *newStr, int startOffset)
 	{
 		memmove(&p[strLen1-offset],&p[strLen1],moveSize+1);
 	}
-	memcpy(p,newStr,strLen2);
+	if(strLen2)
+		memcpy(p,newStr,strLen2);
 
 	m_StrLen+=strLen2-strLen1;
 
