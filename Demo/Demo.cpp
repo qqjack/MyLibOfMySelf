@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
 /*
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
-	pop3.SetLoginInfo("415472580","zj8847523");
+	pop3.SetLoginInfo("","");
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
 	pop3.Stat();
@@ -167,12 +167,12 @@ int main(int argc, char* argv[])
 /*
 
 	CMySMTP smtp;
-	smtp.SetLoginInfo("415472580","zj8847523");
+	smtp.SetLoginInfo("","");
 	smtp.SetSMTPServer("smtp.qq.com");
 	smtp.Login();
 
-	smtp.SetMailFrom("415472580@qq.com");
-	smtp.SetMailTo("415472580@qq.com");
+	smtp.SetMailFrom(".com");
+	smtp.SetMailTo(".com");
 	
 	smtp.SetMailData("just test!!!",strlen("just test!!!"));
 	smtp.SetMailTitle("cmd");
