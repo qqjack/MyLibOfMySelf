@@ -39,6 +39,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "MimeMail"=.\MimeMail\MimeMail.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "MyLib"=.\MyLib.dsp - Package Owner=<4>
 
 Package=<5>

@@ -85,7 +85,7 @@ bool CMyPOP3::Dele(int index)
 	return CheckRecvState();
 }
 
-bool CMyPOP3::Retr(int index,CMailInfo &mail)
+bool CMyPOP3::Retr(int index,CMailRecord &mail)
 {
 	CMyString data=CMyString::Format("retr %d\r\n",index);
 	if(!ExcuteCmd(data))return false;
@@ -101,7 +101,7 @@ bool CMyPOP3::Reset()
 	return CheckRecvState();
 }
 
-bool CMyPOP3::Top(int index,int lineCount,CMailInfo &mail)
+bool CMyPOP3::Top(int index,int lineCount,CMailRecord &mail)
 {
 	CMyString data=CMyString::Format("top %d %d\r\n",index,lineCount);
 	if(!ExcuteCmd(data))return false;
@@ -231,25 +231,20 @@ bool CMyPOP3::FetchListResult(CMyString& data)
 	return r;
 }
 
-bool CMyPOP3::FetchTopResult(CMyString& data,CMailInfo &mail)
+bool CMyPOP3::FetchTopResult(CMyString& data,CMailRecord &mail)
 {
 	int len=data.GetStrLen();         
 	if(len<=5)return false;
 	data.Erase(0,5);
-	return mail.ParseMailHeader(data);	
+	return mail.ParseHeader(data);	
 }
 
-bool CMyPOP3::FetchRetrResult(CMyString& data,CMailInfo &mail)
+bool CMyPOP3::FetchRetrResult(CMyString& data,CMailRecord &mail)
 {
 	int len=data.GetStrLen();
 	if(len<=5)return false;
 	data.Erase(0,5);
 	data.EraseFromRight(5);
-	if(mail.IsMailHeaderParsed())
-	{
-		data.Erase(0,data.FindString("\r\n\r\n")+4);
-		return mail.ParseMailBody(data);
-	}
 	return mail.Parse(data);
 }
 

@@ -147,7 +147,7 @@ int CEncrypt::DecodeQuotedPrintable(const unsigned char* data,int dataLen,CMyBuf
 	{
 		if(data[count]=='=')
 		{
-			if(count+2<dataLen&&(data[count+1]=='\r'&&data[count+2]=='\r'))
+			if(count+2<dataLen&&(data[count+1]=='\r'&&data[count+2]=='\n'))
 			{
 				//Ìø¹ýÈí»»ÐÐ·û
 				count+=3;

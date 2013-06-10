@@ -21,8 +21,8 @@
 #include "MyLibHeader/MyIOStream.h"
 #include "MyLibHeader/MySMTP.h"
 #include "MyLibHeader/MyPOP3.h"
-#include "MyLibHeader/MailInfo.h"
 #include "MyLibHeader/Encrypt.h"
+#include "MyLibHeader/Charset.h"
 #endif
 
 

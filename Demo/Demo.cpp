@@ -9,6 +9,7 @@
 
 #include "stdio.h"
 #include "../MyLib.h"
+#include "../Mail.h"
 
 //#pragma   comment(lib, "../Debug/MyLib")
 char *tsss=
@@ -93,6 +94,9 @@ int main(int argc, char* argv[])
 	str1="00004";
 	int r=str1.ToInt();
 
+	str1.Replace("004","");
+	
+	str1="已创建 Gmail 地址 qqjackcn@gmail.com";
 /*
 	CMyTime time;
 	CMyTimeInterval interval;
@@ -139,15 +143,15 @@ int main(int argc, char* argv[])
 
 */
 	
-/**/
+/*
 	CMailInfo	mailInfo;
 	CMyPOP3 pop3;
-	pop3.SetLoginInfo("","");
+	pop3.SetLoginInfo("415472580","zj8847523");
 	pop3.SetPOP3Server("pop.qq.com");
 	pop3.Login();
-	pop3.List();
-	pop3.Retr(1,mailInfo);
-
+	pop3.Stat();
+	pop3.Retr(pop3.GetMailCount(),mailInfo);
+*/
 /*
 	CMyString str="aaa\r\ndddddddddd\r\nadsfadsf\r\nfffff\r\n\r\nbbbb";
 
@@ -163,7 +167,7 @@ int main(int argc, char* argv[])
 /*
 
 	CMySMTP smtp;
-	smtp.SetLoginInfo("","");
+	smtp.SetLoginInfo("415472580","zj8847523");
 	smtp.SetSMTPServer("smtp.qq.com");
 	smtp.Login();
 
@@ -239,7 +243,35 @@ int main(int argc, char* argv[])
 	CMyThreadPool threadPool(true);
 */
 
+//mail parse test
+/**/	
+	CMyFile file;
+	CMyBuffer buffer;
+	CMyString mailString;
+
+	file.Open("D:\\Download\\tst3.eml",CMyFile::FILE_OPEN);
+	buffer.Alloc(file.GetFileSize()+1);
+	file.read(buffer.GetBuffer(),file.GetFileSize());
+	mailString	=CMyString::StringFromMem(buffer.GetBuffer(),0,file.GetFileSize());
+
+	CMailRecord mailRecord;
+	
+	mailRecord.Parse(mailString);
+	
+	mailRecord.DumpState(mailString);
+
+	mailRecord.Reset();
+	printf("\n\n");
+	printf(mailString.GetBuffer());
 	getchar();
 
+
+/*
+
+	char buf[4];
+	unsigned short value=0x4E25;
+	CCharset::UnicodeToUTF_8(buf,value);
+	CCharset::UTF_8ToUnicode(value,buf);
+*/
 	return 0;
 }

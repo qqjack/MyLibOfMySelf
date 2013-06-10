@@ -86,6 +86,10 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\MyLibSrc\Charset.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\common.cpp
 # End Source File
 # Begin Source File
@@ -95,10 +99,6 @@ SOURCE=.\MyLibSrc\Encrypt.cpp
 # Begin Source File
 
 SOURCE=.\MyLibSrc\Http.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\MyLibSrc\MailInfo.cpp
 # End Source File
 # Begin Source File
 
@@ -182,6 +182,10 @@ SOURCE=.\MyLibSrc\MyTime.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\MyLibHeader\Charset.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibHeader\common.h
 # End Source File
 # Begin Source File
@@ -191,10 +195,6 @@ SOURCE=.\MyLibHeader\Encrypt.h
 # Begin Source File
 
 SOURCE=.\MyLibHeader\Http.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MyLibHeader\MailInfo.h
 # End Source File
 # Begin Source File
 

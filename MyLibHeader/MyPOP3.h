@@ -3,7 +3,9 @@
 
 #include "MyString.h"
 #include "Windows.h"
-#include "MailInfo.h"
+
+#include "../Mail.h"
+
 #include <vector>
 
 using namespace std;
@@ -30,9 +32,9 @@ public:
 	void	Quit();
 	bool	List();
 	bool	Dele(int index);
-	bool	Retr(int index,CMailInfo &mail);
+	bool	Retr(int index,CMailRecord &mail);
 	bool	Reset();
-	bool    Top(int index,int lineCount,CMailInfo &mail);   
+	bool    Top(int index,int lineCount,CMailRecord &mail);   
 	bool	Stat();
 
 private:
@@ -45,8 +47,8 @@ private:
 	bool	ExcuteCmd(CMyString& cmd);
 
 	bool	FetchListResult(CMyString& data);
-	bool	FetchTopResult(CMyString& data,CMailInfo &mail);
-	bool	FetchRetrResult(CMyString& data,CMailInfo &mail);
+	bool	FetchTopResult(CMyString& data,CMailRecord &mail);
+	bool	FetchRetrResult(CMyString& data,CMailRecord &mail);
 	bool    FetchMailData();
 	bool	RecvCmdResult(CMyString& data);
 

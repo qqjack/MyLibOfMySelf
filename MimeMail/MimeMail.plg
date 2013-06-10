@@ -1,0 +1,30 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MimeMail - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1CB.tmp" with contents
+[
+/nologo /MD /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"Debug/" /Fp"Debug/MimeMail.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"F:\OpenSource\MyLibOfMySelf\MimeMail\MailRecord.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1CB.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Debug\MimeMail.lib"  .\Debug\Attachment.obj .\Debug\DataRecord.obj .\Debug\MailRecord.obj "
+<h3>Output Window</h3>
+Compiling...
+MailRecord.cpp
+Creating library...
+Creating command line "bscmake.exe /nologo /o"Debug/MimeMail.bsc"  .\Debug\Attachment.sbr .\Debug\DataRecord.sbr .\Debug\MailRecord.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+MimeMail.lib - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
