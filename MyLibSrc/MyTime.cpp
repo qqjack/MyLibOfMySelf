@@ -114,9 +114,9 @@ char* CMyCalendar::sWeekCn[]=
 char* CMyCalendar::sWeekEnS[]=
 {
 	"Mon",
-	"Tues",
+	"Tue",
 	"Wed",
-	"Thur",
+	"Thu",
 	"Fri",
 	"Sat",
 	"Sun"

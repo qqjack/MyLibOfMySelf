@@ -508,6 +508,7 @@ int CMyString::Trim()
 	{
 		m_StrLen-=count;
 		memmove(m_Buffer,m_Buffer+count,len-count);
+		m_Buffer[m_StrLen]=0;
 	}
 	if(*p)
 	{

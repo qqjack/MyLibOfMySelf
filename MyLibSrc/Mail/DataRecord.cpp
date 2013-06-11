@@ -108,7 +108,7 @@ bool CDataRecord::Parse(CMyString& data)
 {
 	CMyString header=data.GetSubStr(0,data.FindString("\r\n\r\n")-1);
 	data.Erase(0,header.GetStrLen()+4);
-
+	data.Trim();
 	do
 	{
 		if(!ParseHeader(header))break;
@@ -166,7 +166,7 @@ bool CDataRecord::ParseHeader(CMyString& data)
 	for(int i=0;i<count;i++)
 	{
 		data.GetSplitString(i,line);
-		if(line.Split(":")==2&&i!=0)
+		if(line.Split(":")>=2&&i!=0)
 		{
 			OnParseKeyValue(key,value);
 		}
@@ -260,7 +260,8 @@ bool CDataRecord::ParseBody(CMyString& data)
 	}
 	else
 	{
-		DecodeBodyData(data);
+		if(data.GetStrLen())
+			DecodeBodyData(data);
 	}
 	return true;
 }
@@ -584,7 +585,7 @@ void CDataRecord::Reset()
 
 int	CDataRecord::GetMailTextPlain(CMyString& text)
 {
-	if(m_MainType=MAIN_TEXT&&m_SubType==SUB_PLAIN)
+	if((m_MainType == MAIN_TEXT)&&(m_SubType == SUB_PLAIN))
 	{
 		text=CMyString::StringFromMem(m_Content.GetBuffer(),0,m_ContentLen);
 		return 1;

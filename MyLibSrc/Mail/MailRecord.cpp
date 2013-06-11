@@ -1,6 +1,6 @@
 #include "../MyLibHeader/Mail/MailRecord.h"
 
-#define DATE_REGEX "(Mon|Tues|Wed|Thur|Fri|Sat|Sun) *, +([1-9]|[1-3][0-9]) +(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +[0-9]{4} +[0-2][0-9]:[0-5][0-9]:[0-5][0-9]( +(\\+|-)[0-9]{4})?"
+#define DATE_REGEX "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) *, +([1-9]|[1-3][0-9]) +(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +[0-9]{4} +[0-2][0-9]:[0-5][0-9]:[0-5][0-9]( +(\\+|-)[0-9]{4})?"
 CMailRecord::CMailRecord():CDataRecord(NULL)
 {
 	
@@ -17,6 +17,14 @@ void CMailRecord::OnParseKeyValue(CMyString& key,CMyString& value)
 	if(key=="date"||key=="Date")
 	{
 		ParseDate(value);
+	}
+	else if(key=="Subject")
+	{
+		m_Subject	=value;
+	}
+	else if(key == "From")
+	{
+		m_From	=value;
 	}
 
 	CDataRecord::OnParseKeyValue(key,value);
@@ -54,7 +62,7 @@ bool CMailRecord::ParseDate(CMyString& value)
 		date.GetSplitString(2,splitTxt);
 		for(int i=1;i<=12;i++)
 		{
-			if(splitTxt.CompareI(CMyCalendar::sMonth[i]))
+			if(splitTxt.CompareI(CMyCalendar::sMonthS[i]))
 			{
 				month=i;
 				break;
