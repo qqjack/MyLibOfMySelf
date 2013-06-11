@@ -23,6 +23,9 @@
 #include "MyLibHeader/MyPOP3.h"
 #include "MyLibHeader/Encrypt.h"
 #include "MyLibHeader/Charset.h"
+#include "MyLibHeader/Spider.h"
+#include "MyLibHeader/Mem.h"
+#include "MyLibHeader/Mail.h"
 #endif
 
 

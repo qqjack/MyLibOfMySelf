@@ -1,4 +1,3 @@
-#include "../MyLib.h"
 #include "SpiderThread.h"
 #include "SpiderVirtualClass.h"
 #define  HTTP_REGEX "(href=|src=)\".*?[\",;]"

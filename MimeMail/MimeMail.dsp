@@ -85,15 +85,15 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\Attachment.cpp
+SOURCE=..\MyLibSrc\Mail\Attachment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\DataRecord.cpp
+SOURCE=..\MyLibSrc\Mail\DataRecord.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MailRecord.cpp
+SOURCE=..\MyLibSrc\Mail\MailRecord.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -101,15 +101,15 @@ SOURCE=.\MailRecord.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\Attachment.h
+SOURCE=..\MyLibHeader\Mail\Attachment.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DataRecord.h
+SOURCE=..\MyLibHeader\Mail\DataRecord.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MailRecord.h
+SOURCE=..\MyLibHeader\Mail\MailRecord.h
 # End Source File
 # End Group
 # End Target

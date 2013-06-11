@@ -1,4 +1,4 @@
-#include "Url.h"
+#include "../MyLibHeader/Spider/Url.h"
 
 
 CUrl::CUrl()

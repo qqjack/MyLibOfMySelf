@@ -1,13 +1,14 @@
 #ifndef __SPIDER_THREAD__
 #define	__SPIDER_THREAD__
 
-#include "../MyLib.h"
+#include "../MyThread.h"
+#include "../MyHashMap.h"
 #include "SpiderVirtualClass.h"
 #include "Url.h"
 #include "SpiderHttp.h"
 #include "SpiderFetchUrl.h"
 #include "SpiderConfig.h"
-#include "../MemMg.h"
+#include "../Mem.h"
 
 #define MAX_SPIDER_THREAD (30)
 #define DEFAULT_SPIDER_THREAD (20)

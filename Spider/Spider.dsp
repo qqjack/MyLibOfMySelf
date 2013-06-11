@@ -85,31 +85,31 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\Spider.cpp
+SOURCE=..\MyLibSrc\Spider\Spider.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderConfig.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderConfig.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderFetchUrl.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderFetchUrl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderHttp.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderHttp.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderThread.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderThread.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderVirtualClass.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderVirtualClass.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Url.cpp
+SOURCE=..\MyLibSrc\Spider\Url.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -117,31 +117,31 @@ SOURCE=.\Url.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\Spider.h
+SOURCE=..\MyLibHeader\Spider\Spider.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderConfig.h
+SOURCE=..\MyLibHeader\Spider\SpiderConfig.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderFetchUrl.h
+SOURCE=..\MyLibHeader\Spider\SpiderFetchUrl.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderHttp.h
+SOURCE=..\MyLibHeader\Spider\SpiderHttp.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderThread.h
+SOURCE=..\MyLibHeader\Spider\SpiderThread.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SpiderVirtualClass.h
+SOURCE=..\MyLibHeader\Spider\SpiderVirtualClass.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Url.h
+SOURCE=..\MyLibHeader\Spider\Url.h
 # End Source File
 # End Group
 # End Target

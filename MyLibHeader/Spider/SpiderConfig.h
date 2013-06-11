@@ -1,9 +1,8 @@
 #ifndef __SPIDER_CONFIG__
 #define __SPIDER_CONFIG__
-
+#include "../MyDebug.h"
 #include "SpiderVirtualClass.h"
 #include "SpiderFetchUrl.h"
-#include "../MyLib.h"
 
 class SpiderInterfaceConfig  
 {

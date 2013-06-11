@@ -4,7 +4,7 @@
 #include "MyString.h"
 #include "Windows.h"
 
-#include "../Mail.h"
+#include "Mail.h"
 
 #include <vector>
 

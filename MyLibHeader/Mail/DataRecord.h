@@ -1,12 +1,12 @@
 #ifndef __DATA_RECORD__
 #define __DATA_RECORD__
 
-#include "../MyLibHeader/MyString.h"
-#include "../MyLibHeader/MyDebug.h"
-#include "../MyLibHeader/Charset.h"
-#include "../MyLibHeader/MyHashMap.h"
-#include "../MyLibHeader/MyBuffer.h"
-#include "../MyLibHeader/Encrypt.h"
+#include "../MyString.h"
+#include "../MyDebug.h"
+#include "../Charset.h"
+#include "../MyHashMap.h"
+#include "../MyBuffer.h"
+#include "../Encrypt.h"
 
 #include <vector>
 using namespace std;
@@ -129,7 +129,8 @@ public:
 
 	virtual void DumpState(CMyString& state);
 	virtual void Reset();
-
+	virtual int	 GetMailTextPlain(CMyString& text);
+	virtual int	 GetMailTextHtml(CMyString& html);
 	friend  class CExternData;
 
 private:

@@ -1,4 +1,4 @@
-#include "BaseMemory.h"
+#include "../MyLibHeader/Mem/BaseMemory.h"
 
 CLinKMemory::CLinKMemory()
 {

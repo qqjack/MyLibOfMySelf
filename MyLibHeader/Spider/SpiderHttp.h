@@ -1,4 +1,7 @@
-#include "../MyLib.h"
+#include "../MyFile.h"
+#include "../MyString.h"
+#include "../MyAsyncHttp.h"
+
 class SpiderHttp:public CMyAsyncHttp
 {
 public:

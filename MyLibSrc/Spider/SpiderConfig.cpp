@@ -1,4 +1,4 @@
-#include "SpiderConfig.h"
+#include "../MyLibHeader/Spider/SpiderConfig.h"
 
 
 SpiderInterfaceConfig::SpiderInterfaceConfig()

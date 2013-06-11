@@ -1,4 +1,4 @@
-#include "SpiderHttp.h"
+#include "../MyLibHeader/Spider/SpiderHttp.h"
 
 CMyString SpiderHttp::s_TxtPageExt[]=
 {

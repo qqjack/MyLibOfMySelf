@@ -9,7 +9,6 @@
 
 #include "stdio.h"
 #include "../MyLib.h"
-#include "../Mail.h"
 
 //#pragma   comment(lib, "../Debug/MyLib")
 char *tsss=
@@ -249,7 +248,7 @@ int main(int argc, char* argv[])
 	CMyBuffer buffer;
 	CMyString mailString;
 
-	file.Open("D:\\Download\\tst3.eml",CMyFile::FILE_OPEN);
+	file.Open("D:\\Download\\tst4.eml",CMyFile::FILE_OPEN);
 	buffer.Alloc(file.GetFileSize()+1);
 	file.read(buffer.GetBuffer(),file.GetFileSize());
 	mailString	=CMyString::StringFromMem(buffer.GetBuffer(),0,file.GetFileSize());
@@ -259,6 +258,15 @@ int main(int argc, char* argv[])
 	mailRecord.Parse(mailString);
 	
 	mailRecord.DumpState(mailString);
+	
+	CAttachment* attchment=mailRecord.GetAttachment(0);
+	
+	CMyFile newFile;
+	CMyString fileName;
+
+	attchment->GetAttachmentFileName(fileName);
+	newFile.Open(fileName,CMyFile::FILE_NEW_OR_OPEN);
+	newFile.write(attchment->GetAttachmentBuffer(),attchment->GetAttachmentSize());
 
 	mailRecord.Reset();
 	printf("\n\n");

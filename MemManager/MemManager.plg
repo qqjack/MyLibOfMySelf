@@ -6,25 +6,6 @@
 --------------------Configuration: MemManager - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1FA.tmp" with contents
-[
-/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR"Debug/" /Fp"Debug/MemManager.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"F:\OpenSource\MyLib\MemManager\BaseMemory.cpp"
-"F:\OpenSource\MyLib\MemManager\FixedTMemory.cpp"
-"F:\OpenSource\MyLib\MemManager\MassFixedMem.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1FA.tmp" 
-Creating command line "link.exe -lib /nologo /out:"Debug\MemManager.lib"  .\Debug\BaseMemory.obj .\Debug\FixedTMemory.obj .\Debug\MassFixedMem.obj "
-<h3>Output Window</h3>
-Compiling...
-BaseMemory.cpp
-f:\opensource\mylib\memmanager\basememory.cpp(23) : warning C4018: '<' : signed/unsigned mismatch
-FixedTMemory.cpp
-MassFixedMem.cpp
-Creating library...
-Creating command line "bscmake.exe /nologo /o"Debug/MemManager.bsc"  .\Debug\BaseMemory.sbr .\Debug\FixedTMemory.sbr .\Debug\MassFixedMem.sbr"
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 

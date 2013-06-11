@@ -86,11 +86,23 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\MyLibSrc\Mem\BaseMemory.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\MyLibSrc\common.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\MyLibSrc\Mem\FixedTMemory.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\MyLibSrc\Http.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\MyLibSrc\Mem\MassFixedMem.cpp
 # End Source File
 # Begin Source File
 
@@ -162,19 +174,19 @@ SOURCE=..\MyLibSrc\MyTime.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\Spider.cpp
+SOURCE=..\MyLibSrc\Spider\Spider.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\SpiderConfig.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderConfig.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\SpiderFetchUrl.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderFetchUrl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\SpiderHttp.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderHttp.cpp
 # End Source File
 # Begin Source File
 
@@ -182,15 +194,15 @@ SOURCE=.\SpiderTest.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\SpiderThread.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderThread.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\SpiderVirtualClass.cpp
+SOURCE=..\MyLibSrc\Spider\SpiderVirtualClass.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Spider\Url.cpp
+SOURCE=..\MyLibSrc\Spider\Url.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"

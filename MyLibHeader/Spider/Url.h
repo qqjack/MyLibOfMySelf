@@ -1,7 +1,7 @@
 #ifndef __URL__
 #define __URL__
 
-#include "../MyLib.h"
+#include "../MyString.h"
 
 class CUrl  
 {

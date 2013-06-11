@@ -1,6 +1,7 @@
 #ifndef __SPIDER_FETCHURL__
 #define __SPIDER_FETCHURL__
-#include "../MyLib.h"
+#include "../MyString.h"
+#include "../MyRegex.h"
 
 class ISpiderFetchUrl  
 {

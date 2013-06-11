@@ -1,6 +1,5 @@
 
 #include "../MyLib.h"
-#include "../Spider.h"
 #define HTTP_COUNT	(5)
 
 char*					  TAG="Spider";

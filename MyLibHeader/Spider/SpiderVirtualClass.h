@@ -1,6 +1,6 @@
 #ifndef __SPIDER_VIRTUAL_CLASS__
 #define __SPIDER_VIRTUAL_CLASS__
-#include "../MyLib.h"
+#include "../MyString.h"
 class ISpiderPageProcess  
 {
 public:

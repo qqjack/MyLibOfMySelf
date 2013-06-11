@@ -1,4 +1,4 @@
-#include "DataRecord.h"
+#include "../MyLibHeader/Mail/DataRecord.h"
 
 char* CDataRecord::sContentType[]=
 {
@@ -580,4 +580,42 @@ void CDataRecord::Reset()
 	}
 	m_Field.Clear();
 	m_Children.clear();
+}
+
+int	CDataRecord::GetMailTextPlain(CMyString& text)
+{
+	if(m_MainType=MAIN_TEXT&&m_SubType==SUB_PLAIN)
+	{
+		text=CMyString::StringFromMem(m_Content.GetBuffer(),0,m_ContentLen);
+		return 1;
+	}
+	else
+	{
+		int size	=m_Children.size();
+		for(int i=0;i<size;i++)
+		{
+			if(-1==m_Children[i]->GetMailTextPlain(text))continue;
+			return 1;
+		}
+	}
+	return -1;
+}
+
+int	CDataRecord::GetMailTextHtml(CMyString& html)
+{
+	if(m_MainType=MAIN_TEXT&&m_SubType==SUB_HTML)
+	{
+		html=CMyString::StringFromMem(m_Content.GetBuffer(),0,m_ContentLen);
+		return 1;
+	}
+	else
+	{
+		int size	=m_Children.size();
+		for(int i=0;i<size;i++)
+		{
+			if(-1==m_Children[i]->GetMailTextHtml(html))continue;
+			return 1;
+		}
+	}
+	return -1;
 }

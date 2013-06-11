@@ -1,4 +1,4 @@
-#include "MailRecord.h"
+#include "../MyLibHeader/Mail/MailRecord.h"
 
 #define DATE_REGEX "(Mon|Tues|Wed|Thur|Fri|Sat|Sun) *, +([1-9]|[1-3][0-9]) +(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) +[0-9]{4} +[0-2][0-9]:[0-5][0-9]:[0-5][0-9]( +(\\+|-)[0-9]{4})?"
 CMailRecord::CMailRecord():CDataRecord(NULL)

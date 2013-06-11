@@ -87,7 +87,7 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\MimeMail\Attachment.cpp
+SOURCE=..\MyLibSrc\Mail\Attachment.cpp
 # End Source File
 # Begin Source File
 
@@ -99,7 +99,7 @@ SOURCE=..\MyLibSrc\common.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\MimeMail\DataRecord.cpp
+SOURCE=..\MyLibSrc\Mail\DataRecord.cpp
 # End Source File
 # Begin Source File
 
@@ -115,15 +115,7 @@ SOURCE=..\MyLibSrc\Http.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\MyLibSrc\MailInfo.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\MimeMail\MailRecord.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\MimeMail\MimeMailParse.cpp
+SOURCE=..\MyLibSrc\Mail\MailRecord.cpp
 # End Source File
 # Begin Source File
 

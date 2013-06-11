@@ -85,15 +85,15 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\BaseMemory.cpp
+SOURCE=..\MyLibSrc\Mem\BaseMemory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\FixedTMemory.cpp
+SOURCE=..\MyLibSrc\Mem\FixedTMemory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MassFixedMem.cpp
+SOURCE=..\MyLibSrc\Mem\MassFixedMem.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -101,15 +101,15 @@ SOURCE=.\MassFixedMem.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\BaseMemory.h
+SOURCE=..\MyLibHeader\Mem\BaseMemory.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\FixedTMemory.h
+SOURCE=..\MyLibHeader\Mem\FixedTMemory.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\MassFixedMem.h
+SOURCE=..\MyLibHeader\Mem\MassFixedMem.h
 # End Source File
 # End Group
 # End Target

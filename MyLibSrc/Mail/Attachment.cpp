@@ -1,4 +1,4 @@
-#include "Attachment.h"
+#include "../MyLibHeader/Mail/Attachment.h"
 
 //------------------CExternData--------------
 CExternData::CExternData(CDataRecord* externData)
@@ -156,7 +156,7 @@ void CInnerResource::OnParseKeyValue(CMyString& key,CMyString& value)
 			while(startIndex<value.GetStrLen()-1&&value[startIndex]==' ')startIndex++;
 			if(startIndex>=value.GetStrLen()||value[startIndex]!='=')return;
 			int endIndex=++startIndex;
-			while(endIndex<value.GetStrLen()-1&&value[endIndex]!=' ')startIndex++;
+			while(endIndex<value.GetStrLen()-1&&value[endIndex]!=' ')endIndex++;
 			m_ResourceName=CMyString::StringFromMem(value,startIndex,endIndex-startIndex+1);
 			if(m_ResourceName[0]=='"')
 			{

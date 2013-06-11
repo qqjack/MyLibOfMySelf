@@ -1,4 +1,4 @@
-#include "SpiderThread.h"
+#include "../MyLibHeader/Spider/SpiderThread.h"
 #include <algorithm>
 
 #define LOG_SWITCH
@@ -467,10 +467,12 @@ int SpiderThread::SetFecthUrlRegex(char* regex)
 {
 	if(isRun())return -1;
 	m_UrlRegex	=regex;
+	return 1;
 }
 
 int	SpiderThread::SetPageUrlSortFunc(UrlCmpFunc urlSortFunc)
 {
 	if(isRun())return -1;
 	m_UrlCmp	=urlSortFunc;
+	return 1;
 }
