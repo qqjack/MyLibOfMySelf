@@ -26,6 +26,7 @@
 #include "MyLibHeader/Spider.h"
 #include "MyLibHeader/Mem.h"
 #include "MyLibHeader/Mail.h"
+#include "MyLibHeader/MyConfig.h"
 #endif
 
 

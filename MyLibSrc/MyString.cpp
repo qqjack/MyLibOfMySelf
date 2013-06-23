@@ -309,18 +309,7 @@ int CMyString::ReplaceAll(char *str,char *newStr)
 
 int	CMyString::Match(char *regex,CMyString *outStr,bool ignoreCareLess,int option)
 {
-	char *p  =NULL;
-
-	m_Regex.SetMainString(m_Buffer,GetStrLen());
-	m_Regex.SetIgnoreCareLess(ignoreCareLess);
-	p  = m_Regex.Match(regex,option);
-
-	if(p&&outStr)
-	{
-		*outStr  =CMyString::StringFromMem(p,0,m_Regex.GetMatchStrLen());
-	}
-	
-	return (p==NULL?-1:1);
+	return Match(regex,0,outStr,ignoreCareLess,option);
 }
 
 int	CMyString::MatchNext(CMyString *outStr,int option)
@@ -381,21 +370,12 @@ CMyString CMyString::FromUnicode(char *unicodeBuf)
 
 int	CMyString::FindChar(char c)
 {
-	char str[2];
-	str[0]=c;
-	str[1]=0;
-	return FindString(str);
+	return FindChar(c,0);
 }
 
 int	CMyString::FindString(char *str)
 {
-	char *p;
-	p	=strstr(m_Buffer,str);
-	if(p)
-	{
-		return p-m_Buffer;
-	}
-	return -1;
+	return FindString(str,0);
 }
 
 CMyString operator +(char * str1,CMyString& str2)
@@ -519,4 +499,44 @@ int CMyString::Trim()
 		m_StrLen-=m_Buffer+len-1-p;
 	}
 	return 1;
+}
+
+
+int	CMyString::FindString(char *str,int start)
+{
+	char *p;
+	if(start>=GetStrLen())return -1;
+
+	p	=strstr(m_Buffer+start,str);
+	if(p)
+	{
+		return p-m_Buffer;
+	}
+	return -1;
+}
+
+int	CMyString::FindChar(char c,int start)
+{
+	char str[2];
+	str[0]=c;
+	str[1]=0;
+	return FindString(str,start);
+}
+
+
+int	CMyString::Match(char *regex,int start,CMyString *outStr,bool ignoreCareLess,int option)
+{
+	if(start>=GetStrLen())return -1;
+	char *p  =NULL;
+
+	m_Regex.SetMainString(m_Buffer+start,GetStrLen()-start);
+	m_Regex.SetIgnoreCareLess(ignoreCareLess);
+	p  = m_Regex.Match(regex,option);
+
+	if(p&&outStr)
+	{
+		*outStr  =CMyString::StringFromMem(p,0,m_Regex.GetMatchStrLen());
+	}
+	
+	return (p==NULL?-1:1);
 }

@@ -59,10 +59,16 @@ public:
 
 	//∆•≈‰ ß∞‹-1
 	int			Match(char *regex,CMyString *outStr,bool ignoreCareLess=false,int option=0);
+
+	int			Match(char *regex,int start,CMyString *outStr,bool ignoreCareLess=false,int option=0);
+
 	int			MatchNext(CMyString *outStr,int option=0);
 
 	int			FindChar(char c);
+	int			FindChar(char c,int start);
+
 	int			FindString(char *str);
+	int			FindString(char *str,int start);
 
 	CMyString&	operator =(char* str);
 	CMyString&	operator =(int	number);

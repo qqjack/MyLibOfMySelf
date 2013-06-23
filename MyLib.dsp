@@ -114,6 +114,10 @@ SOURCE=.\MyLibSrc\MyBuffer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyLibSrc\MyConfig.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyLibSrc\MyDebug.cpp
 # End Source File
 # Begin Source File
@@ -207,6 +211,10 @@ SOURCE=.\MyLibHeader\MyAsyncHttp.h
 # Begin Source File
 
 SOURCE=.\MyLibHeader\MyBuffer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyLibHeader\MyConfig.h
 # End Source File
 # Begin Source File
 
