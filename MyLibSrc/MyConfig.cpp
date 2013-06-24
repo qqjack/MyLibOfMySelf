@@ -229,11 +229,17 @@ void CMyConfig::RemoveNotes(CMyString& value)
 	int start=0,end=0;
 	while(start<len)
 	{
-		while(value[start]!='#'&&start<len)start++;
+		while((value[start]!='#'&&value[start]!=';')&&start<len)start++;
 		if(start>=len)break;
+		if(value[start]==';'&&(start!=0&&value[start-1]!='\n'))
+		{
+			start++;
+			continue;
+		}
 		end=start;
 		while(value[end]!='\n'&&end<len)end++;
 		value.Erase(start,end-start);
+		len-=end-start;
 	}
 }
 

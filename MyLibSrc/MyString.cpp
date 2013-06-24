@@ -271,16 +271,18 @@ int CMyString::Replace(char *str,char *newStr, int startOffset)
 	int moveSize =0;
 	char *p=NULL;
 
-	p	= strstr((const char*)(m_Buffer+startOffset),str);
-	if(!p)  return -1;
 	
-	moveSize=GetStrLen()-(p-m_Buffer+strLen1);
 
 	if(strLen1<strLen2&&(m_BufLen<GetStrLen()+strLen2-strLen1+1))
 	{
 		newSize=m_StrLen+strLen2-strLen1+EXTRA_SIZE;
 		Resize(newSize);
 	}
+
+	p	= strstr((const char*)(m_Buffer+startOffset),str);
+	if(!p)  return -1;
+	
+	moveSize=GetStrLen()-(p-m_Buffer+strLen1);
 
 	if(offset!=0)
 	{
