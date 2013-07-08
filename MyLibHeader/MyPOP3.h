@@ -28,7 +28,8 @@ public:
 	int		GetMailTotalSize(){return m_MailTotalSize;}
 
 	char*	getErrorMessage(){return m_Buffer;}
-	bool	Login();
+	//返回值:  0  连接失败  -1 授权失败 1登入成功
+	int		Login();
 	void	Quit();
 	bool	List();
 	bool	Dele(int index);
@@ -36,6 +37,7 @@ public:
 	bool	Reset();
 	bool    Top(int index,int lineCount,CMailRecord &mail);   
 	bool	Stat();
+	
 
 private:
 	bool	ConnectServer();

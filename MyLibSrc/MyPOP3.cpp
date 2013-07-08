@@ -109,16 +109,12 @@ bool CMyPOP3::Top(int index,int lineCount,CMailRecord &mail)
 	return FetchTopResult(data,mail);
 }
 
-bool CMyPOP3::Login()
+int CMyPOP3::Login()
 {
-	do
-	{
-		if(!ConnectServer())break;
-		if(!User())break;
-		if(!Pass())break;
-		return true;
-	}while(0);
-	return false;
+	if(!ConnectServer())return 0;
+	if(!User())return -1;
+	if(!Pass())return -1;
+	return 1;
 }
 
 bool CMyPOP3::Stat()
